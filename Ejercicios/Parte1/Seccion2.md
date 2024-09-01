@@ -114,8 +114,36 @@ Luego en el workspace enviar el mensaje m1 al objeto creado utilizando el debugg
 
 - Convertir el Array del punto **a1** en una OrderedCollection y en un Set.
 
-
+    > Imagino que hay que implementarlo, ya que el conversor de la Array trata solo de elementos, preguntar.
 
 - Convertir el Set del punto **a3** en Array
 
 - ¿Qué retorna convertir el Dictionary en Array?
+
+(c) Crear una secuencia de colaboraciones para encontrar los elementos impares en un arreglo.
+
+    | elements index odds | 
+    elements:= #(1 2 5 6 9).
+    
+    odds := OrderedCollection new. 
+    index := 1.
+    
+    [index <= elements size] 
+    whileTrue: [
+        ((elements at: index) odd) ifTrue: [odds add: (elements at: index)]. 
+        index := index +1.
+    ].
+    ^odds
+
+(g) Enumerar los problemas que tiene ese algoritmo según lo visto en la carrera.
+
+> - Es poco declarativo
+> - Cuenta como codigo repetido?
+> - no se
+
+(h) Convertir el script de 1.a sin usar #whileTrue, utilizando el mensaje #do:, ¿qué ventaja tiene la nueva versión?
+
+> Asumo que se refiere al punto 1.c. La ventaja es que es más declarativo.
+
+(i) Volver a convertir el algoritmo sin cambiar su comportamiento pero usando el mensaje #select: en lugar de #do ¿qué ventaja tiene la nueva versión?
+
