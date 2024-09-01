@@ -3,7 +3,7 @@
 ## Ejercicio 0: Debugger
 (a) Identificar y nombrar las diferentes partes y secciones del debugger:
 
-![](https://github.com/malei-dc/IS1/tree/main/Ejercicios/Parte1/imgs/ej0a.png)
+![](https://github.com/malei-dc/IS1/blob/main/Ejercicios/Parte1/imgs/ej0a.png)
 
 ## Ejercicio 1: Colecciones
 
