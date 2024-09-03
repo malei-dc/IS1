@@ -143,7 +143,36 @@ Luego en el workspace enviar el mensaje m1 al objeto creado utilizando el debugg
 
 (h) Convertir el script de 1.a sin usar #whileTrue, utilizando el mensaje #do:, ¿qué ventaja tiene la nueva versión?
 
-> Asumo que se refiere al punto 1.c. La ventaja es que es más declarativo.
+> Asumo que se refiere al punto 1.c. La ventaja es que es más declarativo y se eliminó una variable temporal que guarda el índice.
+>
+>       | elements odds |
+>       elements:= #(1 2 5 6 9).
+>       odds := OrderedCollection new.
+>       (1 to: elements size) do: [:i |
+>           ((elements at: i) odd) ifTrue: [odds add: (elements at: i)].
+>       ].
+>       ^odds 
 
 (i) Volver a convertir el algoritmo sin cambiar su comportamiento pero usando el mensaje #select: en lugar de #do ¿qué ventaja tiene la nueva versión?
 
+> Intento algo así pero me imprime la colección vacío :( PREGUNTAR!
+>
+>       | elements odds |
+>       elements:= #(1 2 5 6 9).
+>       odds := OrderedCollection new.
+>       ^ odds select: [ :i |
+>	        (elements at: i) odd
+>  	    ].
+>       an OrderedCollection() .
+
+(j) Crear una secuencia similar a la de 1.1 pero que obtenga el doble de cada elemento de la colección. Por ejemplo elements = #(1 2 5) debería retornar #(2 4 10)
+
+>       | elements doubled |
+>       elements:= #(1 2 5 6 9).
+>       doubled := OrderedCollection new.
+>       (1 to: elements size) do: [:i |
+>   	    doubled add: (elements at: i)*2 .
+>       ].
+>       ^doubled  an OrderedCollection(2 4 10 12 18) .
+
+(k) Reescribir el algoritmo utilizando while y luego utilizando do ¿Donde se acumulan los resultados?

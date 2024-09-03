@@ -20,6 +20,10 @@ previous
 	self error: 'El uno es el primer numero natural'! !
 
 
+!I class methodsFor: 'arithmetic ops' stamp: 'ml 9/2/2024 12:44:17'!
+* multiplicador
+	^multiplicador .	! !
+
 !I class methodsFor: 'arithmetic ops' stamp: 'ml 8/27/2024 21:20:53'!
 + sumando
 	"comment stating purpose of message"
@@ -107,11 +111,14 @@ next
 	next previous: self.
 	^next! !
 
-!II class methodsFor: 'next & prev' stamp: 'ml 8/31/2024 21:38:22'!
+!II class methodsFor: 'next & prev' stamp: 'ml 9/2/2024 14:14:25'!
 nextName
 	"comment stating purpose of message"
-	(self name endsWith: 'III') ifTrue:[^(self name withoutSuffix: 'III'), 'IV'].
+	(self name endsWith: 'IX') ifTrue:[^(self name withoutSuffix: 'IX'), 'X'].
+	(self name endsWith: 'VIII') ifTrue:[^(self name withoutSuffix: 'VIII'), 'IX'].
 	(self name endsWith: 'IV') ifTrue:[^(self name withoutSuffix: 'IV'), 'V'].
+	(self name endsWith: 'III') ifTrue:[^(self name withoutSuffix: 'III'), 'IV'].
+	
 	^self name, 'I'! !
 
 !II class methodsFor: 'next & prev' stamp: 'ml 8/31/2024 20:26:54'!
@@ -146,7 +153,7 @@ removeAllNext
 	^(self < numeroAcomparar) not.! !
 
 
-!II class methodsFor: '--** private fileout/in **--' stamp: 'ml 9/1/2024 19:51:52'!
+!II class methodsFor: '--** private fileout/in **--' stamp: 'ml 9/2/2024 14:17:57'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -167,7 +174,7 @@ II subclass: #III
 III class
 	instanceVariableNames: ''!
 
-!III class methodsFor: '--** private fileout/in **--' stamp: 'ml 9/1/2024 19:51:52'!
+!III class methodsFor: '--** private fileout/in **--' stamp: 'ml 9/2/2024 14:17:57'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -188,12 +195,33 @@ II subclass: #IV
 IV class
 	instanceVariableNames: ''!
 
-!IV class methodsFor: '--** private fileout/in **--' stamp: 'ml 9/1/2024 19:51:52'!
+!IV class methodsFor: '--** private fileout/in **--' stamp: 'ml 9/2/2024 14:17:57'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
 	next := V.
 	previous := III.! !
+
+
+!classDefinition: #IX category: #'Seccion1Part1Ejercicio4: naturales'!
+II subclass: #IX
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Seccion1Part1Ejercicio4: naturales'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'IX class' category: #'Seccion1Part1Ejercicio4: naturales'!
+IX class
+	instanceVariableNames: ''!
+
+!IX class methodsFor: '--** private fileout/in **--' stamp: 'ml 9/2/2024 14:17:57'!
+initializeCollaboratorsFromFile
+	"Auto generated method for loading purposes - Do not modify it"
+
+	next := X.
+	previous := VIII.! !
 
 
 !classDefinition: #V category: #'Seccion1Part1Ejercicio4: naturales'!
@@ -209,7 +237,7 @@ II subclass: #V
 V class
 	instanceVariableNames: ''!
 
-!V class methodsFor: '--** private fileout/in **--' stamp: 'ml 9/1/2024 19:51:52'!
+!V class methodsFor: '--** private fileout/in **--' stamp: 'ml 9/2/2024 14:17:57'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -230,7 +258,7 @@ II subclass: #VI
 VI class
 	instanceVariableNames: ''!
 
-!VI class methodsFor: '--** private fileout/in **--' stamp: 'ml 9/1/2024 19:51:52'!
+!VI class methodsFor: '--** private fileout/in **--' stamp: 'ml 9/2/2024 14:17:57'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -251,7 +279,7 @@ II subclass: #VII
 VII class
 	instanceVariableNames: ''!
 
-!VII class methodsFor: '--** private fileout/in **--' stamp: 'ml 9/1/2024 19:51:52'!
+!VII class methodsFor: '--** private fileout/in **--' stamp: 'ml 9/2/2024 14:17:57'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
@@ -272,17 +300,172 @@ II subclass: #VIII
 VIII class
 	instanceVariableNames: ''!
 
-!VIII class methodsFor: '--** private fileout/in **--' stamp: 'ml 9/1/2024 19:51:52'!
+!VIII class methodsFor: '--** private fileout/in **--' stamp: 'ml 9/2/2024 14:17:57'!
+initializeCollaboratorsFromFile
+	"Auto generated method for loading purposes - Do not modify it"
+
+	next := IX.
+	previous := VII.! !
+
+
+!classDefinition: #X category: #'Seccion1Part1Ejercicio4: naturales'!
+II subclass: #X
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Seccion1Part1Ejercicio4: naturales'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'X class' category: #'Seccion1Part1Ejercicio4: naturales'!
+X class
+	instanceVariableNames: ''!
+
+!X class methodsFor: '--** private fileout/in **--' stamp: 'ml 9/2/2024 14:17:57'!
+initializeCollaboratorsFromFile
+	"Auto generated method for loading purposes - Do not modify it"
+
+	next := XI.
+	previous := IX.! !
+
+
+!classDefinition: #XI category: #'Seccion1Part1Ejercicio4: naturales'!
+II subclass: #XI
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Seccion1Part1Ejercicio4: naturales'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'XI class' category: #'Seccion1Part1Ejercicio4: naturales'!
+XI class
+	instanceVariableNames: ''!
+
+!XI class methodsFor: '--** private fileout/in **--' stamp: 'ml 9/2/2024 14:17:57'!
+initializeCollaboratorsFromFile
+	"Auto generated method for loading purposes - Do not modify it"
+
+	next := XII.
+	previous := X.! !
+
+
+!classDefinition: #XII category: #'Seccion1Part1Ejercicio4: naturales'!
+II subclass: #XII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Seccion1Part1Ejercicio4: naturales'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'XII class' category: #'Seccion1Part1Ejercicio4: naturales'!
+XII class
+	instanceVariableNames: ''!
+
+!XII class methodsFor: '--** private fileout/in **--' stamp: 'ml 9/2/2024 14:17:57'!
+initializeCollaboratorsFromFile
+	"Auto generated method for loading purposes - Do not modify it"
+
+	next := XIII.
+	previous := XI.! !
+
+
+!classDefinition: #XIII category: #'Seccion1Part1Ejercicio4: naturales'!
+II subclass: #XIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Seccion1Part1Ejercicio4: naturales'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'XIII class' category: #'Seccion1Part1Ejercicio4: naturales'!
+XIII class
+	instanceVariableNames: ''!
+
+!XIII class methodsFor: '--** private fileout/in **--' stamp: 'ml 9/2/2024 14:17:57'!
+initializeCollaboratorsFromFile
+	"Auto generated method for loading purposes - Do not modify it"
+
+	next := XIV.
+	previous := XII.! !
+
+
+!classDefinition: #XIV category: #'Seccion1Part1Ejercicio4: naturales'!
+II subclass: #XIV
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Seccion1Part1Ejercicio4: naturales'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'XIV class' category: #'Seccion1Part1Ejercicio4: naturales'!
+XIV class
+	instanceVariableNames: ''!
+
+!XIV class methodsFor: '--** private fileout/in **--' stamp: 'ml 9/2/2024 14:17:57'!
+initializeCollaboratorsFromFile
+	"Auto generated method for loading purposes - Do not modify it"
+
+	next := XV.
+	previous := XIII.! !
+
+
+!classDefinition: #XV category: #'Seccion1Part1Ejercicio4: naturales'!
+II subclass: #XV
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Seccion1Part1Ejercicio4: naturales'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'XV class' category: #'Seccion1Part1Ejercicio4: naturales'!
+XV class
+	instanceVariableNames: ''!
+
+!XV class methodsFor: '--** private fileout/in **--' stamp: 'ml 9/2/2024 14:17:57'!
+initializeCollaboratorsFromFile
+	"Auto generated method for loading purposes - Do not modify it"
+
+	next := XVI.
+	previous := XIV.! !
+
+
+!classDefinition: #XVI category: #'Seccion1Part1Ejercicio4: naturales'!
+II subclass: #XVI
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Seccion1Part1Ejercicio4: naturales'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'XVI class' category: #'Seccion1Part1Ejercicio4: naturales'!
+XVI class
+	instanceVariableNames: ''!
+
+!XVI class methodsFor: '--** private fileout/in **--' stamp: 'ml 9/2/2024 14:17:57'!
 initializeCollaboratorsFromFile
 	"Auto generated method for loading purposes - Do not modify it"
 
 	next := nil.
-	previous := VII.! !
+	previous := XV.! !
 
 II initializeAfterFileIn!
 III initializeAfterFileIn!
 IV initializeAfterFileIn!
+IX initializeAfterFileIn!
 V initializeAfterFileIn!
 VI initializeAfterFileIn!
 VII initializeAfterFileIn!
 VIII initializeAfterFileIn!
+X initializeAfterFileIn!
+XI initializeAfterFileIn!
+XII initializeAfterFileIn!
+XIII initializeAfterFileIn!
+XIV initializeAfterFileIn!
+XV initializeAfterFileIn!
+XVI initializeAfterFileIn!
