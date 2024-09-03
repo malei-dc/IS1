@@ -176,3 +176,107 @@ Luego en el workspace enviar el mensaje m1 al objeto creado utilizando el debugg
 >       ^doubled  an OrderedCollection(2 4 10 12 18) .
 
 (k) Reescribir el algoritmo utilizando while y luego utilizando do ¿Donde se acumulan los resultados?
+
+> Los resultados los acumulo en el una nueva colección llamado doubled. Arriba está con do
+>
+>       | elements index doubled | 
+>       elements:= #(1 2 5 6 9).
+>
+>       doubled := OrderedCollection new. 
+>       index := 1.
+>
+>       [index <= elements size] 
+>       whileTrue: [
+>       doubled add: (elements at: index) *2 . 
+>           index := index +1.
+>       ].
+>       ^doubled. an OrderedCollection(2 4 10 12 18) .
+
+(m) Encontrar luego un mensaje mejor en colecciones y dejar el algoritmo más compacto. ¿Qué retorna el nuevo mensaje?
+
+>       | elements |
+>       elements:= #(1 2 5 6 9).
+>       ^elements *2 
+>
+>       Devuelve: #(2 4 10 12 18) .
+
+(n) Crear una nueva secuencia de colaboraciones para encontrar el primer número par, utilizando otro mensaje de colecciones. Como siempre primero con while: luego con do: y luego con un mensaje específico. Ejemplo: dado #(1 2 5 6 9) debería retornar 2
+
+> Con while
+>
+>       | elements index  | 
+>       elements:= #(1  58 5  9).
+>       index := 1.
+>       [index <= elements size] 
+>           whileTrue: [
+>           (elements at: index) even ifTrue: [^elements at: index].
+>           index := index +1.
+>       ].
+>       ^elements .
+>
+> Con do:
+>
+>       | elements  | 
+>       elements:= #(1  58 5  9).
+>       (1 to: elements size ) do: [:index |
+>	    (elements at: index) even ifTrue: [^elements at: index].
+>	    ].
+>       ^elements .
+>
+> Con un mensaje específico ... PREGUNTAR no encontré
+
+(ñ) Utilizar la secuencia de colaboraciones con una colección sin pares. Por ejemplo #(1 5 9). ¿Qué ocurre?
+
+> (while) En el primero hago que devuelva el arreglo original.
+>
+> (do) idem.
+>
+> PREGUNTAR
+
+(o) Modificar la secuencia para generar un error en caso de no contener pares utilizando self error: ‘No hay pares’. Evaluarlo en una colección con pares (retorna el primero) y sin pares (se genera un error con el mensaje específico)
+
+>       | elements  | 
+>       elements:= #(1  5  9).
+>       (1 to: elements size ) do: [:index |
+>	        (elements at: index) even ifTrue: [^elements at: index].
+>	    ].
+>       ^self error: 'No hay pares'.
+
+(p) Sumar los números de una colección utilizando primero while, luego do y luego un mensaje de sumar colecciones. Hay un mensaje específico para la suma y otro para acumular elementos llamado inject:into: Solucionarlo utilizando ambos.
+
+> Con while
+>
+>       | elements index  sum | 
+>       elements:= #(1  5  9).
+>       sum := 0.
+>       index := 1.
+>       [index <= elements size] 
+>       whileTrue: [
+>           sum := sum + (elements at: index).
+>       index := index +1.
+>       ].
+>       ^sum. 
+>
+> Con do:
+>
+>       | elements  sum | 
+>       elements:= #(1  5  9).
+>       sum := 0.
+>       (1 to: elements size ) do: [:index |
+>           sum := sum + (elements at: index).
+>       ].
+>       ^sum. 
+>
+> Con inject:into:
+>
+>       | elements| 
+>       elements:= #(1  5  9).  
+>       ^elements inject: 0 into: [:subTotal :next | subTotal + next]
+>
+> Con suma? '+' ? PREGUNTAR
+
+(q) ¿Cuántos colaboradores recibe inject:into: ? Pruebe debuggearlo con el menú o poniendo self halt. antes de las colaboraciones (esto detendrá la ejecución y abrirá el debugger)
+
+> inject:into: recibe dos colaboradores. PREGUNTAR donde se pone self halt
+
+(r) Crear una nueva secuencia para extraer únicamente las vocales en el orden que aparecen en un string.
