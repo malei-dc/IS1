@@ -1,24 +1,42 @@
 !classDefinition: #Vehicle category: #'1.Replace-if-Type'!
 Object subclass: #Vehicle
-	instanceVariableNames: 'type speed altitude'
+	instanceVariableNames: 'speed'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: '1.Replace-if-Type'!
+!Vehicle commentStamp: '<historical>' prior: 0!
+| fitito |
+fitito:= Motorcycle new.
+fitito accelerate !
 
-!Vehicle methodsFor: 'initialization' stamp: 'ARM 4/29/2024 11:00:51'!
-initializeWithType: typeToTake
 
-	type := typeToTake.
+!Vehicle methodsFor: 'move' stamp: 'ml 9/11/2024 17:09:42'!
+accelerate
+	self subclassResponsibility.
+		
+! !
+
+
+!Vehicle methodsFor: 'initialization' stamp: 'ml 9/11/2024 17:09:54'!
+initialize
+
 	speed := 0 * kilometer / hour.
-	altitude := 0 * meter! !
+! !
 
 
 !classDefinition: #Helicopter category: #'1.Replace-if-Type'!
 Vehicle subclass: #Helicopter
-	instanceVariableNames: ''
+	instanceVariableNames: 'altitude'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: '1.Replace-if-Type'!
+
+!Helicopter methodsFor: 'initialization' stamp: 'ml 9/11/2024 17:08:58'!
+initialize
+
+	super initialize.
+	altitude := 0 * meter! !
+
 
 !Helicopter methodsFor: 'move' stamp: 'ml 9/10/2024 11:19:48'!
 accelerate
@@ -26,16 +44,6 @@ accelerate
 	altitude := altitude + (5 * meter)
 		
 ! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'Helicopter class' category: #'1.Replace-if-Type'!
-Helicopter class
-	instanceVariableNames: ''!
-
-!Helicopter class methodsFor: 'as yet unclassified' stamp: 'ml 9/10/2024 11:26:25'!
-helicopter
-	^self new initializeWithType: Helicopter ! !
 
 
 !classDefinition: #Motorcycle category: #'1.Replace-if-Type'!
@@ -50,17 +58,14 @@ fitito := Helicopter  helicopter accelerate.
 !
 
 
+!Motorcycle methodsFor: 'initialization' stamp: 'ml 9/11/2024 17:07:50'!
+initialize
+
+	speed := 0 * kilometer / hour.
+! !
+
+
 !Motorcycle methodsFor: 'move' stamp: 'ml 9/10/2024 11:20:38'!
 accelerate
 
 		speed := speed + (20 * kilometer / hour)! !
-
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
-
-!classDefinition: 'Motorcycle class' category: #'1.Replace-if-Type'!
-Motorcycle class
-	instanceVariableNames: ''!
-
-!Motorcycle class methodsFor: 'as yet unclassified' stamp: 'ml 9/10/2024 11:27:07'!
-motorcicle
-	^self new initializeWithType: Motorcycle ! !
