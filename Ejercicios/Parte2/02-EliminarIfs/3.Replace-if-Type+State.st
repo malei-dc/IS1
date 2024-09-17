@@ -84,7 +84,8 @@ Vehicle subclass: #Helicopter
 !Helicopter commentStamp: '<historical>' prior: 0!
 | heli1 |
 heli1:=Helicopter new.
-heli1 accelerate  a Helicopter .!
+heli1 turnOn.
+heli1 accelerate!
 
 
 !Helicopter methodsFor: 'initialization' stamp: 'ml 9/11/2024 21:01:42'!
@@ -119,10 +120,10 @@ accelerateWhenOn
 ! !
 
 
-!Helicopter methodsFor: 'cantMoveMsg' stamp: 'ml 9/11/2024 21:31:02'!
+!Helicopter methodsFor: 'cantMoveMsg' stamp: 'ml 9/17/2024 09:16:35'!
 canNotAccelerateErrorMessage
 
-	^'Can not fly when turned off'
+	self error:'Can not fly when turned off'.
 ! !
 
 
@@ -132,6 +133,11 @@ Vehicle subclass: #Motorcycle
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: '3.Replace-if-Type+State'!
+!Motorcycle commentStamp: '<historical>' prior: 0!
+| heli1 |
+heli1:=Motorcycle new.
+heli1 accelerate!
+
 
 !Motorcycle methodsFor: 'initialization' stamp: 'ml 9/11/2024 21:04:40'!
 initialize
@@ -150,10 +156,10 @@ turnOn
 	powerStatus := On new.! !
 
 
-!Motorcycle methodsFor: 'cantMoveMsg' stamp: 'ml 9/11/2024 21:30:46'!
+!Motorcycle methodsFor: 'cantMoveMsg' stamp: 'ml 9/17/2024 09:17:17'!
 canNotAccelerateErrorMessage
 
-	^'Can not run when turned off'! !
+	self error: 'Can not run when turned off'! !
 
 
 !Motorcycle methodsFor: 'move' stamp: 'ml 9/11/2024 21:27:20'!
