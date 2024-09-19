@@ -5,12 +5,12 @@ TestCase subclass: #VehicleTests
 	poolDictionaries: ''
 	category: '4.Replace-if-Strategy'!
 
-!VehicleTests methodsFor: 'testing' stamp: 'NR 9/7/2024 18:25:03'!
+!VehicleTests methodsFor: 'testing' stamp: 'ml 9/18/2024 17:54:08'!
 test01LandVehicleCannotAccelerateWhileTurnedOff
 
 	| landVehicle |
 	
-	landVehicle := Vehicle electricMotorcycle.
+	landVehicle := self electricMotorcycle.
 	
 	self should: [ landVehicle accelerate ] 
 	raise: Error 
@@ -20,12 +20,12 @@ test01LandVehicleCannotAccelerateWhileTurnedOff
 	
 	! !
 
-!VehicleTests methodsFor: 'testing' stamp: 'NR 9/7/2024 18:27:17'!
+!VehicleTests methodsFor: 'testing' stamp: 'ml 9/18/2024 17:54:48'!
 test02AirVehicleCannotAccelerateWhileTurnedOff
 
 	| airVehicle |
 	
-	airVehicle := Vehicle helicopter.
+	airVehicle := self helicopter.
 	
 	self should: [ airVehicle accelerate ] 
 	raise: Error 
@@ -36,12 +36,12 @@ test02AirVehicleCannotAccelerateWhileTurnedOff
 	
 	! !
 
-!VehicleTests methodsFor: 'testing' stamp: 'NR 9/7/2024 18:52:20'!
+!VehicleTests methodsFor: 'testing' stamp: 'ml 9/18/2024 18:03:15'!
 test03ElectricVehicleAccelerateAsIntended
 
 	| electricVehicle |
 	
-	electricVehicle := Vehicle electricMotorcycle.
+	electricVehicle := self electricMotorcycle.
 	
 	electricVehicle turnOn.
 	self assert: (electricVehicle speedAt: 0 * kilometer / hour).
@@ -57,12 +57,12 @@ test03ElectricVehicleAccelerateAsIntended
 	
 	! !
 
-!VehicleTests methodsFor: 'testing' stamp: 'NR 9/7/2024 18:52:16'!
+!VehicleTests methodsFor: 'testing' stamp: 'ml 9/18/2024 18:04:31'!
 test04GasolineVehicleAccelerateAsIntended
 
 	| gasolineVehicle |
 	
-	gasolineVehicle := Vehicle gasolineMotorcycle.
+	gasolineVehicle := self gasolineMotorcycle.
 	
 	gasolineVehicle turnOn.
 	self assert: (gasolineVehicle speedAt: 0 * kilometer / hour).
@@ -78,12 +78,12 @@ test04GasolineVehicleAccelerateAsIntended
 	
 	! !
 
-!VehicleTests methodsFor: 'testing' stamp: 'NR 9/7/2024 18:52:11'!
+!VehicleTests methodsFor: 'testing' stamp: 'ml 9/18/2024 18:04:36'!
 test05JetFueledVehicleAccelerateAsIntended
 
 	| jetFueledVehicle |
 	
-	jetFueledVehicle := Vehicle helicopter.
+	jetFueledVehicle := self helicopter.
 	
 	jetFueledVehicle turnOn.
 	self assert: (jetFueledVehicle speedAt: 0 * kilometer / hour).
@@ -102,12 +102,12 @@ test05JetFueledVehicleAccelerateAsIntended
 	
 	! !
 
-!VehicleTests methodsFor: 'testing' stamp: 'NR 9/7/2024 18:47:14'!
+!VehicleTests methodsFor: 'testing' stamp: 'ml 9/18/2024 18:04:41'!
 test06AirVehicleGoesUpAsItAcceleratesAsExpected
 
 	| airVehicle |
 	
-	airVehicle := Vehicle helicopter.
+	airVehicle := self helicopter.
 	
 	airVehicle turnOn.
 	self assert: (airVehicle altitudeAt: 0 * meter).
@@ -120,12 +120,12 @@ test06AirVehicleGoesUpAsItAcceleratesAsExpected
 	
 	! !
 
-!VehicleTests methodsFor: 'testing' stamp: 'NR 9/7/2024 18:52:05'!
+!VehicleTests methodsFor: 'testing' stamp: 'ml 9/18/2024 18:04:45'!
 test07SpeedLimiterForCityLimitsSpeedAt70Kmh
 
 	| cityVehicle |
 	
-	cityVehicle := Vehicle electricMotorcycle.
+	cityVehicle := self electricMotorcycle.
 	
 	cityVehicle turnOn.
 	self assert: (cityVehicle speedAt: 0 * kilometer / hour).
@@ -137,12 +137,12 @@ test07SpeedLimiterForCityLimitsSpeedAt70Kmh
 	
 	! !
 
-!VehicleTests methodsFor: 'testing' stamp: 'NR 9/7/2024 18:53:50'!
+!VehicleTests methodsFor: 'testing' stamp: 'ml 9/18/2024 18:04:50'!
 test08SpeedLimiterForOpenRoadLimitsSpeedAt130Kmh
 
 	| openRoadVehicle |
 	
-	openRoadVehicle := Vehicle gasolineMotorcycle.
+	openRoadVehicle := self gasolineMotorcycle.
 	
 	openRoadVehicle turnOn.
 	self assert: (openRoadVehicle speedAt: 0 * kilometer / hour).
@@ -154,12 +154,12 @@ test08SpeedLimiterForOpenRoadLimitsSpeedAt130Kmh
 	
 	! !
 
-!VehicleTests methodsFor: 'testing' stamp: 'NR 9/7/2024 18:55:32'!
+!VehicleTests methodsFor: 'testing' stamp: 'ml 9/18/2024 18:04:54'!
 test09SpeedLimiterForAirTrafficLimitsSpeedAt500Kmh
 
 	| vehicleInAir |
 	
-	vehicleInAir := Vehicle helicopter.
+	vehicleInAir := self helicopter.
 	
 	vehicleInAir turnOn.
 	self assert: (vehicleInAir speedAt: 0 * kilometer / hour).
@@ -171,6 +171,24 @@ test09SpeedLimiterForAirTrafficLimitsSpeedAt500Kmh
 	
 	! !
 
+
+!VehicleTests methodsFor: 'as yet unclassified' stamp: 'ml 9/18/2024 17:50:23'!
+electricMotorcycle
+
+	^ Motorcycle withEngine: ElectricEngine new andSpeedLimiter: (SpeedLimiter limit: 70 * kilometer / hour)! !
+
+!VehicleTests methodsFor: 'as yet unclassified' stamp: 'ml 9/18/2024 18:04:24'!
+gasolineMotorcycle
+
+	^ Motorcycle withEngine: GasolineEngine new andSpeedLimiter: (SpeedLimiter limit: 130 * kilometer / hour)! !
+
+!VehicleTests methodsFor: 'as yet unclassified' stamp: 'ml 9/18/2024 17:49:22'!
+helicopter
+
+	^ Helicopter withEngine: JetFueledEngine new andSpeedLimiter: (SpeedLimiter limit: 500 * kilometer / hour)
+	
+! !
+
 
 !classDefinition: #Engine category: #'4.Replace-if-Strategy'!
 Object subclass: #Engine
@@ -178,6 +196,11 @@ Object subclass: #Engine
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: '4.Replace-if-Strategy'!
+
+!Engine methodsFor: 'as yet unclassified' stamp: 'ml 9/18/2024 18:06:57'!
+accelerate: currentSpeed
+
+	self subclassResponsibility! !
 
 
 !classDefinition: #ElectricEngine category: #'4.Replace-if-Strategy'!
@@ -187,10 +210,10 @@ Engine subclass: #ElectricEngine
 	poolDictionaries: ''
 	category: '4.Replace-if-Strategy'!
 
-!ElectricEngine methodsFor: 'as yet unclassified' stamp: 'ml 9/17/2024 13:07:34'!
+!ElectricEngine methodsFor: 'as yet unclassified' stamp: 'ml 9/18/2024 18:34:19'!
 accelerate: currentSpeed
 
-	^currentSpeed + ((5 * kilometer / hour) * 2).! !
+	^(currentSpeed + (5 * kilometer / hour) * 2).! !
 
 
 !classDefinition: #GasolineEngine category: #'4.Replace-if-Strategy'!
@@ -236,6 +259,17 @@ accelerate
 initializeStatusOf: aVehicle
 	vehicle:= aVehicle .! !
 
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'PowerStatus class' category: #'4.Replace-if-Strategy'!
+PowerStatus class
+	instanceVariableNames: ''!
+
+!PowerStatus class methodsFor: 'as yet unclassified' stamp: 'ml 9/18/2024 17:32:48'!
+of: aVehicle
+
+	^ self new initializeStatusOf: aVehicle ! !
+
 
 !classDefinition: #Off category: #'4.Replace-if-Strategy'!
 PowerStatus subclass: #Off
@@ -261,6 +295,35 @@ accelerate
 	vehicle accelerateWhenOn .! !
 
 
+!classDefinition: #SpeedLimiter category: #'4.Replace-if-Strategy'!
+Object subclass: #SpeedLimiter
+	instanceVariableNames: 'limit'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '4.Replace-if-Strategy'!
+
+!SpeedLimiter methodsFor: 'as yet unclassified' stamp: 'ml 9/18/2024 17:39:34'!
+initializeWithLimit: aSpeedLimit
+	
+	limit := aSpeedLimit .! !
+
+!SpeedLimiter methodsFor: 'as yet unclassified' stamp: 'ml 9/18/2024 17:52:58'!
+limit: aSpeed
+	
+	^ aSpeed min: limit! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'SpeedLimiter class' category: #'4.Replace-if-Strategy'!
+SpeedLimiter class
+	instanceVariableNames: ''!
+
+!SpeedLimiter class methodsFor: 'as yet unclassified' stamp: 'ml 9/18/2024 17:38:43'!
+limit: aSpeedLimit
+
+	^ self new initializeWithLimit: aSpeedLimit ! !
+
+
 !classDefinition: #Vehicle category: #'4.Replace-if-Strategy'!
 Object subclass: #Vehicle
 	instanceVariableNames: 'powerStatus speed engine speedLimiter'
@@ -268,7 +331,7 @@ Object subclass: #Vehicle
 	poolDictionaries: ''
 	category: '4.Replace-if-Strategy'!
 
-!Vehicle methodsFor: 'initialization' stamp: 'ml 9/17/2024 13:40:23'!
+!Vehicle methodsFor: 'initialization' stamp: 'ml 9/18/2024 17:31:16'!
 initializeWithEngine: anEngine andSpeedLimiter: aSpeedLimiter
 
 	powerStatus := Off of: self.
@@ -333,22 +396,11 @@ canNotAccelerateErrorMessage
 Vehicle class
 	instanceVariableNames: ''!
 
-!Vehicle class methodsFor: 'instance creation' stamp: 'ml 9/17/2024 13:38:51'!
-electricMotorcycle
 
-	^ self new initializeWithEngine: ElectricEngine new andSpeedLimiter: #city
+!Vehicle class methodsFor: 'as yet unclassified' stamp: 'ml 9/18/2024 17:49:00'!
+withEngine: anEngine andSpeedLimiter: aSpeedLimiter
 
-! !
-
-!Vehicle class methodsFor: 'instance creation' stamp: 'ml 9/17/2024 13:38:51'!
-gasolineMotorcycle
-
-	^ self new initializeWithEngine: GasolineEngine new andSpeedLimiter: #openRoad! !
-
-!Vehicle class methodsFor: 'instance creation' stamp: 'ml 9/17/2024 13:38:51'!
-helicopter
-
-	^ self new initializeWithEngine: #JetFueledEngine andSpeedLimiter: #skies! !
+	^ self new initializeWithEngine: anEngine andSpeedLimiter: aSpeedLimiter! !
 
 
 !classDefinition: #Helicopter category: #'4.Replace-if-Strategy'!
@@ -363,21 +415,21 @@ accelerate
 	super accelerate .
 	altitude := altitude + (5 * meter).! !
 
-!Helicopter methodsFor: 'as yet unclassified' stamp: 'ml 9/17/2024 12:26:22'!
+!Helicopter methodsFor: 'as yet unclassified' stamp: 'ml 9/18/2024 17:42:22'!
 altitudeAt: anAltitude
 
 	^ altitude = anAltitude! !
 
-!Helicopter methodsFor: 'as yet unclassified' stamp: 'ml 9/17/2024 12:36:04'!
+!Helicopter methodsFor: 'as yet unclassified' stamp: 'ml 9/18/2024 18:00:34'!
 canNotAccelerateErrorMessage
 
 	^'Can not fly when turned off'.
 	! !
 
-!Helicopter methodsFor: 'as yet unclassified' stamp: 'ml 9/17/2024 12:44:19'!
-initializeWithEngineType: anEngineType andSurroundings: surroundings
+!Helicopter methodsFor: 'as yet unclassified' stamp: 'ml 9/18/2024 18:29:36'!
+initializeWithEngine: anEngine andSpeedLimiter: aSpeedLimiter
 
-	super initializeWithEngineType: anEngineType andSurroundings: surroundings.
+	super initializeWithEngine: anEngine andSpeedLimiter: aSpeedLimiter.
 	altitude := 0 * meter.
 	! !
 
