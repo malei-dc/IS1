@@ -44,7 +44,7 @@ test02CuandoExcavaSueloTierraConMechaSoftNoModificaElSuelo
 	
 	! !
 
-!TestDePerforación methodsFor: 'test' stamp: 'ARM 5/5/2023 18:02:52'!
+!TestDePerforación methodsFor: 'test' stamp: 'ml 9/21/2024 21:11:42'!
 test03CuandoExcavaConcretoConMechaSoftSeRompeLaMecha
 
 	| excavadora sueloAExcavar |
@@ -129,7 +129,7 @@ test06CuandoExcavaSueloConcretoConMechaWidiaEnTresImpactosRompeLaMecha
 	
 	! !
 
-!TestDePerforación methodsFor: 'test' stamp: 'ARM 5/5/2023 18:03:00'!
+!TestDePerforación methodsFor: 'test' stamp: 'ml 9/21/2024 21:26:37'!
 test07CuandoExcavaSueloArenosoConMechaDiamanteRompeLaMecha
 
 	| excavadora sueloAExcavar |
@@ -144,7 +144,7 @@ test07CuandoExcavaSueloArenosoConMechaDiamanteRompeLaMecha
 	excavadora ponerMechaDiamante.
 	
 	self should: [excavadora darGolpeDeTaladro]
-		raise: Error
+		raise: Error -  MessageNotUnderstood 
 		withExceptionDo: [:unError |
 			self assert: 'Se rompió' equals: unError messageText.
 			self assert: excavadora conMechaRota ].
@@ -196,70 +196,24 @@ test09CuandoExcavaSueloConcretoConMechaDiamanteBajaUnDecimoDeResistencia
 
 !classDefinition: #CapaDeSuelo category: #'ISW1-Perforaciones'!
 Object subclass: #CapaDeSuelo
-	instanceVariableNames: 'tipo resistencia'
+	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'ISW1-Perforaciones'!
 
-!CapaDeSuelo methodsFor: 'initialization' stamp: 'ARM 9/3/2024 16:26:45'!
-initializeArenoso
-	
-	tipo := #Arenoso.! !
-
-!CapaDeSuelo methodsFor: 'initialization' stamp: 'ARM 9/3/2024 16:26:41'!
-initializeConcretoConResistencia: resistenciaInicial 
-
-	resistencia := resistenciaInicial.
-	tipo := #Concreto.! !
-
-!CapaDeSuelo methodsFor: 'initialization' stamp: 'ARM 9/3/2024 16:26:38'!
-initializeTierra
-	
-	tipo := #Tierra.! !
 
 
-!CapaDeSuelo methodsFor: 'tipo' stamp: 'ARM 4/27/2023 20:13:01'!
-esArenoso
-	^tipo = #Arenoso! !
-
-!CapaDeSuelo methodsFor: 'tipo' stamp: 'ARM 4/27/2023 20:15:50'!
-esConcreto
-	^tipo = #Concreto! !
-
-!CapaDeSuelo methodsFor: 'tipo' stamp: 'ARM 4/27/2023 20:14:55'!
-esTierra
-	^tipo = #Tierra! !
-
-
-!CapaDeSuelo methodsFor: 'comparing' stamp: 'ARM 5/8/2023 13:10:22'!
+!CapaDeSuelo methodsFor: 'comparing' stamp: 'ml 9/21/2024 20:06:54'!
 = unaCapaDeSuelo
 
-	^(unaCapaDeSuelo isKindOf: self class) and: [ tipo = unaCapaDeSuelo tipo and: [resistencia = unaCapaDeSuelo resistencia]]! !
+	^(unaCapaDeSuelo isKindOf: self class) .! !
 
-!CapaDeSuelo methodsFor: 'comparing' stamp: 'ARM 5/8/2023 13:10:22'!
-hash
+!CapaDeSuelo methodsFor: 'comparing' stamp: 'ml 9/21/2024 20:50:02'!
+darGolpeCon: unaPerforadora
 
-	^tipo hash + resistencia hash! !
-
-
-!CapaDeSuelo methodsFor: 'bajar resistencia' stamp: 'ARM 5/8/2023 13:10:22'!
-bajaUnDecimoDeResistencia
-	resistencia := resistencia - 1! !
-
-!CapaDeSuelo methodsFor: 'bajar resistencia' stamp: 'ARM 5/8/2023 13:10:22'!
-sinResistencia
-	^resistencia = 0! !
+	self subclassResponsibility! !
 
 
-!CapaDeSuelo methodsFor: 'accessing' stamp: 'ARM 5/8/2023 13:10:35'!
-resistencia
-
-	^ resistencia.! !
-
-!CapaDeSuelo methodsFor: 'accessing' stamp: 'ARM 4/27/2023 20:18:41'!
-tipo
-
-	^tipo! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -267,20 +221,88 @@ tipo
 CapaDeSuelo class
 	instanceVariableNames: ''!
 
-!CapaDeSuelo class methodsFor: 'instance creation' stamp: 'ARM 4/27/2023 20:02:32'!
+!CapaDeSuelo class methodsFor: 'instance creation' stamp: 'ml 9/21/2024 20:48:30'!
 arenoso
+	^CapaArenoso new! !
 
-	^self new initializeArenoso! !
-
-!CapaDeSuelo class methodsFor: 'instance creation' stamp: 'ARM 5/5/2023 18:01:35'!
+!CapaDeSuelo class methodsFor: 'instance creation' stamp: 'ml 9/21/2024 20:48:47'!
 concretoConResistencia: resistencia 
 
-	^self new initializeConcretoConResistencia: resistencia ! !
+	^CapaConcreto new initializeConcretoConResistencia: resistencia ! !
 
-!CapaDeSuelo class methodsFor: 'instance creation' stamp: 'ARM 4/27/2023 20:03:15'!
+!CapaDeSuelo class methodsFor: 'instance creation' stamp: 'ml 9/21/2024 20:49:07'!
 tierra
+	^CapaTierra new! !
 
-	^self new initializeTierra! !
+
+!classDefinition: #CapaArenoso category: #'ISW1-Perforaciones'!
+CapaDeSuelo subclass: #CapaArenoso
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'ISW1-Perforaciones'!
+
+
+!CapaArenoso methodsFor: 'golpear' stamp: 'ml 9/21/2024 20:50:35'!
+darGolpeCon:  unaPerforadora
+
+	unaPerforadora darGolpeDeTaladroSobreSueloArenoso .! !
+
+
+!classDefinition: #CapaConcreto category: #'ISW1-Perforaciones'!
+CapaDeSuelo subclass: #CapaConcreto
+	instanceVariableNames: 'resistencia'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'ISW1-Perforaciones'!
+
+
+!CapaConcreto methodsFor: 'bajar resistencia' stamp: 'ml 9/21/2024 20:01:47'!
+bajaUnDecimoDeResistencia
+	resistencia := resistencia - 1! !
+
+!CapaConcreto methodsFor: 'bajar resistencia' stamp: 'ml 9/21/2024 20:04:44'!
+sinResistencia
+	^resistencia = 0! !
+
+
+!CapaConcreto methodsFor: 'comparing' stamp: 'ml 9/21/2024 20:03:18'!
+hash
+
+	^tipo hash + resistencia hash! !
+
+
+!CapaConcreto methodsFor: 'initialization' stamp: 'ml 9/21/2024 20:04:57'!
+initializeConcretoConResistencia: resistenciaInicial 
+
+	resistencia := resistenciaInicial.
+	! !
+
+
+!CapaConcreto methodsFor: 'accessing' stamp: 'ml 9/21/2024 20:04:35'!
+resistencia
+
+	^ resistencia.! !
+
+
+!CapaConcreto methodsFor: 'golpear' stamp: 'ml 9/21/2024 20:51:20'!
+darGolpeCon:  unaPerforadora
+
+	unaPerforadora darGolpeDeTaladroSobreSueloConcreto .! !
+
+
+!classDefinition: #CapaTierra category: #'ISW1-Perforaciones'!
+CapaDeSuelo subclass: #CapaTierra
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'ISW1-Perforaciones'!
+
+
+!CapaTierra methodsFor: 'golpear' stamp: 'ml 9/21/2024 20:52:38'!
+darGolpeCon:  unaPerforadora
+
+	unaPerforadora darGolpeDeTaladroSobreSueloTierra .! !
 
 
 !classDefinition: #Mecha category: #'ISW1-Perforaciones'!
@@ -294,6 +316,11 @@ Object subclass: #Mecha
 darGolpeCon:  unaPerforadora
 
 	unaPerforadora darGolpeDeTaladroConMecha .! !
+
+!Mecha methodsFor: 'as yet unclassified' stamp: 'ml 9/21/2024 21:28:37'!
+estaRota
+
+ ^false! !
 
 !Mecha methodsFor: 'as yet unclassified' stamp: 'ml 9/20/2024 12:35:44'!
 golpearSueloArenosoCon: unaPerforadora
@@ -323,10 +350,10 @@ golpearSueloArenosoCon: unaPerforadora
 
 	unaPerforadora darGolpeDeTaladroSobreSueloArenosoConMechaDiamante .! !
 
-!Diamante methodsFor: 'as yet unclassified' stamp: 'ml 9/20/2024 12:36:00'!
+!Diamante methodsFor: 'as yet unclassified' stamp: 'ml 9/21/2024 20:57:57'!
 golpearSueloConcretoCon: unaPerforadora
 
-	self subclassResponsibility .! !
+	unaPerforadora darGolpeDeTaladroSobreSueloConcretoConMechaDiamante.! !
 
 !Diamante methodsFor: 'as yet unclassified' stamp: 'ml 9/20/2024 13:07:01'!
 golpearSueloTierraCon: unaPerforadora
@@ -341,10 +368,10 @@ Mecha subclass: #MechaRota
 	poolDictionaries: ''
 	category: 'ISW1-Perforaciones'!
 
-!MechaRota methodsFor: 'as yet unclassified' stamp: 'ml 9/20/2024 12:41:47'!
+!MechaRota methodsFor: 'as yet unclassified' stamp: 'ml 9/21/2024 21:12:12'!
 estaRota
 
-	^True ! !
+	^true ! !
 
 
 !classDefinition: #Soft category: #'ISW1-Perforaciones'!
@@ -359,10 +386,10 @@ golpearSueloArenosoCon: unaPerforadora
 
 	unaPerforadora darGolpeDeTaladroSobreSueloArenosoConMechaSoft .! !
 
-!Soft methodsFor: 'as yet unclassified' stamp: 'ml 9/20/2024 12:36:00'!
+!Soft methodsFor: 'as yet unclassified' stamp: 'ml 9/21/2024 20:58:48'!
 golpearSueloConcretoCon: unaPerforadora
 
-	self subclassResponsibility .! !
+	unaPerforadora darGolpeDeTaladroSobreSueloConcretoConMechaSoft .! !
 
 !Soft methodsFor: 'as yet unclassified' stamp: 'ml 9/20/2024 13:07:24'!
 golpearSueloTierraCon: unaPerforadora
@@ -382,10 +409,10 @@ golpearSueloArenosoCon: unaPerforadora
 
 	unaPerforadora darGolpeDeTaladroSobreSueloArenosoConMechaWidia .! !
 
-!Widia methodsFor: 'as yet unclassified' stamp: 'ml 9/20/2024 12:36:00'!
+!Widia methodsFor: 'as yet unclassified' stamp: 'ml 9/21/2024 20:59:29'!
 golpearSueloConcretoCon: unaPerforadora
 
-	self subclassResponsibility .! !
+	unaPerforadora darGolpeDeTaladroSobreSueloConcretoConMechaWidia .! !
 
 !Widia methodsFor: 'as yet unclassified' stamp: 'ml 9/20/2024 13:08:30'!
 golpearSueloTierraCon: unaPerforadora
@@ -395,7 +422,7 @@ golpearSueloTierraCon: unaPerforadora
 
 !classDefinition: #Perforadora category: #'ISW1-Perforaciones'!
 Object subclass: #Perforadora
-	instanceVariableNames: 'tipoDeSuelo mechaPuesta vecesQueGolpeoCapaActual capasDeSueloDebajo'
+	instanceVariableNames: 'mechaPuesta vecesQueGolpeoCapaActual capasDeSueloDebajo'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'ISW1-Perforaciones'!
@@ -434,10 +461,12 @@ darGolpeDeTaladro
 	
 	self error: 'error'"! !
 
-!Perforadora methodsFor: 'perforar' stamp: 'ml 9/20/2024 13:39:41'!
+!Perforadora methodsFor: 'perforar' stamp: 'ml 9/21/2024 20:31:45'!
 darGolpeDeTaladroConMecha
 		
 	vecesQueGolpeoCapaActual := vecesQueGolpeoCapaActual + 1.
+	
+	self capaDeSueloInmediata darGolpeCon: self.
 	
 	
 	
@@ -485,18 +514,6 @@ sinMecha
 
 	^mechaPuesta noTieneMechaPuesta! !
 
-
-!Perforadora methodsFor: 'sobre qué suelo' stamp: 'ARM 4/27/2023 20:13:17'!
-sobreSueloArenoso
-	^capasDeSueloDebajo first esArenoso! !
-
-!Perforadora methodsFor: 'sobre qué suelo' stamp: 'ARM 4/27/2023 20:16:14'!
-sobreSueloConcreto
-	^capasDeSueloDebajo first esConcreto! !
-
-!Perforadora methodsFor: 'sobre qué suelo' stamp: 'ARM 4/27/2023 20:13:58'!
-sobreSueloTierra
-	^capasDeSueloDebajo first esTierra! !
 
 
 !Perforadora methodsFor: 'colocar mecha' stamp: 'ml 9/20/2024 11:38:28'!
