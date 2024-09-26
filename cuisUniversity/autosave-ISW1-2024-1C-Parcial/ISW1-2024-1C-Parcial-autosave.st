@@ -41,7 +41,7 @@ test04WhenAFloorIsCreatedAllTheRoomsAreAvailable
 	self assert: 0 equals: floor totalRoomsReserved.
 ! !
 
-!FloorTest methodsFor: 'testing' stamp: 'FRT 4/21/2024 17:00:43'!
+!FloorTest methodsFor: 'testing' stamp: 'ml 9/26/2024 14:59:49'!
 test05WhenAFloorReceivesAGuestInARoomReducesTheAvailableRoomsByOneAndIncreaseOccupiedByOne
 
 	| floor roomsNumber |
@@ -50,14 +50,14 @@ test05WhenAFloorReceivesAGuestInARoomReducesTheAvailableRoomsByOneAndIncreaseOcc
 	floor := self createFloorWith: roomsNumber and: self defaultPriceList.
 	
 	"Tech Debt"
-	((floor rooms) at: 1) receive: self guestTypeVacation.
+	(floor roomAt: 1) receive: self guestTypeVacation.
 	
 	self assert: roomsNumber - 1 equals: floor totalRoomsAvailable. 
 	self assert: 1 equals: floor totalRoomsOccupied.
 	self assert: 0 equals: floor totalRoomsReserved.
 ! !
 
-!FloorTest methodsFor: 'testing' stamp: 'FRT 4/22/2024 11:58:54'!
+!FloorTest methodsFor: 'testing' stamp: 'ml 9/26/2024 15:02:05'!
 test06WhenAFloorReceivesOnReservationAGuestInARoomKeepsTheAvailableRoomsAndOccupiedAndReducesTheReservedByOne
 
 	| floor roomsNumber roomsAvailable roomsOccupied roomsReserved |
@@ -66,21 +66,21 @@ test06WhenAFloorReceivesOnReservationAGuestInARoomKeepsTheAvailableRoomsAndOccup
 	floor := self createFloorWith: roomsNumber and: self defaultPriceList.
 	
 	"Tech Debt"
-	((floor rooms) at: 1) reserve.
+	(floor roomAt: 1) reserve.
 
 	roomsAvailable := floor totalRoomsAvailable.
 	roomsOccupied := floor totalRoomsOccupied.
 	roomsReserved := floor totalRoomsReserved.
 
 	"Tech Debt"
-	((floor rooms) at: 1) receiveWithReservation: self guestTypeVacation.
+	(floor roomAt: 1) receiveWithReservation: self guestTypeVacation.
 	
 	self assert: roomsAvailable equals: floor totalRoomsAvailable. 
 	self assert: roomsOccupied equals: floor totalRoomsOccupied.
 	self assert: roomsReserved - 1 equals: floor totalRoomsReserved.
 ! !
 
-!FloorTest methodsFor: 'testing' stamp: 'FRT 4/21/2024 20:01:42'!
+!FloorTest methodsFor: 'testing' stamp: 'ml 9/26/2024 15:01:07'!
 test07WhenARoomIsReservedTheFloorAvailableRoomsReducesByOneAndIncreaseReservedAndOccupiedByOne
 
 	| floor roomsNumber |
@@ -89,14 +89,14 @@ test07WhenARoomIsReservedTheFloorAvailableRoomsReducesByOneAndIncreaseReservedAn
 	floor := self createFloorWith: roomsNumber and: self defaultPriceList.
 	
 	"Tech Debt"
-	((floor rooms) at: 1) reserve.
+	(floor roomAt: 1)reserve.
 	
 	self assert: roomsNumber - 1 equals: floor totalRoomsAvailable. 
 	self assert: 1 equals: floor totalRoomsOccupied.
 	self assert: 1 equals: floor totalRoomsReserved.
 ! !
 
-!FloorTest methodsFor: 'testing' stamp: 'FRT 4/21/2024 20:01:30'!
+!FloorTest methodsFor: 'testing' stamp: 'ml 9/26/2024 15:01:24'!
 test08TotalProfitShouldBeTheSumOfOccupiedRoomsProfits
 
 	| floor roomsNumber |
@@ -105,14 +105,14 @@ test08TotalProfitShouldBeTheSumOfOccupiedRoomsProfits
 	floor := self createFloorWith: roomsNumber and: self defaultPriceList.
 	
 	"Tech Debt"
-	((floor rooms) at: 1) receive: self guestTypeVacation.
-	((floor rooms) at: 2) receive: self guestTypeConference.
-	((floor rooms) at: 3) reserve.
+	(floor roomAt: 1) receive: self guestTypeVacation.
+	(floor roomAt: 2) receive: self guestTypeConference.
+	(floor roomAt: 3) reserve.
 		
 	self assert: (100*peso) + (200*peso) + (50*peso) equals: floor totalProfits
 ! !
 
-!FloorTest methodsFor: 'testing' stamp: 'FRT 4/21/2024 20:01:22'!
+!FloorTest methodsFor: 'testing' stamp: 'ml 9/26/2024 15:01:46'!
 test09TotalLossesShouldBeTheSumOfAvailableRoomsLosses
 
 	| floor roomsNumber |
@@ -121,9 +121,9 @@ test09TotalLossesShouldBeTheSumOfAvailableRoomsLosses
 	floor := self createFloorWith: roomsNumber and: self defaultPriceList.
 	
 	"Tech Debt"
-	((floor rooms) at: 1) receive: self guestTypeVacation.
-	((floor rooms) at: 2) receive: self guestTypeConference.
-	((floor rooms) at: 3) reserve.
+	(floor roomAt: 1) receive: self guestTypeVacation.
+	(floor roomAt: 2) receive: self guestTypeConference.
+	(floor roomAt: 3) reserve.
 		
 	self assert: (200*peso) * 7 equals: floor totalLosses
 ! !
@@ -658,22 +658,19 @@ test12NoProfitOnOccupiedRoomByUnknownGuestType
 	self failWith: 'should not calculate profit on room occupied by unknown guest type'.
 ! !
 
-!RoomTest methodsFor: 'testing' stamp: 'HAW 4/29/2024 18:53:19'!
+!RoomTest methodsFor: 'testing' stamp: 'ml 9/26/2024 16:44:13'!
 test13LossesOfAvailableRoomIsTheMaxPriceInList
 
-	self shouldFail: [
 		| room |
 	
 		room := Room new.
 
 		self assert: self maxPriceInList equals: (room lossUsing: self defaultPriceList ifAbsentGuestType: [ self fail ]).
-	]	
 ! !
 
-!RoomTest methodsFor: 'testing' stamp: 'HAW 4/29/2024 11:21:36'!
+!RoomTest methodsFor: 'testing' stamp: 'ml 9/26/2024 17:16:05'!
 test14LossesOfReservedRoomIsCeroPesos
 
-	self shouldFail: [
 		| room |
 	
 		room := Room new.
@@ -681,21 +678,18 @@ test14LossesOfReservedRoomIsCeroPesos
 		room reserve.
 
 		self assert: 0*peso equals: (room lossUsing: self defaultPriceList ifAbsentGuestType: [ self fail ]).
-	]	
 ! !
 
-!RoomTest methodsFor: 'testing' stamp: 'HAW 4/29/2024 11:21:50'!
+!RoomTest methodsFor: 'testing' stamp: 'ml 9/26/2024 17:21:37'!
 test15LossesOfOccupiedRoomIsCeroPesos
 
-	self shouldFail: [
 		| room |
 		
 		room := Room new.
 
 		room receive: self guestTypeVacation.
 
-		self assert: 0*peso equals: (room lossUsing: self defaultPriceList ifAbsentGuestType: [ self fail ]).
-	]! !
+		self assert: 0*peso equals: (room lossUsing: self defaultPriceList ifAbsentGuestType: [ self fail ]).! !
 
 !RoomTest methodsFor: 'testing' stamp: 'HAW 4/28/2024 15:53:31'!
 test16CannotReserveWhenReserved
@@ -775,11 +769,6 @@ isAvailable
 ! !
 
 
-!Floor methodsFor: 'accessing' stamp: 'FRT 4/20/2024 21:34:09'!
-rooms
-
-	^ rooms! !
-
 
 !Floor methodsFor: 'accounting' stamp: 'FRT 4/21/2024 13:23:04'!
 totalLosses
@@ -854,6 +843,15 @@ initializeRoomsWith: aNumberOfRooms and: aPriceList
 
 	prices := aPriceList.
 ! !
+
+
+!Floor methodsFor: 'as yet unclassified' stamp: 'ml 9/26/2024 15:00:39'!
+roomAt: aRoomNumber 
+	^rooms at: aRoomNumber ! !
+
+!Floor methodsFor: 'as yet unclassified' stamp: 'ml 9/26/2024 14:28:45'!
+roomsAt: aRoomNumber ifAbsent: absentBlock 
+	^rooms at: aRoomNumber ifAbsent: absentBlock .! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -969,26 +967,29 @@ Object subclass: #Hotel
 	poolDictionaries: ''
 	category: 'ISW1-2024-1C-Parcial'!
 
-!Hotel methodsFor: 'accounting' stamp: 'FRT 4/21/2024 00:02:28'!
+!Hotel methodsFor: 'accounting' stamp: 'ml 9/26/2024 17:27:36'!
 totalLosses
 
-	| acc |
+	^floors sum: [:aFloor | aFloor totalLosses ].
+
+	"| acc |
 	
 	acc := 0.
 	floors do: [ :floor | acc := acc + floor totalLosses ]. 
 
-	^ acc.
-! !
+	^ acc."! !
 
-!Hotel methodsFor: 'accounting' stamp: 'FRT 4/22/2024 13:55:50'!
+!Hotel methodsFor: 'accounting' stamp: 'ml 9/26/2024 17:27:03'!
 totalProfits
 
-	| acc |
+	^floors sum: [:aFloor | aFloor totalProfits ].
+	
+	"| acc |
 	
 	acc := 0.
 	floors do: [ :floor | acc := acc + floor totalProfits ]. 
 
-	^ acc.
+	^ acc."
 ! !
 
 
@@ -1001,10 +1002,12 @@ setFloors: aFloorsCollection
 	availableRoomsCount := self totalRooms.! !
 
 
-!Hotel methodsFor: 'totals' stamp: 'FRT 4/22/2024 11:43:27'!
+!Hotel methodsFor: 'totals' stamp: 'ml 9/26/2024 14:53:24'!
 totalRooms
 
-	| ix acc |
+	^ floors sum: [:aFloor | aFloor totalRooms ]
+	
+	"| ix acc |
 
 	acc := 0.
 
@@ -1022,9 +1025,7 @@ totalRooms
 		ix := ix + 1.				
 	].
 
-	^ acc.
-
-! !
+	^ acc."! !
 
 !Hotel methodsFor: 'totals' stamp: 'FRT 4/22/2024 11:43:00'!
 totalRoomsAvailable
@@ -1032,10 +1033,12 @@ totalRoomsAvailable
 	^ availableRoomsCount.
 ! !
 
-!Hotel methodsFor: 'totals' stamp: 'FRT 4/22/2024 11:42:53'!
+!Hotel methodsFor: 'totals' stamp: 'ml 9/26/2024 14:53:48'!
 totalRoomsOccupied
 
-	| ix acc |
+	^ floors sum: [:aFloor | aFloor totalRoomsOccupied ]
+	
+	"| ix acc |
 
 	acc := 0.
 
@@ -1054,14 +1057,14 @@ totalRoomsOccupied
 		ix := ix + 1.				
 	].
 
-	^ acc.
+	^ acc."! !
 
-! !
-
-!Hotel methodsFor: 'totals' stamp: 'FRT 4/22/2024 11:43:13'!
+!Hotel methodsFor: 'totals' stamp: 'ml 9/26/2024 14:54:37'!
 totalRoomsReserved
 
-	| ix acc |
+	^floors sum: [:aFloor | aFloor totalRoomsReserved ]
+
+	"| ix acc |
 
 	acc := 0.
 
@@ -1080,74 +1083,53 @@ totalRoomsReserved
 		ix := ix + 1.				
 	].
 
-	^ acc.
-
-! !
+	^ acc."! !
 
 
-!Hotel methodsFor: 'testing' stamp: 'FRT 4/22/2024 11:32:03'!
+!Hotel methodsFor: 'testing' stamp: 'ml 9/26/2024 13:33:41'!
 isEmpty
 
-	| ix acc |
-	
-	acc := true.
-
-	ix := 1.	
-	[ ix <= floors size ] whileTrue: [ | floor jx |
-		floor := floors at: ix.
-
-		jx := 1.
-		[ jx <= floor rooms size ] whileTrue: [ | room |
-			room := floor rooms at: jx.
-			acc := acc and: room isAvailable.
-			
-			jx := jx + 1.
-		].
-			
-		ix := ix + 1.				
-	].
-
-	^ acc.
-! !
+	^ floors allSatisfy: [:afloor | afloor isAvailable ].! !
 
 
-!Hotel methodsFor: 'guests' stamp: 'FRT 4/25/2024 21:45:24'!
+!Hotel methodsFor: 'guests' stamp: 'ml 9/26/2024 14:41:27'!
 receive: aGuestType atFloor: aFloorNumber atRoom: aRoomNumber
 
-	| floor room |
-	
-	floor := floors at: aFloorNumber ifAbsent:  [ self class signalFloorNumberDoesNotExist ].
-	room := floor rooms at: aRoomNumber ifAbsent: [ self class signalRoomNumberDoesNotExist ].
+	| room |
+	room := self roomAt: aRoomNumber inFloor: aFloorNumber.
 
 	room receive: aGuestType.
 	
 	availableRoomsCount := availableRoomsCount - 1.
 ! !
 
-!Hotel methodsFor: 'guests' stamp: 'FRT 4/25/2024 21:55:45'!
+!Hotel methodsFor: 'guests' stamp: 'ml 9/26/2024 14:43:37'!
 receiveWithReservation: aGuestType atFloor: aFloorNumber atRoom: aRoomNumber
 
-	| floor room |
+	| room |
+	room := self roomAt: aRoomNumber inFloor: aFloorNumber.
 	
-	floor := floors at: aFloorNumber ifAbsent:  [ self class signalFloorNumberDoesNotExist ].
-	room := floor rooms at: aRoomNumber ifAbsent: [ self class signalRoomNumberDoesNotExist ].
-
 	room receiveWithReservation: aGuestType.
 
 ! !
 
-!Hotel methodsFor: 'guests' stamp: 'FRT 4/25/2024 21:56:34'!
+!Hotel methodsFor: 'guests' stamp: 'ml 9/26/2024 14:43:48'!
 reserveRoom: aRoomNumber atFloor: aFloorNumber
 
-	| floor room |
-	
-	floor := floors at: aFloorNumber ifAbsent:  [ self class signalFloorNumberDoesNotExist ].
-	room := floor rooms at: aRoomNumber ifAbsent: [ self class signalRoomNumberDoesNotExist ].
-	 
+	| room |
+	room := self roomAt: aRoomNumber inFloor: aFloorNumber.
 	room reserve.
 	
 	availableRoomsCount := availableRoomsCount - 1.
 ! !
+
+!Hotel methodsFor: 'guests' stamp: 'ml 9/26/2024 14:37:01'!
+roomAt: aRoomNumber inFloor: aFloorNumber
+
+	| floor room |
+	floor := floors at: aFloorNumber ifAbsent:  [ self class signalFloorNumberDoesNotExist ].
+	room := floor roomsAt: aRoomNumber ifAbsent: [ self class signalRoomNumberDoesNotExist ].
+	^ room! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1203,15 +1185,10 @@ createHotelWith: aFloorsCollection
 
 !classDefinition: #Room category: #'ISW1-2024-1C-Parcial'!
 Object subclass: #Room
-	instanceVariableNames: 'guest roomStatus'
+	instanceVariableNames: 'roomStatus'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'ISW1-2024-1C-Parcial'!
-
-!Room methodsFor: 'guests' stamp: 'FRT 4/21/2024 00:18:42'!
-guestType
-
-	^ guest! !
 
 !Room methodsFor: 'guests' stamp: 'ml 9/25/2024 19:56:08'!
 initialize
@@ -1227,11 +1204,10 @@ receive: aGuestType
 		ifFalse: [  guest := aGuestType .
 				roomStatus := Occupied new]"! !
 
-!Room methodsFor: 'guests' stamp: 'ml 9/25/2024 21:30:25'!
+!Room methodsFor: 'guests' stamp: 'ml 9/26/2024 12:26:05'!
 receiveWhenRoomAvailable: aGuestType
 
-	guest := aGuestType .
-	roomStatus := Occupied new.! !
+	roomStatus := Occupied with: aGuestType .! !
 
 !Room methodsFor: 'guests' stamp: 'ml 9/25/2024 22:27:52'!
 receiveWhenRoomOccupiedOrReserved
@@ -1255,11 +1231,11 @@ receiveWithReservationWhenRoomIsAvailableOrOccupied
 	self error: self class roomIsNotReservedErrorDescription
 ! !
 
-!Room methodsFor: 'guests' stamp: 'ml 9/25/2024 22:34:10'!
+!Room methodsFor: 'guests' stamp: 'ml 9/26/2024 12:26:32'!
 receiveWithReservationWhenRoomIsReserved: aGuestType
 	
-	guest := aGuestType .
-	roomStatus := Occupied new.! !
+
+	roomStatus := Occupied with: aGuestType .! !
 
 !Room methodsFor: 'guests' stamp: 'ml 9/25/2024 21:21:02'!
 reserve
@@ -1297,20 +1273,21 @@ isReserved
 	"guest = #reserved"! !
 
 
-!Room methodsFor: 'accounting' stamp: 'ml 9/25/2024 20:03:28'!
+!Room methodsFor: 'accounting' stamp: 'ml 9/26/2024 12:06:33'!
 profitUsing: aPriceList ifAbsentGuestType: unknownGuestTypeBlock
 
-	"Room Available"
-	self isAvailable ifTrue: [ ^ 0*peso ].
 
-	"Room Reserved"
-	self isReserved ifTrue: [ ^ aPriceList values min / 2 ].
-	
-	"Room Occupied"
-	(self isOccupied ) ifTrue: [ ^ aPriceList at: guest ifAbsent: unknownGuestTypeBlock ].
-	
-	! !
+	^roomStatus profitUsing: aPriceList ifAbsentGuestType: unknownGuestTypeBlock.
+		! !
 
+
+
+!Room methodsFor: 'as yet unclassified' stamp: 'ml 9/26/2024 17:19:37'!
+lossUsing: aPriceList ifAbsentGuestType: aGuestType 
+	
+	^ roomStatus lossUsing: aPriceList ifAbsentGuestType: aGuestType .
+	"aPriceList values max" 
+		"self assert: self maxPriceInList equals: (room lossUsing: self defaultPriceList ifAbsentGuestType: [ self fail ])."! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -1367,6 +1344,12 @@ reserveARoom: aRoom
 
 	self subclassResponsibility! !
 
+
+!RoomStatus methodsFor: 'profitUsing' stamp: 'ml 9/26/2024 12:24:55'!
+profitUsing: aPriceList ifAbsentGuestType: unknownGuestTypeBlock 
+
+	self subclassResponsibility .! !
+
 
 !classDefinition: #Available category: #'ISW1-2024-1C-Parcial'!
 RoomStatus subclass: #Available
@@ -1406,10 +1389,25 @@ reserveARoom: aRoom
 
 	aRoom reserveWhenRoomIsAvailable.! !
 
+
+!Available methodsFor: 'profitUsing' stamp: 'ml 9/26/2024 12:08:52'!
+profitUsing: aPriceList ifAbsentGuestType: unknownGuestTypeBlock 
+	
+	 ^ 0*peso 
+
+	
+! !
+
+
+!Available methodsFor: 'as yet unclassified' stamp: 'ml 9/26/2024 17:20:05'!
+lossUsing: aPriceList ifAbsentGuestType: aGuestType 
+	
+	^aPriceList values max.! !
+
 
 !classDefinition: #Occupied category: #'ISW1-2024-1C-Parcial'!
 RoomStatus subclass: #Occupied
-	instanceVariableNames: ''
+	instanceVariableNames: 'guestType'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'ISW1-2024-1C-Parcial'!
@@ -1443,6 +1441,37 @@ receiveWithReservation: aGuestType in: aRoom
 reserveARoom: aRoom
 
 	aRoom reserveWhenRoomIsOccupiedOrReserved .! !
+
+
+!Occupied methodsFor: 'initialize' stamp: 'ml 9/26/2024 12:24:07'!
+initialize: aGuessType
+
+	guestType := aGuessType .! !
+
+
+!Occupied methodsFor: 'profitUsing' stamp: 'ml 9/26/2024 12:21:11'!
+profitUsing: aPriceList ifAbsentGuestType: unknownGuestTypeBlock 
+	
+	^ aPriceList at: guestType ifAbsent: unknownGuestTypeBlock 
+	
+! !
+
+
+!Occupied methodsFor: 'as yet unclassified' stamp: 'ml 9/26/2024 17:22:01'!
+lossUsing: aPriceList ifAbsentGuestType: aGuestType 
+
+	^0*peso.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Occupied class' category: #'ISW1-2024-1C-Parcial'!
+Occupied class
+	instanceVariableNames: ''!
+
+!Occupied class methodsFor: 'as yet unclassified' stamp: 'ml 9/26/2024 12:23:28'!
+with: aGuestType
+
+	^ Occupied new initialize: aGuestType .! !
 
 
 !classDefinition: #Reserved category: #'ISW1-2024-1C-Parcial'!
@@ -1481,3 +1510,17 @@ receiveWithReservation: aGuestType in: aRoom
 reserveARoom: aRoom
 
 	aRoom reserveWhenRoomIsOccupiedOrReserved .! !
+
+
+!Reserved methodsFor: 'profitUsing' stamp: 'ml 9/26/2024 12:10:07'!
+profitUsing: aPriceList ifAbsentGuestType: unknownGuestTypeBlock 
+
+	^ aPriceList values min / 2
+	
+! !
+
+
+!Reserved methodsFor: 'as yet unclassified' stamp: 'ml 9/26/2024 17:21:17'!
+lossUsing: aPriceList ifAbsentGuestType: aGuestType 
+	
+	^ 0*peso.! !
