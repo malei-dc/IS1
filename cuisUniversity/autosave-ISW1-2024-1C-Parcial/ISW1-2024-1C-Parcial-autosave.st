@@ -1113,12 +1113,12 @@ receiveWithReservation: aGuestType atFloor: aFloorNumber atRoom: aRoomNumber
 
 ! !
 
-!Hotel methodsFor: 'guests' stamp: 'ml 9/27/2024 14:15:13'!
+!Hotel methodsFor: 'guests' stamp: 'ml 9/26/2024 14:43:48'!
 reserveRoom: aRoomNumber atFloor: aFloorNumber
 
 	| room |
 	room := self roomAt: aRoomNumber inFloor: aFloorNumber.
-	(room) reserve.
+	room reserve.
 	
 	availableRoomsCount := availableRoomsCount - 1.
 ! !

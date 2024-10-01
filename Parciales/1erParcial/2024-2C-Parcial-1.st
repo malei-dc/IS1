@@ -179,6 +179,25 @@ test12UnaEspadaNuncaPuedeSerUsadaEnMonstruosDeMenosDeUnMetro
 	]
 	! !
 
+!TestMyA methodsFor: 'tests' stamp: 'ml 10/1/2024 02:13:13'!
+test13UnAventureroDerrotadoNoDebePoderAtacar
+
+	| espada mago ogro |
+	
+	ogro := self crearOgro .
+	espada := self crearEspadaPara: ogro.
+	mago := self crearMago .
+	
+	mago equiparItemDeAtaque: espada.
+	mago atacarA: ogro con: espada .
+	
+	self should: [ mago atacarA: ogro con: espada ] 
+		raise: Error - MessageNotUnderstood 
+		withExceptionDo: [ :anException |
+		self assert: anException messageText equals: mago noSePuedeAtacarEstandoMuertoError
+	]
+	! !
+
 
 !TestMyA methodsFor: 'crear items' stamp: 'ml 9/30/2024 22:42:58'!
 crearArmadura
@@ -238,18 +257,19 @@ initialize
 
 !classDefinition: #Aventurero category: #'2024-2C-Parcial-1'!
 Object subclass: #Aventurero
-	instanceVariableNames: 'fuerza puntosVida itemsDefEquipado itemAtkEquipado'
+	instanceVariableNames: 'fuerza puntosVida itemsDefEquipado itemAtkEquipado estado'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: '2024-2C-Parcial-1'!
 
-!Aventurero methodsFor: 'initialization' stamp: 'ml 9/30/2024 14:54:59'!
+!Aventurero methodsFor: 'initialization' stamp: 'ml 10/1/2024 02:16:29'!
 inicializarConFuerza: cantFuerza yPv: cantPv
 
 	fuerza := cantFuerza .
 	puntosVida := cantPv .
 	itemsDefEquipado := OrderedCollection new.
-	itemAtkEquipado := Dictionary new! !
+	itemAtkEquipado := Dictionary new.
+	estado := Vivo new.! !
 
 
 !Aventurero methodsFor: 'testing' stamp: 'ml 9/30/2024 15:01:19'!
@@ -263,20 +283,28 @@ eliminarDuplicados
 
 	^ itemsDefEquipado asSet! !
 
-!Aventurero methodsFor: 'siendo atacado' stamp: 'ml 9/30/2024 14:54:59'!
+!Aventurero methodsFor: 'siendo atacado' stamp: 'ml 10/1/2024 02:21:08'!
 esAtacadoPorUnMonstruoCon: unaCantPvDeDaño
 
 	
-	puntosVida := puntosVida - ((0 *puntosVida) max: ((unaCantPvDeDaño) -  (self sumarTodosLosPuntosDeDef) ))! !
+	puntosVida := puntosVida - ((0 *pv) max: ((unaCantPvDeDaño) -  (self sumarTodosLosPuntosDeDef) )).
+	((puntosVida) <= (0*pv)) ifTrue: [estado := Muerto new].
 
-!Aventurero methodsFor: 'siendo atacado' stamp: 'ml 9/30/2024 22:47:46'!
+	! !
+
+!Aventurero methodsFor: 'siendo atacado' stamp: 'ml 10/1/2024 00:51:41'!
+sumarTodosLosItems: itemsCollection
+
+	^ itemsCollection notEmpty ifTrue: [itemsCollection sum:[ :items | items puntosDefendido]] ifFalse: [0]! !
+
+!Aventurero methodsFor: 'siendo atacado' stamp: 'ml 10/1/2024 00:52:42'!
 sumarTodosLosPuntosDeDef
  
-	| itemsUnicos totalDef |
+	| itemsUnicosEquipados totalDef |
 	
-	itemsUnicos := self eliminarDuplicados. 
+	itemsUnicosEquipados := self eliminarDuplicados. 
       
-	totalDef := itemsUnicos notEmpty ifTrue: [itemsUnicos sum:[ :items | items puntosDefendido]] ifFalse: [0].
+	totalDef := self sumarTodosLosItems: itemsUnicosEquipados.
 
 	^ totalDef.! !
 
@@ -296,11 +324,22 @@ itemNoDisponibleMensajeDeError
 	
 	^'Item no equipado'! !
 
+!Aventurero methodsFor: 'mensajes error' stamp: 'ml 10/1/2024 02:28:36'!
+noSePuedeAtacarEstandoMuertoError
+	
+	^'No se puede atacar estando muerto'! !
+
 
 !Aventurero methodsFor: 'atacar' stamp: 'ml 9/30/2024 20:53:43'!
 atacarA: unMonstruo con: unItemAtaque
 
 	self subclassResponsibility! !
+
+
+!Aventurero methodsFor: 'excepciones' stamp: 'ml 10/1/2024 02:30:14'!
+noPuedeAtacar
+	
+	self error: self noSePuedeAtacarEstandoMuertoError .! !
 
 
 !classDefinition: #Guerrero category: #'2024-2C-Parcial-1'!
@@ -310,18 +349,12 @@ Aventurero subclass: #Guerrero
 	poolDictionaries: ''
 	category: '2024-2C-Parcial-1'!
 
-!Guerrero methodsFor: 'atacar' stamp: 'ml 9/30/2024 22:17:15'!
+!Guerrero methodsFor: 'atacar' stamp: 'ml 10/1/2024 02:25:43'!
 atacarA: unMonstruo con: unItemAtaque 
 
+	estado quieroAtacar: self.
 	itemAtkEquipado at: unItemAtaque 
-		ifPresent: [  :item| 			(item class = Espada) ifTrue: [ (item coincideObjetivo: unMonstruo) 
-							ifTrue: [unMonstruo recibeDañoDeGuerreroConEspadaCon: fuerza].
-							].
-						 (item class = Baculo ) ifTrue: [ 
-							unMonstruo recibeDañoDeGuerreroConBaculoCon: fuerza .
-							]
-
-		] 
+		ifPresent: [  :item| 			item esUsadoPorGuerrero: self paraAtacar: unMonstruo con: fuerza]
 		ifAbsent: [self error: self itemNoDisponibleMensajeDeError].! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
@@ -343,18 +376,25 @@ Aventurero subclass: #Mago
 	poolDictionaries: ''
 	category: '2024-2C-Parcial-1'!
 
-!Mago methodsFor: 'atacar' stamp: 'ml 9/30/2024 22:15:33'!
+!Mago methodsFor: 'atacar' stamp: 'ml 10/1/2024 01:32:31'!
+ataca: unMonstruo usando: unaCantDeFuerza 
+
+	unMonstruo recibeDañoDeMagoConBaculoCon: fuerza .
+	! !
+
+!Mago methodsFor: 'atacar' stamp: 'ml 10/1/2024 02:25:58'!
 atacarA: unMonstruo con: unItemAtaque 
 
+	estado quieroAtacar: self.
 	itemAtkEquipado at: unItemAtaque 
-		ifPresent: [ :item| 			(item class = Espada) ifTrue: [ (item coincideObjetivo: unMonstruo) 
-							ifTrue: [puntosVida := 0].
-							].
-						 (item class = Baculo ) ifTrue: [ 
-							unMonstruo recibeDañoDeMagoConBaculoCon: fuerza .
-							]
-		]
+		ifPresent: [ :item| 			item esUsadoPorMago: self paraAtacar: unMonstruo con: fuerza.		]
 		ifAbsent: [self error: self itemNoDisponibleMensajeDeError].! !
+
+!Mago methodsFor: 'atacar' stamp: 'ml 10/1/2024 02:17:44'!
+pierdePuntosDeVidaAlUsarEspada
+	puntosVida := 0.
+	estado := Muerto new.! !
+
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -368,12 +408,62 @@ conFuerza: cantFuerza yPv: cantPv
 	^ Mago new inicializarConFuerza: cantFuerza yPv: cantPv! !
 
 
+!classDefinition: #EstadoAventurero category: #'2024-2C-Parcial-1'!
+Object subclass: #EstadoAventurero
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '2024-2C-Parcial-1'!
+
+!EstadoAventurero methodsFor: 'as yet unclassified' stamp: 'ml 10/1/2024 02:32:01'!
+quieroAtacar: aMago
+
+	self subclassResponsibility! !
+
+
+!classDefinition: #Muerto category: #'2024-2C-Parcial-1'!
+EstadoAventurero subclass: #Muerto
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '2024-2C-Parcial-1'!
+
+!Muerto methodsFor: 'as yet unclassified' stamp: 'ml 10/1/2024 02:29:21'!
+quieroAtacar: aMago 
+	
+	aMago noPuedeAtacar.! !
+
+
+!classDefinition: #Vivo category: #'2024-2C-Parcial-1'!
+EstadoAventurero subclass: #Vivo
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '2024-2C-Parcial-1'!
+
+!Vivo methodsFor: 'as yet unclassified' stamp: 'ml 10/1/2024 02:27:26'!
+quieroAtacar: unAventurero 
+	
+	^self.! !
+
+
 !classDefinition: #ItemAtaque category: #'2024-2C-Parcial-1'!
 Object subclass: #ItemAtaque
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: '2024-2C-Parcial-1'!
+
+!ItemAtaque methodsFor: 'usado por mago' stamp: 'ml 10/1/2024 01:50:12'!
+esUsadoPorMago: unMago paraAtacar: unMonstruo con: unaCantDeFuerza
+
+	self subclassResponsibility! !
+
+
+!ItemAtaque methodsFor: 'usado por guerrero' stamp: 'ml 10/1/2024 01:54:07'!
+esUsadoPorGuerrero: unGuerrero paraAtacar: unMonstruo con: cantFuerza
+
+	self subclassResponsibility! !
 
 
 !classDefinition: #Baculo category: #'2024-2C-Parcial-1'!
@@ -383,6 +473,19 @@ ItemAtaque subclass: #Baculo
 	poolDictionaries: ''
 	category: '2024-2C-Parcial-1'!
 
+!Baculo methodsFor: 'usado por mago' stamp: 'ml 10/1/2024 01:50:12'!
+esUsadoPorMago: unMago paraAtacar: unMonstruo con: unaCantDeFuerza 
+	
+	unMago ataca: unMonstruo usando: unaCantDeFuerza.
+! !
+
+
+!Baculo methodsFor: 'usado por guerrero' stamp: 'ml 10/1/2024 01:53:03'!
+esUsadoPorGuerrero: unGuerrero paraAtacar: unMonstruo con: cantFuerza 
+
+	unMonstruo recibeDañoDeGuerreroConBaculoCon: cantFuerza .
+	! !
+
 
 !classDefinition: #Espada category: #'2024-2C-Parcial-1'!
 ItemAtaque subclass: #Espada
@@ -391,15 +494,28 @@ ItemAtaque subclass: #Espada
 	poolDictionaries: ''
 	category: '2024-2C-Parcial-1'!
 
-!Espada methodsFor: 'as yet unclassified' stamp: 'ml 9/30/2024 21:54:23'!
+!Espada methodsFor: 'usado por mago' stamp: 'ml 10/1/2024 01:50:13'!
+esUsadoPorMago: unMago paraAtacar: unMonstruo con: unaCantDeFuerza 
+	
+	unMago pierdePuntosDeVidaAlUsarEspada .! !
+
+
+!Espada methodsFor: 'initialization' stamp: 'ml 9/30/2024 15:06:56'!
+fijarObjetivo: unMonstruo
+
+	objetivo := unMonstruo .! !
+
+
+!Espada methodsFor: 'checkeo objetivo' stamp: 'ml 9/30/2024 21:54:23'!
 coincideObjetivo: unMonstruo 
 	
 	^ objetivo = unMonstruo .! !
 
-!Espada methodsFor: 'as yet unclassified' stamp: 'ml 9/30/2024 15:06:56'!
-fijarObjetivo: unMonstruo
 
-	objetivo := unMonstruo .! !
+!Espada methodsFor: 'usado por guerrero' stamp: 'ml 10/1/2024 01:51:38'!
+esUsadoPorGuerrero: unGuerrero paraAtacar: unMonstruo con: cantFuerza 
+	
+	(self coincideObjetivo: unMonstruo) ifTrue: [unMonstruo recibeDañoDeGuerreroConEspadaCon: cantFuerza ].! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -427,10 +543,10 @@ Object subclass: #ItemDefensa
 	poolDictionaries: ''
 	category: '2024-2C-Parcial-1'!
 
-!ItemDefensa methodsFor: 'as yet unclassified' stamp: 'ml 9/30/2024 22:43:46'!
+!ItemDefensa methodsFor: 'as yet unclassified' stamp: 'ml 10/1/2024 01:57:42'!
 puntosDefendido
 
-	self subclassResponsibility! !
+	^ cubre ! !
 
 
 !classDefinition: #Armadura category: #'2024-2C-Parcial-1'!
@@ -440,14 +556,9 @@ ItemDefensa subclass: #Armadura
 	poolDictionaries: ''
 	category: '2024-2C-Parcial-1'!
 
-!Armadura methodsFor: 'as yet unclassified' stamp: 'ml 9/30/2024 22:42:29'!
+!Armadura methodsFor: 'initialization' stamp: 'ml 9/30/2024 22:42:29'!
 initialize 
 	cubre := 5 * pv! !
-
-!Armadura methodsFor: 'as yet unclassified' stamp: 'ml 9/30/2024 22:43:56'!
-puntosDefendido
-
-	^ cubre .! !
 
 
 !classDefinition: #EscudoMagico category: #'2024-2C-Parcial-1'!
@@ -457,15 +568,10 @@ ItemDefensa subclass: #EscudoMagico
 	poolDictionaries: ''
 	category: '2024-2C-Parcial-1'!
 
-!EscudoMagico methodsFor: 'as yet unclassified' stamp: 'ml 9/30/2024 22:42:47'!
+!EscudoMagico methodsFor: 'initialization' stamp: 'ml 9/30/2024 22:42:47'!
 initialize 
 	
 	cubre  := 3 * pv! !
-
-!EscudoMagico methodsFor: 'as yet unclassified' stamp: 'ml 9/30/2024 22:44:10'!
-puntosDefendido
-
-	^cubre ! !
 
 
 !classDefinition: #Monstruo category: #'2024-2C-Parcial-1'!
@@ -480,6 +586,11 @@ inicializarCon: unaAltura yPv: cantPv
 
 	altura := unaAltura.
 	puntosVida := cantPv .! !
+
+!Monstruo methodsFor: 'initialization' stamp: 'ml 9/30/2024 22:33:21'!
+midoMenosDeUnMetro
+
+	^ altura < (100 * centimeter )! !
 
 
 !Monstruo methodsFor: 'testing' stamp: 'ml 9/30/2024 21:56:21'!
@@ -509,12 +620,6 @@ recibeDañoDeGuerreroConEspadaCon: cantFuerza
 recibeDañoDeMagoConBaculoCon: cantFuerza
 
 	self subclassResponsibility .! !
-
-
-!Monstruo methodsFor: 'as yet unclassified' stamp: 'ml 9/30/2024 22:33:21'!
-midoMenosDeUnMetro
-
-	^ altura < (100 * centimeter )! !
 
 
 !classDefinition: #Goblin category: #'2024-2C-Parcial-1'!
