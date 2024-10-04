@@ -37,9 +37,9 @@ En la materia trabajamos en un ambiente para la enseñanza de Programación Otie
 * [Parte 1](/Ejercicios/Parte1/): Introducción al paradigma, el lenguaje y sus herramientas
 * Parte 2: Sacar código repetido, sacar ifs cumpliendo con heurísticas de diseño
 
-    * 01-EliminarCodRepe: [Enunciado](/Ejercicios/Parte2/01-EliminarCodRepe/) - [Solución propia]() - [Soluciones de la cátedra]() - [Archivo original]()
-    * 02-EliminarIfs:
-    * 03-Perforaciones:
+    * 01-EliminarCodRepe: [Enunciado](/Ejercicios/Parte2/01-EliminarCodRepe/) - [Solución propia](/Ejercicios/Parte2/01-EliminarCodRepe/CodigoRepetido-Ejercicio.st) - [Soluciones de la cátedra](/Ejercicios/Parte2/01-EliminarCodRepe/Soluciones/) - [Archivo original](/Ejercicios/Parte2/01-EliminarCodRepe/[Ori]CodigoRepetido-Ejercicio.st)
+    * 02-EliminarIfs: [Enunciado](/Ejercicios/Parte2/02-EliminarIfs/) - [Solución propia](/Ejercicios/Parte2/02-EliminarIfs/Resolución/) - [Solución de la cátedra](/Ejercicios/Parte2/02-EliminarIfs/Solución/) - [Archivos originales](/Ejercicios/Parte2/02-EliminarIfs/Original/) 
+    * 03-Perforaciones: [Enunciado](/Ejercicios/Parte2/03-Perforaciones/Enunciado-ISW1-Perforaciones.pdf) - [Solución propia](/Ejercicios/Parte2/03-Perforaciones/ISW1-Perforaciones.st) - [Solución de la cátedra](/Ejercicios/Parte2/03-Perforaciones/[Solucion]ISW1-Perforaciones.st) - [Archivo original](/Ejercicios/Parte2/03-Perforaciones/[Ori]ISW1-Perforaciones.st)
     * 04-stack
     * 05-penales
     * 06-hotels
