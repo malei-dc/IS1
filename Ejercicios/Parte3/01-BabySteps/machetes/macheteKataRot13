@@ -1,0 +1,31 @@
+(Character codePoint: $` codePoint) > (Character codePoint: $m codePoint) 
+(Character codePoint: $z codePoint + 1). 
+$` asciiValue   96 .
+$m asciiValue    109 .
+$m < $n
+(Character codePoint: $` codePoint) > (Character codePoint: $m codePoint)  true .
+(Character codePoint: $` codePoint) <= (Character codePoint: $z codePoint)   false .
+
+	(self codePoint between: $a codePoint and: $m codePoint) ifTrue:
+		[ ^ Character codePoint: self codePoint + 13 ].
+	(self codePoint between: $n codePoint and: $z codePoint) ifTrue:
+		[ ^ Character codePoint: self codePoint - 13 ].
+	^ self
+	
+	(self asLowercase codePoint between: $a codePoint and: $m codePoint) ifTrue:
+		[ ^ Character codePoint: self codePoint + 13 ].
+	(self codePoint between: $n codePoint and: $z codePoint) ifTrue:
+		[ ^ Character codePoint: self codePoint - 13 ].
+	^ self
+	
+	self isEmpty ifTrue: [ ^ '' ].
+	^self first asRot13 asString
+	
+	self isEmpty ifTrue: [ ^ '' ].
+	self size = 1 ifTrue:[ ^ self first asRot13 asString ].
+	^ self first asRot13 asString, (self at:2) asRot13 asString
+	
+	^ self collect: [ :aChar | aChar asRot13 ].
+	
+TDDBabyStepsGameContador start a TDDBabyStepsGameContador .
+TDDBabyStepsBadgesAchievementsWindow open TDDBabyStepsBadgesAchievementsWindow .
