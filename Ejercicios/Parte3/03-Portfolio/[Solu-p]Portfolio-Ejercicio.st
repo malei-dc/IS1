@@ -101,6 +101,12 @@ value
 
 	self subclassResponsibility ! !
 
+
+!AccountTransaction methodsFor: 'add to balance' stamp: 'ml 10/17/2024 12:40:06'!
+addToBalanceIn: anAccount
+
+	self subclassResponsibility! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'AccountTransaction class' category: #'Portfolio-Ejercicio'!
@@ -136,6 +142,12 @@ value
 
 	^ value! !
 
+
+!Deposit methodsFor: 'add to balance' stamp: 'ml 10/17/2024 13:20:37'!
+addToBalanceIn: anAccount
+
+	anAccount addADepositToBalance: value.! !
+
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
 !classDefinition: 'Deposit class' category: #'Portfolio-Ejercicio'!
@@ -165,6 +177,12 @@ initializeFor: aValue
 value
 
 	^ value! !
+
+
+!Withdraw methodsFor: 'add to balance' stamp: 'ml 10/17/2024 13:20:32'!
+addToBalanceIn: anAccount
+
+	anAccount addAWithdrawToBalance: value.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -204,14 +222,29 @@ transactions
 	^ transactions copy! !
 
 
-!ReceptiveAccount methodsFor: 'balance' stamp: 'ml 10/15/2024 21:56:33'!
+!ReceptiveAccount methodsFor: 'balance' stamp: 'ml 10/17/2024 12:41:36'!
+addADepositToBalance: aDepositValueToAdd
+
+	^ balanceState := balanceState + aDepositValueToAdd! !
+
+!ReceptiveAccount methodsFor: 'balance' stamp: 'ml 10/17/2024 13:14:36'!
+addAWithdrawToBalance: aWithdrawValueToSustract
+
+	^ balanceState := balanceState - aWithdrawValueToSustract! !
+
+!ReceptiveAccount methodsFor: 'balance' stamp: 'ml 10/17/2024 12:42:37'!
 balance
 	
-	transactions do: [ :aTransaction | aTransaction class = Deposit  ifTrue: [ 
-			balanceState := balanceState + aTransaction value.] ifFalse: [balanceState := balanceState - aTransaction value.] 	].
+	self calculateBalance.
+	
 	^balanceState .
 	
 	"^transactions sum: [ :aTransaction | aTransaction class = Deposit  ifTrue: [ aTransaction value] ifFalse: [ 0 - (aTransaction value)] 	] ifEmpty: [ 0 ]"! !
+
+!ReceptiveAccount methodsFor: 'balance' stamp: 'ml 10/17/2024 12:42:37'!
+calculateBalance
+
+	^ transactions do: [ :aTransaction | aTransaction addToBalanceIn: self	]! !
 
 
 !ReceptiveAccount methodsFor: 'testing' stamp: 'NR 10/17/2019 03:28:43'!
