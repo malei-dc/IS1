@@ -41,8 +41,8 @@ test03unPortfolioConDosCuentaQueSumanBalance300DebeTenerBalance300
 	
 	self assert: 300 equals: porfolito balancePortfolio.! !
 
-!PortfolioTest methodsFor: 'test' stamp: 'ml 10/21/2024 13:31:44'!
-test04
+!PortfolioTest methodsFor: 'test' stamp: 'ml 10/22/2024 01:07:32'!
+test04unPortfolioConCuentaYPortfolio
 
 	| porfolito  cuentita porfolito2 cuentita2 |
 	porfolito := Portfolio new.
@@ -59,6 +59,29 @@ test04
 	porfolito addPortfolio: porfolito2.
 	
 	self assert: 300 equals: porfolito balancePortfolio.! !
+
+!PortfolioTest methodsFor: 'test' stamp: 'ml 10/22/2024 01:16:46'!
+test05unPortfolioConDosPortfolioYUnaCuenta
+
+	| porfolito  cuentita porfolito2 cuentita2 porfolito3 cuentita3 |
+	porfolito := Portfolio new.
+	porfolito2 := Portfolio new.
+	porfolito3 := Portfolio new.
+	
+	cuentita := ReceptiveAccount new.
+	Deposit register: 100 on: cuentita.
+	cuentita2 := ReceptiveAccount new.
+	Deposit register: 200 on: cuentita2.
+	cuentita3 := ReceptiveAccount new.
+	Deposit register: 2000 on: cuentita3.
+	
+	porfolito2 addReceptiveAccount: cuentita2.
+	porfolito3 addReceptiveAccount: cuentita.
+	porfolito addPortfolio: porfolito2.
+	porfolito addPortfolio: porfolito3.
+	porfolito addReceptiveAccount: cuentita3.
+	
+	self assert: 2300 equals: porfolito balancePortfolio.! !
 
 
 !classDefinition: #ReceptiveAccountTest category: #'Portfolio-Ejercicio'!
@@ -266,33 +289,33 @@ Object subclass: #Portfolio
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!Portfolio methodsFor: 'initialization' stamp: 'ml 10/21/2024 16:18:26'!
+!Portfolio methodsFor: 'initialization' stamp: 'ml 10/22/2024 01:10:55'!
 initialize 
 
 	balanceStatePortfolio := 0.
 	accounts := OrderedCollection new.
-	portfolio := nil.! !
+	portfolio := OrderedCollection new.! !
 
 
-!Portfolio methodsFor: 'balance' stamp: 'ml 10/21/2024 16:21:08'!
+!Portfolio methodsFor: 'balance' stamp: 'ml 10/22/2024 01:14:58'!
 balancePortfolio
 	
 	accounts ifNotEmpty: [
 			balanceStatePortfolio := accounts sum: [ :unaCuenta | unaCuenta balance].
 		].
 	
-	portfolio ifNotNil: [
-		balanceStatePortfolio := balanceStatePortfolio + (portfolio balancePortfolio) .
+	portfolio ifNotEmpty: [
+			balanceStatePortfolio := balanceStatePortfolio + (portfolio sum:[ :aPortfolio | aPortfolio balancePortfolio ]) .
 		]. 
 	
 	^balanceStatePortfolio 
 ! !
 
 
-!Portfolio methodsFor: 'add' stamp: 'ml 10/21/2024 13:34:06'!
+!Portfolio methodsFor: 'add' stamp: 'ml 10/22/2024 01:11:24'!
 addPortfolio: aPortfolioToAdd 
 
-	portfolio := aPortfolioToAdd.! !
+	portfolio add: aPortfolioToAdd .! !
 
 !Portfolio methodsFor: 'add' stamp: 'ml 10/21/2024 16:18:02'!
 addReceptiveAccount: cuentita 
