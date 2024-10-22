@@ -1,3 +1,66 @@
+!classDefinition: #PortfolioTest category: #'Portfolio-Ejercicio'!
+TestCase subclass: #PortfolioTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!PortfolioTest methodsFor: 'test' stamp: 'ml 10/21/2024 13:31:10'!
+test01unPortfolioVacioDebeTener0DeBalance
+
+	| porfolito |
+	porfolito := Portfolio new.
+	
+	self assert: 0 equals: porfolito balancePortfolio.! !
+
+!PortfolioTest methodsFor: 'test' stamp: 'ml 10/21/2024 13:31:22'!
+test02unPortfolioConUnaCuentaBalance100DebeTenerBalance100
+
+	| porfolito  cuentita |
+	porfolito := Portfolio new.
+	cuentita := ReceptiveAccount new.
+	Deposit register: 100 on: cuentita.
+	
+	porfolito addReceptiveAccount: cuentita.
+	
+	self assert: 100 equals: porfolito balancePortfolio.! !
+
+!PortfolioTest methodsFor: 'test' stamp: 'ml 10/21/2024 13:31:33'!
+test03unPortfolioConDosCuentaQueSumanBalance300DebeTenerBalance300
+
+	| porfolito  cuentita cuentita2 |
+	porfolito := Portfolio new.
+	cuentita := ReceptiveAccount new.
+	Deposit register: 100 on: cuentita.
+	
+	cuentita2 := ReceptiveAccount new.
+	Deposit register: 200 on: cuentita2.
+	
+	porfolito addReceptiveAccount: cuentita.
+	porfolito addReceptiveAccount: cuentita2.
+	
+	self assert: 300 equals: porfolito balancePortfolio.! !
+
+!PortfolioTest methodsFor: 'test' stamp: 'ml 10/21/2024 13:31:44'!
+test04
+
+	| porfolito  cuentita porfolito2 cuentita2 |
+	porfolito := Portfolio new.
+	cuentita := ReceptiveAccount new.
+	Deposit register: 100 on: cuentita.
+	
+	porfolito2 := Portfolio new.
+	cuentita2 := ReceptiveAccount new.
+	Deposit register: 200 on: cuentita2.
+	
+	porfolito2 addReceptiveAccount: cuentita2.
+	
+	porfolito addReceptiveAccount: cuentita.
+	porfolito addPortfolio: porfolito2.
+	
+	self assert: 300 equals: porfolito balancePortfolio.! !
+
+
 !classDefinition: #ReceptiveAccountTest category: #'Portfolio-Ejercicio'!
 TestCase subclass: #ReceptiveAccountTest
 	instanceVariableNames: ''
@@ -194,6 +257,47 @@ Withdraw class
 for: aValue
 
 	^ self new initializeFor: aValue ! !
+
+
+!classDefinition: #Portfolio category: #'Portfolio-Ejercicio'!
+Object subclass: #Portfolio
+	instanceVariableNames: 'balanceStatePortfolio accounts portfolio'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Ejercicio'!
+
+!Portfolio methodsFor: 'initialization' stamp: 'ml 10/21/2024 16:18:26'!
+initialize 
+
+	balanceStatePortfolio := 0.
+	accounts := OrderedCollection new.
+	portfolio := nil.! !
+
+
+!Portfolio methodsFor: 'balance' stamp: 'ml 10/21/2024 16:21:08'!
+balancePortfolio
+	
+	accounts ifNotEmpty: [
+			balanceStatePortfolio := accounts sum: [ :unaCuenta | unaCuenta balance].
+		].
+	
+	portfolio ifNotNil: [
+		balanceStatePortfolio := balanceStatePortfolio + (portfolio balancePortfolio) .
+		]. 
+	
+	^balanceStatePortfolio 
+! !
+
+
+!Portfolio methodsFor: 'add' stamp: 'ml 10/21/2024 13:34:06'!
+addPortfolio: aPortfolioToAdd 
+
+	portfolio := aPortfolioToAdd.! !
+
+!Portfolio methodsFor: 'add' stamp: 'ml 10/21/2024 16:18:02'!
+addReceptiveAccount: cuentita 
+	
+	accounts add: cuentita .! !
 
 
 !classDefinition: #ReceptiveAccount category: #'Portfolio-Ejercicio'!
