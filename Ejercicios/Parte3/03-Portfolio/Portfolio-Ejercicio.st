@@ -115,8 +115,51 @@ test07unPortfolioHaRegistradoLaTransaccion
 	
 	self assert: true equals: (porfolito hasRegistered: transaccion).! !
 
-!PortfolioTest methodsFor: 'test' stamp: 'ml 10/24/2024 16:01:39'!
-test08unPortfolioReconoceUnaTransaccion
+!PortfolioTest methodsFor: 'test' stamp: 'ml 10/24/2024 18:51:08'!
+test08unPortfolioHaRegistradoLaTransaccionDentroDeOtroPortfolio
+
+	| porfolito  cuentita cuentita2 transaccion porfolito2 |
+	porfolito := Portfolio new.
+	
+	cuentita := ReceptiveAccount new.
+	Deposit register: 100 on: cuentita.
+	cuentita2 := ReceptiveAccount new.
+	transaccion :=  Deposit register: 200 on: cuentita2.
+	
+	porfolito2 := Portfolio new.
+	
+	porfolito addReceptiveAccount: cuentita2.
+	porfolito2 addPortfolio: porfolito.
+	
+	self assert: true equals: (porfolito2 hasRegistered: transaccion).! !
+
+!PortfolioTest methodsFor: 'test' stamp: 'ml 10/24/2024 20:19:18'!
+test09unPortfolioHaRegistradoDosTransaccionesDentroDeDosPortfolioDistintos
+
+	| porfolito  cuentita cuentita2 transaccion porfolito2 transaccion2 porfolito1 |
+	
+	"portfolio con transaccion2"
+	porfolito1 := Portfolio new.
+	cuentita := ReceptiveAccount new.
+	transaccion2 := Deposit register: 200 on: cuentita.
+	porfolito1 addReceptiveAccount: cuentita .
+	
+	"portfolio con transaccion"
+	porfolito := Portfolio new.
+	cuentita2 := ReceptiveAccount new.
+	transaccion := Deposit register: 200 on: cuentita2.
+	porfolito addReceptiveAccount: cuentita2.
+	
+	"porfolio contenedor"
+	porfolito2 := Portfolio new.
+	porfolito2 addPortfolio: porfolito.
+	porfolito2 addPortfolio: porfolito1.
+	
+	self assert: true equals: (porfolito2 hasRegistered: transaccion).
+	self assert: true equals: (porfolito2 hasRegistered: transaccion2)! !
+
+!PortfolioTest methodsFor: 'test' stamp: 'ml 10/24/2024 20:19:28'!
+test10unPortfolioReconoceUnaTransaccion
 
 	| porfolito  cuentita2 deposit1 |
 	porfolito := Portfolio new.
@@ -127,12 +170,12 @@ test08unPortfolioReconoceUnaTransaccion
 	
 	porfolito addReceptiveAccount: cuentita2.
 	
-	self assert: 1 equals: ((porfolito transactions) first) transactions  size.
-	self assert: ((((porfolito transactions) first) transactions ) includes: deposit1)
+	self assert: 1 equals: (porfolito transactions)  size.
+	self assert: ((porfolito transactions) includes: deposit1)
 	! !
 
-!PortfolioTest methodsFor: 'test' stamp: 'ml 10/24/2024 16:01:18'!
-test09unPortfolioReconoceDosTransacciones
+!PortfolioTest methodsFor: 'test' stamp: 'ml 10/24/2024 20:19:35'!
+test11unPortfolioReconoceDosTransacciones
 
 	| porfolito  cuentita2 deposit1 deposit2 |
 	porfolito := Portfolio new.
@@ -143,9 +186,26 @@ test09unPortfolioReconoceDosTransacciones
 	
 	porfolito addReceptiveAccount: cuentita2.
 	
-	self assert: 2 equals: ((porfolito transactions) first) transactions  size.
-	self assert: ((((porfolito transactions) first) transactions ) includes: deposit1).
-	self assert: ((((porfolito transactions) first) transactions ) includes: deposit2).! !
+	self assert: 2 equals: (porfolito transactions) size.
+	self assert: ((porfolito transactions ) includes: deposit1).
+	self assert: ((porfolito transactions) includes: deposit2).! !
+
+!PortfolioTest methodsFor: 'test' stamp: 'ml 10/24/2024 20:19:41'!
+test12unPortfolioReconoceUnaTransaccionEnPortfolio
+
+	| porfolito  cuentita2 deposit1 porfolito2 |
+	porfolito := Portfolio new.
+	
+	cuentita2 := ReceptiveAccount new.
+	deposit1 :=  Deposit register: 200 on: cuentita2.
+	
+	porfolito2 := Portfolio new.
+	
+	porfolito2 addReceptiveAccount: cuentita2 .
+	porfolito addPortfolio: porfolito2.
+	
+	self assert: 1 equals: (porfolito transactions) size.
+	self assert: (porfolito transactions) includes: deposit1.! !
 
 
 !classDefinition: #ReceptiveAccountTest category: #'Portfolio-Ejercicio'!
@@ -348,17 +408,18 @@ for: aValue
 
 !classDefinition: #Portfolio category: #'Portfolio-Ejercicio'!
 Object subclass: #Portfolio
-	instanceVariableNames: 'balanceStatePortfolio accounts portfolio'
+	instanceVariableNames: 'balanceStatePortfolio accounts portfolio portfolioTransactions'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!Portfolio methodsFor: 'initialization' stamp: 'ml 10/22/2024 01:10:55'!
+!Portfolio methodsFor: 'initialization' stamp: 'ml 10/24/2024 19:56:52'!
 initialize 
 
 	balanceStatePortfolio := 0.
 	accounts := OrderedCollection new.
-	portfolio := OrderedCollection new.! !
+	portfolio := OrderedCollection new.
+	portfolioTransactions := OrderedCollection new.! !
 
 
 !Portfolio methodsFor: 'balance' stamp: 'ml 10/22/2024 01:14:58'!
@@ -376,27 +437,32 @@ balancePortfolio
 ! !
 
 
-!Portfolio methodsFor: 'add' stamp: 'ml 10/22/2024 01:11:24'!
+!Portfolio methodsFor: 'add' stamp: 'ml 10/24/2024 19:57:43'!
 addPortfolio: aPortfolioToAdd 
 
+	portfolioTransactions := OrderedCollection new.
 	portfolio add: aPortfolioToAdd .! !
 
-!Portfolio methodsFor: 'add' stamp: 'ml 10/21/2024 16:18:02'!
+!Portfolio methodsFor: 'add' stamp: 'ml 10/24/2024 19:57:34'!
 addReceptiveAccount: cuentita 
 	
+	portfolioTransactions := OrderedCollection new.
 	accounts add: cuentita .! !
 
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'ml 10/24/2024 15:30:16'!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ml 10/24/2024 18:57:44'!
 hasRegistered: aTransaccionToCheck 
 	
 	accounts do: [ :aAccount | (aAccount hasRegistered: aTransaccionToCheck) ifTrue: [^true.]].
+	portfolio do: [ :aPortfolio | (aPortfolio hasRegistered: aTransaccionToCheck) ifTrue: [^true.]].
 	^false! !
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'ml 10/24/2024 15:45:35'!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ml 10/24/2024 19:56:27'!
 transactions
 	
-	^accounts do: [:aAccount | aAccount transactions .] ! !
+	(accounts do: [:aAccount | aAccount transactions do: [ :aTransasction | portfolioTransactions add: aTransasction ]. ]). 
+	(portfolio do: [:aPortfolio | aPortfolio transactions]).
+	^portfolioTransactions .! !
 
 
 !classDefinition: #ReceptiveAccount category: #'Portfolio-Ejercicio'!
