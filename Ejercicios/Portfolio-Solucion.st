@@ -312,20 +312,85 @@ TestCase subclass: #TrasnfernTest
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-!TrasnfernTest methodsFor: 'as yet unclassified' stamp: 'ml 10/25/2024 21:41:10'!
-test01
+!TrasnfernTest methodsFor: 'as yet unclassified' stamp: 'ml 10/28/2024 19:17:50'!
+test01transfernToAEmptyAccount
 
-	| destinyAcc fromThisAcc |
-	fromThisAcc := ReceptiveAccount new.
-	Deposit register: 100 on: fromThisAcc.
+	| destinyAcc sourceAcc |
+	sourceAcc := ReceptiveAccount new.
+	Deposit register: 150 on: sourceAcc.
 	
 	destinyAcc := ReceptiveAccount new.
 	
-	Transfern from: fromThisAcc to: destinyAcc aMount: 150.
+	Transfern new from: sourceAcc to: destinyAcc aMount: 150.
 	
-	self assert: 150 equals: destinyAcc balance.
+	self assert: (sourceAcc balance + destinyAcc balance) equals: destinyAcc balance.! !
+
+!TrasnfernTest methodsFor: 'as yet unclassified' stamp: 'ml 10/28/2024 19:17:41'!
+test02WithdrawLegOfATransfernHasRegistered
+
+	| destinyAcc sourceAcc transfern |
+	sourceAcc := ReceptiveAccount new.
+	Deposit register: 150 on: sourceAcc.
 	
-	! !
+	destinyAcc := ReceptiveAccount new.
+	
+	transfern:= Transfern new from: sourceAcc to: destinyAcc aMount: 150.
+	
+	self assert: true equals: (sourceAcc hasRegistered: (transfern withdrawLeg)).
+	self assert: false equals: (destinyAcc hasRegistered: (transfern withdrawLeg)).! !
+
+!TrasnfernTest methodsFor: 'as yet unclassified' stamp: 'ml 10/28/2024 19:17:30'!
+test03DepositLegOfATransfernHasRegistered
+
+	| destinyAcc sourceAcc transfern |
+	sourceAcc := ReceptiveAccount new.
+	Deposit register: 150 on: sourceAcc.
+	
+	destinyAcc := ReceptiveAccount new.
+	
+	transfern:= Transfern new from: sourceAcc to: destinyAcc aMount: 150.
+	
+	self assert: true equals: (destinyAcc hasRegistered: (transfern depositLeg)).
+	self assert: false equals: (sourceAcc hasRegistered: (transfern depositLeg)).! !
+
+!TrasnfernTest methodsFor: 'as yet unclassified' stamp: 'ml 10/28/2024 19:17:18'!
+test04WithdrawLegKnownDepositLeg
+
+	| destinyAcc sourceAcc transfern |
+	sourceAcc := ReceptiveAccount new.
+	Deposit register: 150 on: sourceAcc.
+	
+	destinyAcc := ReceptiveAccount new.
+	
+	transfern:= Transfern new from: sourceAcc to: destinyAcc aMount: 150.
+	
+	self assert: (transfern depositLeg) equals: (transfern withdrawLeg) theOtherTransactionLeg  .! !
+
+!TrasnfernTest methodsFor: 'as yet unclassified' stamp: 'ml 10/28/2024 19:17:08'!
+test05DepositLegKnownWithdrawLeg
+
+	| destinyAcc sourceAcc transfern |
+	sourceAcc := ReceptiveAccount new.
+	Deposit register: 150 on: sourceAcc.
+	
+	destinyAcc := ReceptiveAccount new.
+	
+	transfern:= Transfern new from: sourceAcc to: destinyAcc aMount: 150.
+	
+	self assert: (transfern withdrawLeg ) equals: (transfern depositLeg ) theOtherTransactionLeg  .! !
+
+!TrasnfernTest methodsFor: 'as yet unclassified' stamp: 'ml 10/28/2024 19:20:53'!
+test06CanTransferMoreThanTheOriginBalanceAccount
+
+	| destinyAcc sourceAcc transfern initialTransaction |
+	sourceAcc := ReceptiveAccount new.
+	initialTransaction := Deposit register: 150 on: sourceAcc.
+	
+	destinyAcc := ReceptiveAccount new.
+	
+	transfern:= Transfern new from: sourceAcc to: destinyAcc aMount: 200.
+	
+	self assert: initialTransaction value equals: (destinyAcc balance + sourceAcc balance) .! !
 
 
 !classDefinition: #Account category: #'Portfolio-Solucion'!
@@ -635,6 +700,24 @@ for: aValue
 	^ self new initializeFor: aValue ! !
 
 
+!classDefinition: #TransferDepositLeg category: #'Portfolio-Solucion'!
+Deposit subclass: #TransferDepositLeg
+	instanceVariableNames: 'theOtherLeg'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!TransferDepositLeg methodsFor: 'as yet unclassified' stamp: 'ml 10/28/2024 18:51:46'!
+set: withdrawLegOfTheTransfer 
+
+	theOtherLeg := withdrawLegOfTheTransfer ! !
+
+!TransferDepositLeg methodsFor: 'as yet unclassified' stamp: 'ml 10/28/2024 18:49:35'!
+theOtherTransactionLeg
+	
+	^theOtherLeg! !
+
+
 !classDefinition: #Withdraw category: #'Portfolio-Solucion'!
 AccountTransaction subclass: #Withdraw
 	instanceVariableNames: 'value'
@@ -671,21 +754,64 @@ for: aValue
 	^ self new initializeFor: aValue ! !
 
 
-!classDefinition: #Transfern category: #'Portfolio-Solucion'!
-Object subclass: #Transfern
-	instanceVariableNames: ''
+!classDefinition: #TrasnsferWithdrawLeg category: #'Portfolio-Solucion'!
+Withdraw subclass: #TrasnsferWithdrawLeg
+	instanceVariableNames: 'theOtherLeg'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'Portfolio-Solucion'!
 
-"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+!TrasnsferWithdrawLeg methodsFor: 'as yet unclassified' stamp: 'ml 10/28/2024 18:46:12'!
+set: depositLegOfTheTransfer 
+	
+	theOtherLeg := depositLegOfTheTransfer .! !
 
-!classDefinition: 'Transfern class' category: #'Portfolio-Solucion'!
-Transfern class
-	instanceVariableNames: ''!
+!TrasnsferWithdrawLeg methodsFor: 'as yet unclassified' stamp: 'ml 10/28/2024 18:37:23'!
+theOtherTransactionLeg
 
-!Transfern class methodsFor: 'as yet unclassified' stamp: 'ml 10/25/2024 21:40:45'!
+	^theOtherLeg! !
+
+
+!classDefinition: #Transfern category: #'Portfolio-Solucion'!
+Object subclass: #Transfern
+	instanceVariableNames: 'withdrawLeg depositLeg'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!Transfern methodsFor: 'testing' stamp: 'ml 10/28/2024 17:49:08'!
+depositLeg
+	
+	^depositLeg! !
+
+!Transfern methodsFor: 'testing' stamp: 'ml 10/28/2024 17:36:19'!
+withdrawLeg
+	
+	^ withdrawLeg! !
+
+
+!Transfern methodsFor: 'legs' stamp: 'ml 10/28/2024 19:09:20'!
+depositLegCanNavigateToWithdrawLeg
+
+	^ depositLeg set: withdrawLeg! !
+
+!Transfern methodsFor: 'legs' stamp: 'ml 10/28/2024 19:09:58'!
+eachLegKnownTheOther
+
+	self withdrawLegCanNavigateToDepositLeg .
+	self depositLegCanNavigateToWithdrawLeg! !
+
+!Transfern methodsFor: 'legs' stamp: 'ml 10/28/2024 19:08:35'!
+withdrawLegCanNavigateToDepositLeg
+
+	^ withdrawLeg set: depositLeg! !
+
+
+!Transfern methodsFor: 'initialization' stamp: 'ml 10/28/2024 19:09:58'!
 from: fromThisAcc to: destinyAcc aMount: aMountToOperate 
 	
-	Withdraw register: aMountToOperate on: fromThisAcc .
-	Deposit register: aMountToOperate on: destinyAcc .! !
+	withdrawLeg := TrasnsferWithdrawLeg register: aMountToOperate on: fromThisAcc .
+	depositLeg := TransferDepositLeg register: aMountToOperate on: destinyAcc .
+	
+	self eachLegKnownTheOther .
+	! !
