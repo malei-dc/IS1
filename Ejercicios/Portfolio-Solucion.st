@@ -305,6 +305,33 @@ test07AccountKnowsItsTransactions
 ! !
 
 
+!classDefinition: #ReportTest category: #'Portfolio-Solucion'!
+TestCase subclass: #ReportTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Portfolio-Solucion'!
+
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'ml 10/29/2024 16:42:55'!
+test01accountSummaryFromAEmptyAccount
+	
+	| account |
+	
+	account := ReceptiveAccount new.
+
+	self assert: '' equals: account accountSummary .! !
+
+!ReportTest methodsFor: 'as yet unclassified' stamp: 'ml 10/29/2024 16:44:52'!
+test02accountSummaryFromASingleTransactionAccount
+	
+	| account |
+	
+	account := ReceptiveAccount new.
+	Deposit register: 100 on: account.
+
+	self assert: 'Depósito por 100' equals: account accountSummary .! !
+
+
 !classDefinition: #TrasnfernTest category: #'Portfolio-Solucion'!
 TestCase subclass: #TrasnfernTest
 	instanceVariableNames: ''
@@ -627,6 +654,21 @@ isComposedBy: anAccount
 addedTo: aPortfolio 
 	
 	! !
+
+
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'ml 10/29/2024 16:57:47'!
+accountSummary
+	
+	transactions do:[ :aTransaction | 
+		(aTransaction class = Deposit ) ifTrue: [ 'Deposito por ' appendToString: (aTransaction value) asString .].
+
+		 ].
+	^''.! !
+
+!ReceptiveAccount methodsFor: 'as yet unclassified' stamp: 'ml 10/29/2024 16:51:26'!
+imprimirDepositReport: aTransaction 
+
+	^ 'Deposito por ' appendToString: aTransaction value.! !
 
 
 !classDefinition: #AccountTransaction category: #'Portfolio-Solucion'!
