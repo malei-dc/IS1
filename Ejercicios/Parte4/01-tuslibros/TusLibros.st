@@ -1,85 +1,139 @@
-!classDefinition: #VentaLibrosOnlineTest category: 'TusLibros'!
-TestCase subclass: #VentaLibrosOnlineTest
+!classDefinition: #CartTest category: 'TusLibros'!
+TestCase subclass: #CartTest
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!VentaLibrosOnlineTest methodsFor: 'as yet unclassified' stamp: 'ml 11/5/2024 14:32:14'!
-test01AgregarLibroAUnCarritoDeberiaAumentarSaldo
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/5/2024 21:36:47'!
+aSimpleCatalog
 
-	| carrito libro |
-	libro := Libro conNombre: 'El Principito' isbn: '978-950-23-1447-1' precio: (18000 * peso) .
-	carrito := Carrito new.
-	
-	carrito agregar: libro.
-	
-	self assert: (libro precio) equals: carrito saldo.! !
+	^Array with: self notInCatalogItem.! !
 
-!VentaLibrosOnlineTest methodsFor: 'as yet unclassified' stamp: 'ml 11/5/2024 14:47:35'!
-test02AgregarDosLibrosAUnCarritoDeberiaSumarLosPreciosParaElSaldo
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/5/2024 20:32:06'!
+createCart
 
-	| carrito libro libro2 |
-	libro := Libro conNombre: 'El Principito' isbn: '978-950-23-1447-1' precio: (18000 * peso) .
-	libro2 := Libro conNombre: 'El Principito2' isbn: '978-950-23-1447-2' precio: (20000 * peso) .
-	carrito := Carrito new.
+	^Cart withTheStoreCatalog: self aSimpleCatalog.! !
+
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/5/2024 21:37:24'!
+inCatalogItem
+
+	^'Invalid item'! !
+
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/5/2024 21:36:47'!
+notInCatalogItem
+
+	^'valid item'! !
+
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/5/2024 20:28:07'!
+test01NewCartIsCreatedEmpty
+
+	self assert: self createCart isEmpty .! !
+
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/5/2024 21:38:29'!
+test02CantAddItemsThatNotBelongToStore
+
+	| carrito |
 	
-	carrito agregar: libro.
-	carrito agregar: libro2.
+	carrito := self createCart .
 	
-	self assert: (libro precio + libro2 precio) equals: carrito saldo.! !
+	self should: [ carrito add: self inCatalogItem] 
+		raise: Error 
+		withExceptionDo: [ :anException |
+		self assert: carrito invalidItemMsgError equals: anException messageText.
+		self assert: true equals: carrito isEmpty.
+	]! !
+
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/5/2024 21:36:47'!
+test03AfterAddingAItemToCartIsNotEmptyAnymore
+
+	| carrito |
+	
+	carrito := self createCart .
+	
+	 carrito add: self notInCatalogItem.
+	self deny: carrito isEmpty! !
+
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/5/2024 21:39:59'!
+test04CannotAddNonPositiveNumberOfItems
+
+	| carrito |
+	
+	carrito := self createCart .
+	
+	self should: [ carrito add: self notInCatalogItem amount: 0] 
+		raise: Error 
+		withExceptionDo: [ :anException |
+		self assert: carrito invalidQuantityMsgError equals: anException messageText.
+		self assert: carrito isEmpty.
+	]! !
+
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/5/2024 21:38:29'!
+test05CannotAddMoreThanOneNotSellByTheStore
+
+	| carrito |
+	
+	carrito := self createCart .
+	
+	self should: [ carrito add: self inCatalogItem amount: 2] 
+		raise: Error 
+		withExceptionDo: [ :anException |
+		self assert: carrito invalidItemMsgError equals: anException messageText.
+		self assert: carrito isEmpty.
+	]! !
 
 
-!classDefinition: #Carrito category: 'TusLibros'!
-Object subclass: #Carrito
-	instanceVariableNames: 'librosEnCarrito'
+!classDefinition: #Cart category: 'TusLibros'!
+Object subclass: #Cart
+	instanceVariableNames: 'catalog items'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!Carrito methodsFor: 'as yet unclassified' stamp: 'ml 11/5/2024 14:49:09'!
-agregar: unLibro
+!Cart methodsFor: 'error msgs' stamp: 'ml 11/5/2024 21:38:29'!
+invalidItemMsgError
 
-	librosEnCarrito add: unLibro .! !
+	^'This item is not in the catalog'! !
 
-!Carrito methodsFor: 'as yet unclassified' stamp: 'ml 11/5/2024 14:48:54'!
-initialize
-
-	librosEnCarrito := OrderedCollection new.! !
-
-!Carrito methodsFor: 'as yet unclassified' stamp: 'ml 11/5/2024 14:49:42'!
-saldo
-
-	^librosEnCarrito sum: [:unLibro | unLibro precio].! !
-
-
-!classDefinition: #Libro category: 'TusLibros'!
-Object subclass: #Libro
-	instanceVariableNames: 'nombreDeLibro isbn precio'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'TusLibros'!
-
-!Libro methodsFor: 'inicializacion' stamp: 'ml 11/5/2024 13:40:08'!
-initializeCon: unNombreDeLibro isbn: idLibro precio: precioLibro 
-	nombreDeLibro := unNombreDeLibro.
-	isbn := idLibro.
-	precio := precioLibro.! !
+!Cart methodsFor: 'error msgs' stamp: 'ml 11/5/2024 21:39:59'!
+invalidQuantityMsgError
+	
+	^ 'only can add a positive number of occurrences'! !
 
 
-!Libro methodsFor: 'nil' stamp: 'ml 11/5/2024 14:31:54'!
-precio
+!Cart methodsFor: 'is empty' stamp: 'ml 11/5/2024 20:59:46'!
+isEmpty
+	
+	^items isEmpty .! !
 
-	^precio .! !
+
+!Cart methodsFor: 'initialization' stamp: 'ml 11/5/2024 21:27:52'!
+initializeAcceptingItems: aStoreCatalog 
+
+	catalog := aStoreCatalog.
+	items := Bag new.! !
+
+
+!Cart methodsFor: 'add a item' stamp: 'ml 11/5/2024 21:38:29'!
+add: aItemToAdd
+
+	(catalog includes: aItemToAdd) ifTrue: [items add: aItemToAdd] ifFalse: [self error: self invalidItemMsgError].! !
+
+!Cart methodsFor: 'add a item' stamp: 'ml 11/5/2024 21:39:59'!
+add: aItemToAdd amount: aNumberOfOcurrences
+
+	(aNumberOfOcurrences < 1) ifTrue: [self error: self invalidQuantityMsgError].
+
+	self add: aItemToAdd .
+	! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Libro class' category: 'TusLibros'!
-Libro class
+!classDefinition: 'Cart class' category: 'TusLibros'!
+Cart class
 	instanceVariableNames: ''!
 
-!Libro class methodsFor: 'creation' stamp: 'ml 11/5/2024 14:43:02'!
-conNombre: unNombreDeLibro isbn: idLibro precio: precioLibro 
+!Cart class methodsFor: 'creation' stamp: 'ml 11/5/2024 20:49:47'!
+withTheStoreCatalog: aStoreCatalog
 	
-	^self new initializeCon: unNombreDeLibro isbn: idLibro precio: precioLibro .! !
-
+	^self new initializeAcceptingItems: aStoreCatalog.! !
