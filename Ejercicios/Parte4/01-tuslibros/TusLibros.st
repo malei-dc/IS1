@@ -127,6 +127,46 @@ test09CartCanShowItsContent
 	self assert: (aItem asString, ': ', 10 asString, '. ') equals: carrito showContents .! !
 
 
+!classDefinition: #CheckoutTest category: #TusLibros!
+TestCase subclass: #CheckoutTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!CheckoutTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 18:00:54'!
+aSimpleCatalog
+
+	^Array with: self inCatalogItem.! !
+
+!CheckoutTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 18:00:44'!
+createCart
+
+	^Cart withTheStoreCatalog: self aSimpleCatalog.! !
+
+!CheckoutTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 18:01:03'!
+inCatalogItem
+
+	^'valid item'! !
+
+!CheckoutTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 18:01:11'!
+notInCatalogItem
+
+	^'invalid item'! !
+
+!CheckoutTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 18:10:52'!
+test01CannotCheckoutAnEmptyCart
+
+	| carrito |
+	carrito := self createCart .
+	
+	self should: [ Checkout a: carrito] 
+		raise: Error 
+		withExceptionDo: [ :anException |
+		self assert: Checkout invalidCartMsgError equals: anException messageText.
+	]! !
+
+
 !classDefinition: #Cart category: #TusLibros!
 Object subclass: #Cart
 	instanceVariableNames: 'catalog items'
@@ -211,3 +251,29 @@ Cart class
 withTheStoreCatalog: aStoreCatalog
 	
 	^self new initializeAcceptingItems: aStoreCatalog.! !
+
+
+!classDefinition: #Checkout category: #TusLibros!
+Object subclass: #Checkout
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Checkout class' category: #TusLibros!
+Checkout class
+	instanceVariableNames: ''!
+
+!Checkout class methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 18:10:08'!
+a: cartToCheckout
+
+	cartToCheckout isEmpty ifTrue: [ self error: self invalidCartMsgError].
+	
+	^self new initializeWith: cartToCheckout .! !
+
+!Checkout class methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 18:07:34'!
+invalidCartMsgError
+
+	^'Cannot checkout an empty cart'.! !
