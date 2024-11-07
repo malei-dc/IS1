@@ -115,7 +115,7 @@ test08CartDoesntHoldNotAddedItem
 	
 	self deny: (carrito includes: aItem).! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 17:27:05'!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 20:46:54'!
 test09CartCanShowItsContent
 
 	| carrito aItem |
@@ -124,7 +124,7 @@ test09CartCanShowItsContent
 	aItem := self inCatalogItem .
 	carrito add: aItem amount: 10. 
 	
-	self assert: (aItem asString, ': ', 10 asString, '. ') equals: carrito showContents .! !
+	self assert: (aItem asString) equals: carrito showContents .! !
 
 
 !classDefinition: #CheckoutTest category: #TusLibros!
@@ -134,37 +134,81 @@ TestCase subclass: #CheckoutTest
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!CheckoutTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 18:00:54'!
+!CheckoutTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 20:28:49'!
 aSimpleCatalog
 
-	^Array with: self inCatalogItem.! !
+	^Array with: self inCatalogItem1 with: self inCatalogItem2 .! !
 
 !CheckoutTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 18:00:44'!
 createCart
 
 	^Cart withTheStoreCatalog: self aSimpleCatalog.! !
 
-!CheckoutTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 18:01:03'!
-inCatalogItem
+!CheckoutTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 20:01:09'!
+createPriceList
 
-	^'valid item'! !
+	| priceList |
+	priceList := Dictionary new .
+	priceList at: 'valid item 1' put: 18000 * peso.
+	
+	^priceList ! !
+
+!CheckoutTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 19:58:05'!
+inCatalogItem1
+
+	^'valid item 1'! !
+
+!CheckoutTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 20:28:26'!
+inCatalogItem2
+
+	^'valid item 2'! !
 
 !CheckoutTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 18:01:11'!
 notInCatalogItem
 
 	^'invalid item'! !
 
-!CheckoutTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 18:10:52'!
+!CheckoutTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 19:49:38'!
 test01CannotCheckoutAnEmptyCart
 
 	| carrito |
 	carrito := self createCart .
 	
-	self should: [ Checkout a: carrito] 
+	self should: [ Checkout a: carrito with: self createPriceList] 
 		raise: Error 
 		withExceptionDo: [ :anException |
 		self assert: Checkout invalidCartMsgError equals: anException messageText.
 	]! !
+
+!CheckoutTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 20:38:38'!
+test02CheckoutASingleElementCart
+
+	| carrito checkout |
+	carrito := self createCart .
+	carrito add: self inCatalogItem1 .
+	
+	checkout := Checkout a: carrito with: self createPriceList .
+	
+	self assert: (self createPriceList at: self inCatalogItem1) equals: checkout cartProductValue.
+	
+	
+	
+! !
+
+!CheckoutTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 20:57:31'!
+test03CheckoutATwoElementCart
+
+	| carrito checkout |
+	carrito := self createCart .
+	carrito add: self inCatalogItem1 amount: 2.
+	
+	checkout := Checkout a: carrito with: self createPriceList .
+	
+	self assert: (self createPriceList at: self inCatalogItem1) * 2 equals: checkout cartProductValue.
+	
+	
+	
+! !
 
 
 !classDefinition: #Cart category: #TusLibros!
@@ -236,10 +280,10 @@ occurrencesOf: aItem
 	^items occurrencesOf: aItem .! !
 
 
-!Cart methodsFor: 'show content' stamp: 'ml 11/6/2024 17:46:06'!
+!Cart methodsFor: 'show content' stamp: 'ml 11/6/2024 20:46:38'!
 showContents
 	
-	^ items contents keys first asString, ': ', items contents values first asString, '. '.! !
+	^ items contents keys first asString. "': ', items contents values first asString, '. '."! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -255,10 +299,22 @@ withTheStoreCatalog: aStoreCatalog
 
 !classDefinition: #Checkout category: #TusLibros!
 Object subclass: #Checkout
-	instanceVariableNames: ''
+	instanceVariableNames: 'cart priceList'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
+
+!Checkout methodsFor: 'initialize' stamp: 'ml 11/6/2024 20:03:02'!
+initializeWith: cartToCheckout and: aPriceList 
+
+	cart := cartToCheckout .
+	priceList := aPriceList .! !
+
+
+!Checkout methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 21:00:33'!
+cartProductValue
+
+	^(priceList at: (cart showContents)) * (cart occurrencesOf: cart showContents ) .! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -266,14 +322,14 @@ Object subclass: #Checkout
 Checkout class
 	instanceVariableNames: ''!
 
-!Checkout class methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 18:10:08'!
-a: cartToCheckout
+!Checkout class methodsFor: 'creation' stamp: 'ml 11/6/2024 20:02:09'!
+a: cartToCheckout with: aPriceList
 
 	cartToCheckout isEmpty ifTrue: [ self error: self invalidCartMsgError].
 	
-	^self new initializeWith: cartToCheckout .! !
+	^self new initializeWith: cartToCheckout and: aPriceList .! !
 
-!Checkout class methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 18:07:34'!
+!Checkout class methodsFor: 'creation' stamp: 'ml 11/6/2024 18:07:34'!
 invalidCartMsgError
 
 	^'Cannot checkout an empty cart'.! !
