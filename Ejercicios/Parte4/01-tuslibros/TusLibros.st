@@ -160,15 +160,20 @@ notInCatalogItem
 	^'invalid item'! !
 
 
-!CheckoutTest methodsFor: 'creditCard creation' stamp: 'ml 11/7/2024 20:03:28'!
+!CheckoutTest methodsFor: 'creditCard creation' stamp: 'ml 11/7/2024 21:16:06'!
 createCreditcard
 	
-	^ Array with: 1111222233334444 with: '30 August 2027' asDate. ! !
+	^ Array with: 1111222233334444 with: self today next ! !
 
 !CheckoutTest methodsFor: 'creditCard creation' stamp: 'ml 11/7/2024 21:06:21'!
 createExpiredCreditcard
 	
 	^ Array with: 1111222233335555 with: '6 August 2022' asDate. ! !
+
+!CheckoutTest methodsFor: 'creditCard creation' stamp: 'ml 11/7/2024 21:16:06'!
+today
+
+	^ DateAndTime today date! !
 
 
 !CheckoutTest methodsFor: 'tests' stamp: 'ml 11/7/2024 20:05:49'!
