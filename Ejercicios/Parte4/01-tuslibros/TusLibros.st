@@ -176,18 +176,13 @@ today
 	^ DateAndTime today date! !
 
 
-!CheckoutTest methodsFor: 'tests' stamp: 'ml 11/7/2024 20:05:49'!
+!CheckoutTest methodsFor: 'tests' stamp: 'ml 11/11/2024 22:09:47'!
 test01CannotCheckoutAnEmptyCart
 
-	| carrito checkoutOperator creditCard |
-	carrito := self createCart .
-	checkoutOperator := Checkout knows: self createPriceList .
-	creditCard := self createCreditcard.
- 	
-	self should: [ checkoutOperator recievesA: carrito and: creditCard] 
+	self should: [ Checkout recievesA: self createCart and: self createCreditcard] 
 		raise: Error 
 		withExceptionDo: [ :anException |
-		self assert: checkoutOperator invalidCartMsgError equals: anException messageText.
+		self assert: Checkout invalidCartMsgError equals: anException messageText.
 	]! !
 
 !CheckoutTest methodsFor: 'tests' stamp: 'ml 11/7/2024 20:09:47'!
@@ -339,21 +334,17 @@ withTheStoreCatalog: aStoreCatalog
 
 !classDefinition: #Checkout category: #TusLibros!
 Object subclass: #Checkout
-	instanceVariableNames: 'cart priceList creditCard'
+	instanceVariableNames: 'cart creditCard'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!Checkout methodsFor: 'initialize' stamp: 'ml 11/7/2024 20:14:31'!
-initializeWith: aListPrice 
+!Checkout methodsFor: 'initialize' stamp: 'ml 11/11/2024 22:15:16'!
+initializeWith: aCartToCheckout and: aCreditCard
 
-	priceList := aListPrice.! !
+	cart := aCartToCheckout .
+	creditCard := aCreditCard .! !
 
-
-!Checkout methodsFor: 'assertions' stamp: 'ml 11/7/2024 20:06:30'!
-assertNotEmptyCart: cartToCheckout
-
-	^ cartToCheckout isEmpty ifTrue: [ self error: self invalidCartMsgError]! !
 
 !Checkout methodsFor: 'assertions' stamp: 'ml 11/7/2024 21:04:11'!
 assertNotExpiredCreditCard: aCreditCard
@@ -370,16 +361,6 @@ expiredCreditCardMsgError
 invalidCartMsgError
 
 	^'Cannot checkout an empty cart'.! !
-
-
-!Checkout methodsFor: 'receive cart' stamp: 'ml 11/7/2024 21:04:26'!
-recievesA: aCartToCheckout and: aCreditCard
-
-	self assertNotEmptyCart: aCartToCheckout .
-	self assertNotExpiredCreditCard: aCreditCard.
-
-	cart := aCartToCheckout .
-	creditCard := aCreditCard .! !
 
 
 !Checkout methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 21:00:33'!
@@ -403,7 +384,21 @@ today
 Checkout class
 	instanceVariableNames: ''!
 
-!Checkout class methodsFor: 'creation' stamp: 'ml 11/7/2024 19:47:47'!
-knows: aListPrice 
+!Checkout class methodsFor: 'creation' stamp: 'ml 11/11/2024 22:14:38'!
+recievesA: aCartToCheckout and: aCreditCard
+
+	self assertNotEmptyCart: aCartToCheckout.
 	
-	^self new initializeWith: aListPrice.! !
+	^self new initializeWith: aCartToCheckout and: aCreditCard.! !
+
+
+!Checkout class methodsFor: 'assertions' stamp: 'ml 11/11/2024 22:11:35'!
+assertNotEmptyCart: cartToCheckout
+
+	^ cartToCheckout isEmpty ifTrue: [ self error: self invalidCartMsgError]! !
+
+
+!Checkout class methodsFor: 'msg errors' stamp: 'ml 11/11/2024 22:15:46'!
+invalidCartMsgError
+	
+	^'Cannot checkout an empty cart'.! !
