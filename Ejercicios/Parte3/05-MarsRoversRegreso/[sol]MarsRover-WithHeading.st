@@ -306,8 +306,8 @@ test05LogSaveMultiplesChangesOfMarsRoverHeading
 	self assert: true.
 ! !
 
-!ObserversMarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ml 11/13/2024 17:13:21'!
-test06Window
+!ObserversMarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ml 11/13/2024 17:31:16'!
+test06WindowShouldBeEmptyWhenMarsRoverStateDoenstChange
 	
 	| win marsRover |
 	
@@ -320,47 +320,67 @@ test06Window
 	
 	marsRover process: '' .
 	
-	self assert: (win havePosition: nil andHeading: nil).
+	self assert: (win havePosition: '' andHeading: '').
 ! !
 
-
-!classDefinition: #Log category: #'MarsRover-WithHeading'!
-Object subclass: #Log
-	instanceVariableNames: 'storedData'
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: 'MarsRover-WithHeading'!
-
-!Log methodsFor: 'as yet unclassified' stamp: 'ml 11/13/2024 16:13:14'!
-initialize
-
-	storedData := OrderedCollection new.
+!ObserversMarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ml 11/13/2024 17:35:46'!
+test07WindowOnlyChangesPositionWhenMoving
+	
+	| win marsRover |
+	
+	win := Window new.
+	
+	marsRover := MarsRover at: 1@1  heading: self north. 
+	
+	marsRover attachHeading: win.
+	marsRover attachPosition: win.
+	
+	marsRover process: 'f' .
+	
+	self assert: (win havePosition: '1@2' andHeading: '').
 ! !
 
-!Log methodsFor: 'as yet unclassified' stamp: 'ml 11/13/2024 16:13:14'!
-isEmpty
-
-	^storedData isEmpty.! !
-
-!Log methodsFor: 'as yet unclassified' stamp: 'ml 11/13/2024 16:26:35'!
-lastRegister: aPositionToAssert	
+!ObserversMarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ml 11/13/2024 17:36:33'!
+test08WindowOnlyChangesHeadingWhenRotate
 	
-	^  (storedData ifEmpty: [''] ifNotEmpty: [ storedData atLast: (storedData size )]) = aPositionToAssert .! !
-
-!Log methodsFor: 'as yet unclassified' stamp: 'ml 11/13/2024 16:44:19'!
-notifyChangeHeading: aNewHeading 
+	| win marsRover |
 	
-	storedData add: aNewHeading .! !
-
-!Log methodsFor: 'as yet unclassified' stamp: 'ml 11/13/2024 16:30:34'!
-notifyChangePosition: aNewPosition 
+	win := Window new.
 	
-	storedData add: (aNewPosition asString) .! !
+	marsRover := MarsRover at: 1@1  heading: self north. 
+	
+	marsRover attachHeading: win.
+	marsRover attachPosition: win.
+	
+	marsRover process: 'r' .
+	
+	self assert: (win havePosition: '' andHeading: 'East').
+! !
+
+!ObserversMarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ml 11/13/2024 17:43:10'!
+test09WindowAndLogShouldChangeRegisterWhenProcessCommand
+	
+	| win marsRover log |
+	
+	win := Window new.
+	log := Log new.
+	
+	marsRover := MarsRover at: 1@1  heading: self north. 
+	
+	marsRover attachHeading: win.
+	marsRover attachPosition: win.
+	marsRover attachPosition: log.
+	
+	marsRover process: 'f' .
+	
+	self assert: (win havePosition: '1@2' andHeading: '').
+	self assert: (log  lastRegister: ('1@2')).
+! !
 
 
 !classDefinition: #MarsRover category: #'MarsRover-WithHeading'!
 Object subclass: #MarsRover
-	instanceVariableNames: 'position head positionObservers headingObserver'
+	instanceVariableNames: 'position head positionObservers headingObservers'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'MarsRover-WithHeading'!
@@ -376,43 +396,38 @@ signalInvalidCommand
 	self error: self invalidCommandErrorDescription ! !
 
 
-!MarsRover methodsFor: 'initialization' stamp: 'HAW 10/7/2021 20:10:49'!
+!MarsRover methodsFor: 'initialization' stamp: 'ml 11/13/2024 17:47:56'!
 initializeAt: aPosition heading: aHeadingType
 
 	position := aPosition.
-	head := aHeadingType for: self ! !
+	head := aHeadingType for: self.
+	positionObservers := OrderedCollection new.
+	headingObservers := OrderedCollection new.! !
 
 
-!MarsRover methodsFor: 'heading' stamp: 'ml 11/13/2024 16:42:09'!
+!MarsRover methodsFor: 'heading' stamp: 'ml 11/13/2024 17:50:08'!
 headEast
 	
 	head := MarsRoverHeadingEast for: self.
-	headingObserver notifyChangeHeading: 'East'.! !
+	headingObservers do: [:observer | observer notifyChangeHeading: 'East'] .! !
 
-!MarsRover methodsFor: 'heading' stamp: 'HAW 10/7/2021 20:17:12'!
+!MarsRover methodsFor: 'heading' stamp: 'ml 11/13/2024 17:51:11'!
 headNorth
 	
-	head := MarsRoverHeadingNorth for: self ! !
+	head := MarsRoverHeadingNorth for: self .
+	headingObservers do: [:observer | observer notifyChangeHeading: 'North'] .! !
 
-!MarsRover methodsFor: 'heading' stamp: 'HAW 10/7/2021 20:17:17'!
+!MarsRover methodsFor: 'heading' stamp: 'ml 11/13/2024 17:51:25'!
 headSouth
 	
-	head := MarsRoverHeadingSouth for: self! !
+	head := MarsRoverHeadingSouth for: self.
+	headingObservers do: [:observer | observer notifyChangeHeading: 'South'] .! !
 
-!MarsRover methodsFor: 'heading' stamp: 'HAW 10/7/2021 20:17:24'!
+!MarsRover methodsFor: 'heading' stamp: 'ml 11/13/2024 17:51:33'!
 headWest
 	
-	head := MarsRoverHeadingWest for: self ! !
-
-!MarsRover methodsFor: 'heading' stamp: 'HAW 10/7/2021 20:14:20'!
-rotateLeft
-	
-	head rotateLeft! !
-
-!MarsRover methodsFor: 'heading' stamp: 'HAW 10/7/2021 20:14:44'!
-rotateRight
-	
-	head rotateRight! !
+	head := MarsRoverHeadingWest for: self .
+	headingObservers do: [:observer | observer notifyChangeHeading: 'West'] .! !
 
 
 !MarsRover methodsFor: 'testing' stamp: 'HAW 10/7/2021 20:16:32'!
@@ -446,31 +461,34 @@ moveBackward
 	
 	head moveBackward! !
 
-!MarsRover methodsFor: 'moving' stamp: 'HAW 8/22/2019 12:15:01'!
+!MarsRover methodsFor: 'moving' stamp: 'ml 11/13/2024 17:50:47'!
 moveEast
 	
-	position := position + (1@0)! !
+	position := position + (1@0).
+	positionObservers do: [:observer | observer notifyChangePosition: position] .! !
 
 !MarsRover methodsFor: 'moving' stamp: 'HAW 10/7/2021 20:13:53'!
 moveForward
 	
 	head moveForward! !
 
-!MarsRover methodsFor: 'moving' stamp: 'ml 11/13/2024 16:29:33'!
+!MarsRover methodsFor: 'moving' stamp: 'ml 11/13/2024 17:49:28'!
 moveNorth
 	
 	position := position + (0@1).
-	positionObservers notifyChangePosition: position .! !
+	positionObservers do: [:observer | observer notifyChangePosition: position] .! !
 
-!MarsRover methodsFor: 'moving' stamp: 'HAW 8/22/2019 12:13:34'!
+!MarsRover methodsFor: 'moving' stamp: 'ml 11/13/2024 17:50:35'!
 moveSouth
 	
-	position := position + (0@-1)! !
+	position := position + (0@-1).
+	positionObservers do: [:observer | observer notifyChangePosition: position] .! !
 
-!MarsRover methodsFor: 'moving' stamp: 'HAW 8/22/2019 12:15:32'!
+!MarsRover methodsFor: 'moving' stamp: 'ml 11/13/2024 17:50:39'!
 moveWest
 	
-	position := position + (-1@0)! !
+	position := position + (-1@0).
+	positionObservers do: [:observer | observer notifyChangePosition: position] .! !
 
 
 !MarsRover methodsFor: 'command processing' stamp: 'HAW 6/30/2018 19:48:26'!
@@ -490,15 +508,26 @@ processCommand: aCommand
 	self signalInvalidCommand.! !
 
 
-!MarsRover methodsFor: 'observer attach' stamp: 'ml 11/13/2024 16:39:05'!
+!MarsRover methodsFor: 'rotate' stamp: 'HAW 10/7/2021 20:14:20'!
+rotateLeft
+	
+	head rotateLeft! !
+
+!MarsRover methodsFor: 'rotate' stamp: 'HAW 10/7/2021 20:14:44'!
+rotateRight
+	
+	head rotateRight! !
+
+
+!MarsRover methodsFor: 'observer attach' stamp: 'ml 11/13/2024 17:48:16'!
 attachHeading: aObserver 
 	
-	headingObserver := aObserver .! !
+	headingObservers add: aObserver .! !
 
-!MarsRover methodsFor: 'observer attach' stamp: 'ml 11/13/2024 16:18:54'!
+!MarsRover methodsFor: 'observer attach' stamp: 'ml 11/13/2024 17:48:10'!
 attachPosition: aObserver 
 	
-	positionObservers := aObserver .! !
+	positionObservers add: aObserver .! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -680,15 +709,91 @@ rotateRight
 	^marsRover headNorth! !
 
 
+!classDefinition: #Observer category: #'MarsRover-WithHeading'!
+Object subclass: #Observer
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!Observer methodsFor: 'as yet unclassified' stamp: 'ml 11/13/2024 17:45:24'!
+initialize
+
+	self subclassResponsibility! !
+
+!Observer methodsFor: 'as yet unclassified' stamp: 'ml 11/13/2024 17:44:48'!
+notifyChangeHeading: aNewHeading
+
+	self subclassResponsibility! !
+
+!Observer methodsFor: 'as yet unclassified' stamp: 'ml 11/13/2024 17:45:00'!
+notifyChangePosition: aNewPosition
+
+	self subclassResponsibility! !
+
+
+!classDefinition: #Log category: #'MarsRover-WithHeading'!
+Observer subclass: #Log
+	instanceVariableNames: 'storedData'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'MarsRover-WithHeading'!
+
+!Log methodsFor: 'initialize' stamp: 'ml 11/13/2024 16:13:14'!
+initialize
+
+	storedData := OrderedCollection new.
+! !
+
+
+!Log methodsFor: 'notify' stamp: 'ml 11/13/2024 16:44:19'!
+notifyChangeHeading: aNewHeading 
+	
+	storedData add: aNewHeading .! !
+
+!Log methodsFor: 'notify' stamp: 'ml 11/13/2024 16:30:34'!
+notifyChangePosition: aNewPosition 
+	
+	storedData add: (aNewPosition asString) .! !
+
+
+!Log methodsFor: 'as yet unclassified' stamp: 'ml 11/13/2024 16:13:14'!
+isEmpty
+
+	^storedData isEmpty.! !
+
+!Log methodsFor: 'as yet unclassified' stamp: 'ml 11/13/2024 16:26:35'!
+lastRegister: aPositionToAssert	
+	
+	^  (storedData ifEmpty: [''] ifNotEmpty: [ storedData atLast: (storedData size )]) = aPositionToAssert .! !
+
+
 !classDefinition: #Window category: #'MarsRover-WithHeading'!
-Object subclass: #Window
+Observer subclass: #Window
 	instanceVariableNames: 'position heading'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'MarsRover-WithHeading'!
 
-!Window methodsFor: 'as yet unclassified' stamp: 'ml 11/13/2024 17:14:06'!
+!Window methodsFor: 'notify' stamp: 'ml 11/13/2024 17:37:05'!
+notifyChangeHeading: aNewHeading 
+
+	heading := aNewHeading .! !
+
+!Window methodsFor: 'notify' stamp: 'ml 11/13/2024 17:34:55'!
+notifyChangePosition: aNewPosition 
+
+	position := aNewPosition asString .	! !
+
+
+!Window methodsFor: 'initialize' stamp: 'ml 11/13/2024 17:29:47'!
 initialize
 	
-	position := nil.
-	heading := nil.! !
+	position := ''.
+	heading := ''.! !
+
+
+!Window methodsFor: 'as yet unclassified' stamp: 'ml 11/13/2024 17:29:18'!
+havePosition: aPositionToAssert andHeading: aHeadingToAssert 
+
+	^ position =  aPositionToAssert and: heading = aHeadingToAssert .! !
