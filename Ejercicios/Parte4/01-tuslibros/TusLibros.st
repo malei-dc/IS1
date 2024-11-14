@@ -5,20 +5,27 @@ TestCase subclass: #CartTest
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 16:09:16'!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/14/2024 20:08:21'!
 aSimpleCatalog
 
-	^Array with: self inCatalogItem.! !
+	^Dictionary new 
+		at: self itemSellByStore put: self itemSellByStorePrice; 
+		yourself! !
 
 !CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/5/2024 20:32:06'!
 createCart
 
 	^Cart withTheStoreCatalog: self aSimpleCatalog.! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 16:09:16'!
-inCatalogItem
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/14/2024 20:09:01'!
+itemSellByStore
 
-	^'valid item'! !
+	^'valid item 1'! !
+
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/14/2024 20:09:21'!
+itemSellByStorePrice
+
+	^ (20000 * peso)! !
 
 !CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 16:58:56'!
 notInCatalogItem
@@ -44,24 +51,24 @@ test02CantAddItemsThatNotBelongToStore
 		self assert: true equals: carrito isEmpty.
 	]! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 16:09:16'!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/14/2024 20:10:28'!
 test03AfterAddingAItemToCartIsNotEmptyAnymore
 
 	| carrito |
 	
 	carrito := self createCart .
 	
-	 carrito add: self inCatalogItem.
+	 carrito add: self itemSellByStore .
 	self deny: carrito isEmpty! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 16:09:16'!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/14/2024 20:12:06'!
 test04CannotAddNonPositiveNumberOfItems
 
 	| carrito |
 	
 	carrito := self createCart .
 	
-	self should: [ carrito add: self inCatalogItem amount: 0] 
+	self should: [ carrito add: self itemSellByStore amount: 0] 
 		raise: Error 
 		withExceptionDo: [ :anException |
 		self assert: carrito invalidQuantityMsgError equals: anException messageText.
@@ -82,168 +89,90 @@ test05CannotAddMoreThanOneNotSellByTheStore
 		self assert: carrito isEmpty.
 	]! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 16:42:10'!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/14/2024 20:12:22'!
 test06CartCanRememberAddedItems
 
 	| carrito aItem |
 	
 	carrito := self createCart .
-	aItem := self inCatalogItem .
+	aItem := self itemSellByStore .
 	carrito add: aItem.
 	
 	self assert: carrito includes: aItem.! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 16:51:38'!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/14/2024 20:12:32'!
 test07CartRemembersNumberOfAddedItems
 
 	| carrito aItem |
 	
 	carrito := self createCart .
-	aItem := self inCatalogItem .
+	aItem := self itemSellByStore .
 	carrito add: aItem amount: 10 .
 	
 	self assert: (carrito occurrencesOf: aItem) = 10.! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 16:55:09'!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/14/2024 20:12:43'!
 test08CartDoesntHoldNotAddedItem
 
 	| carrito aItem |
 	
 	carrito := self createCart .
-	aItem := self inCatalogItem .
+	aItem := self itemSellByStore .
 	
 	
 	self deny: (carrito includes: aItem).! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 20:46:54'!
-test09CartCanShowItsContent
-
-	| carrito aItem |
-	
-	carrito := self createCart .
-	aItem := self inCatalogItem .
-	carrito add: aItem amount: 10. 
-	
-	self assert: (aItem asString) equals: carrito showContents .! !
-
 
-!classDefinition: #CheckoutTest category: #TusLibros!
-TestCase subclass: #CheckoutTest
-	instanceVariableNames: ''
+!classDefinition: #CashierTest category: #TusLibros!
+TestCase subclass: #CashierTest
+	instanceVariableNames: 'testObjectsFactory'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!CheckoutTest methodsFor: 'cart creation' stamp: 'ml 11/6/2024 20:28:49'!
-aSimpleCatalog
+!CashierTest methodsFor: 'tests' stamp: 'ml 11/14/2024 20:26:56'!
+setUp
 
-	^Array with: self inCatalogItem1 with: self inCatalogItem2 .! !
+	testObjectsFactory := TestObjectFactory new.! !
 
-!CheckoutTest methodsFor: 'cart creation' stamp: 'ml 11/6/2024 18:00:44'!
-createCart
-
-	^Cart withTheStoreCatalog: self aSimpleCatalog.! !
-
-!CheckoutTest methodsFor: 'cart creation' stamp: 'ml 11/6/2024 19:58:05'!
-inCatalogItem1
-
-	^'valid item 1'! !
-
-!CheckoutTest methodsFor: 'cart creation' stamp: 'ml 11/6/2024 20:28:26'!
-inCatalogItem2
-
-	^'valid item 2'! !
-
-!CheckoutTest methodsFor: 'cart creation' stamp: 'ml 11/6/2024 18:01:11'!
-notInCatalogItem
-
-	^'invalid item'! !
-
-
-!CheckoutTest methodsFor: 'creditCard creation' stamp: 'ml 11/7/2024 21:16:06'!
-createCreditcard
-	
-	^ Array with: 1111222233334444 with: self today next ! !
-
-!CheckoutTest methodsFor: 'creditCard creation' stamp: 'ml 11/7/2024 21:06:21'!
-createExpiredCreditcard
-	
-	^ Array with: 1111222233335555 with: '6 August 2022' asDate. ! !
-
-!CheckoutTest methodsFor: 'creditCard creation' stamp: 'ml 11/7/2024 21:16:06'!
-today
-
-	^ DateAndTime today date! !
-
-
-!CheckoutTest methodsFor: 'tests' stamp: 'ml 11/11/2024 22:09:47'!
+!CashierTest methodsFor: 'tests' stamp: 'ml 11/14/2024 20:41:17'!
 test01CannotCheckoutAnEmptyCart
 
-	self should: [ Checkout recievesA: self createCart and: self createCreditcard] 
+	self should: [ Cashier recievesA: testObjectsFactory createCart charge: testObjectsFactory createExpiredCard] 
 		raise: Error 
 		withExceptionDo: [ :anException |
-		self assert: Checkout invalidCartMsgError equals: anException messageText.
+		self assert: Cashier cartCanNotBeEmptyMsgError equals: anException messageText.
 	]! !
 
-!CheckoutTest methodsFor: 'tests' stamp: 'ml 11/7/2024 20:09:47'!
+!CashierTest methodsFor: 'tests' stamp: 'ml 11/14/2024 20:41:37'!
 test02CheckoutASingleElementCart
 
-	| carrito checkout |
-	carrito := self createCart .
-	carrito add: self inCatalogItem1 .
+	| carrito cashier |
+	carrito := testObjectsFactory createCart .
+	carrito add: testObjectsFactory itemSellByStore amount: 2.
 	
-	checkout := Checkout knows: self createPriceList .
-	checkout recievesA: carrito and: self createCreditcard .
+	cashier := Cashier recievesA: carrito charge: testObjectsFactory createExpiredCard .
 	
-	self assert: (self createPriceList at: self inCatalogItem1) equals: checkout cartProductValue.
-	
-	
-	
-! !
-
-!CheckoutTest methodsFor: 'tests' stamp: 'ml 11/7/2024 20:14:59'!
-test03CheckoutATwoElementCart
-
-	| carrito checkout |
-	carrito := self createCart .
-	carrito add: self inCatalogItem1 amount: 2.
-	
-	checkout := Checkout knows: self createPriceList .
-	checkout recievesA: carrito and: self createCreditcard .
-	
-	self assert: (self createPriceList at: self inCatalogItem1) * 2 equals: checkout cartProductValue.
+	self assert: cashier checkout = (testObjectsFactory itemSellByStorePrice * 2)
 	
 	
 	
 ! !
 
-!CheckoutTest methodsFor: 'tests' stamp: 'ml 11/7/2024 21:10:10'!
-test04CheckoutCannotUseAExpiredCreditCard
+!CashierTest methodsFor: 'tests' stamp: 'ml 11/14/2024 20:42:23'!
+test03CanNotCheckOutAnExpiredCreditCard
 
-	| carrito checkout priceList expiredCreditCard |
-	carrito := self createCart .
-	carrito add: self inCatalogItem1 amount: 2.
-	
-	priceList := self createPriceList .
-	checkout := Checkout knows: priceList .
-	expiredCreditCard := self createExpiredCreditcard .
-	
-	self should: [ checkout recievesA: carrito and: expiredCreditCard .] 
+	| carrito |
+	carrito := testObjectsFactory createCart .
+	carrito add: testObjectsFactory itemSellByStore amount: 2.
+
+	self should: [ Cashier recievesA: testObjectsFactory createCart charge: testObjectsFactory createExpiredCard ] 
 		raise: Error 
 		withExceptionDo: [ :anException |
-		self assert: checkout expiredCreditCardMsgError equals: anException messageText.
+		self assert: Cashier canNotUseAnExpiredCard equals: anException messageText.
 	]
-! !
-
-
-!CheckoutTest methodsFor: 'priceList creation' stamp: 'ml 11/6/2024 20:01:09'!
-createPriceList
-
-	| priceList |
-	priceList := Dictionary new .
-	priceList at: 'valid item 1' put: 18000 * peso.
 	
-	^priceList ! !
+! !
 
 
 !classDefinition: #Cart category: #TusLibros!
@@ -293,10 +222,10 @@ add: aItemToAdd amount: aQuantity
 	items add: aItemToAdd withOccurrences: aQuantity .
 	! !
 
-!Cart methodsFor: 'add a item' stamp: 'ml 11/6/2024 16:33:12'!
+!Cart methodsFor: 'add a item' stamp: 'ml 11/14/2024 20:11:37'!
 assertAValidItem: aItemToAdd
 
-	^ (catalog includes: aItemToAdd) ifFalse: [self error: self invalidItemMsgError]! !
+	^ (catalog includesKey: aItemToAdd) ifFalse: [self error: self invalidItemMsgError]! !
 
 !Cart methodsFor: 'add a item' stamp: 'ml 11/6/2024 16:39:45'!
 assertAValidQuantity: aQuantity
@@ -315,10 +244,18 @@ occurrencesOf: aItem
 	^items occurrencesOf: aItem .! !
 
 
-!Cart methodsFor: 'show content' stamp: 'ml 11/6/2024 20:46:38'!
-showContents
+
+!Cart methodsFor: 'as yet unclassified' stamp: 'ml 11/14/2024 20:16:31'!
+catalog
+
+	^ catalog .
+
+	! !
+
+!Cart methodsFor: 'as yet unclassified' stamp: 'ml 11/14/2024 20:17:53'!
+itemsDo: aBlock 
 	
-	^ items contents keys first asString. "': ', items contents values first asString, '. '."! !
+	^items do: aBlock ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -332,73 +269,112 @@ withTheStoreCatalog: aStoreCatalog
 	^self new initializeAcceptingItems: aStoreCatalog.! !
 
 
-!classDefinition: #Checkout category: #TusLibros!
-Object subclass: #Checkout
+!classDefinition: #Cashier category: #TusLibros!
+Object subclass: #Cashier
 	instanceVariableNames: 'cart creditCard'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!Checkout methodsFor: 'initialize' stamp: 'ml 11/11/2024 22:15:16'!
-initializeWith: aCartToCheckout and: aCreditCard
+!Cashier methodsFor: 'initialize' stamp: 'ml 11/14/2024 20:39:18'!
+initializeWith: aCartToCheckout charge: aCreditCard
 
 	cart := aCartToCheckout .
-	creditCard := aCreditCard .! !
+	creditCard := aCreditCard .
+	! !
 
 
-!Checkout methodsFor: 'assertions' stamp: 'ml 11/7/2024 21:04:11'!
-assertNotExpiredCreditCard: aCreditCard
+!Cashier methodsFor: 'checkout' stamp: 'ml 11/14/2024 20:14:55'!
+checkout
 
-	^ (self expirationDateOf: aCreditCard) < self today ifTrue: [self error: self expiredCreditCardMsgError]! !
-
-
-!Checkout methodsFor: 'msg errors' stamp: 'ml 11/7/2024 21:03:25'!
-expiredCreditCardMsgError
-
-	^'Cannot use an expired credit card'.! !
-
-!Checkout methodsFor: 'msg errors' stamp: 'ml 11/7/2024 20:06:01'!
-invalidCartMsgError
-
-	^'Cannot checkout an empty cart'.! !
-
-
-!Checkout methodsFor: 'as yet unclassified' stamp: 'ml 11/6/2024 21:00:33'!
-cartProductValue
-
-	^(priceList at: (cart showContents)) * (cart occurrencesOf: cart showContents ) .! !
-
-!Checkout methodsFor: 'as yet unclassified' stamp: 'ml 11/7/2024 20:50:43'!
-expirationDateOf: aCreditCard
-
-	^ aCreditCard second! !
-
-!Checkout methodsFor: 'as yet unclassified' stamp: 'ml 11/7/2024 20:50:56'!
-today
-
-	^ DateAndTime today date! !
+	| priceList total |
+	
+	priceList := cart catalog.
+	total := 0.
+	cart itemsDo: [ :anItem | total := total + (priceList at: anItem)].
+	
+	^total! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Checkout class' category: #TusLibros!
-Checkout class
+!classDefinition: 'Cashier class' category: #TusLibros!
+Cashier class
 	instanceVariableNames: ''!
 
-!Checkout class methodsFor: 'creation' stamp: 'ml 11/11/2024 22:14:38'!
-recievesA: aCartToCheckout and: aCreditCard
+!Cashier class methodsFor: 'creation' stamp: 'ml 11/14/2024 20:43:45'!
+recievesA: aCartToCheckout charge: aCreditCard
 
 	self assertNotEmptyCart: aCartToCheckout.
+	self assertNotExpiredCreditCard: aCreditCard .
 	
-	^self new initializeWith: aCartToCheckout and: aCreditCard.! !
+	^self new initializeWith: aCartToCheckout charge: aCreditCard .! !
 
 
-!Checkout class methodsFor: 'assertions' stamp: 'ml 11/11/2024 22:11:35'!
+!Cashier class methodsFor: 'assertions' stamp: 'ml 11/14/2024 20:00:14'!
 assertNotEmptyCart: cartToCheckout
 
-	^ cartToCheckout isEmpty ifTrue: [ self error: self invalidCartMsgError]! !
+	^ cartToCheckout isEmpty ifTrue: [ self error: self cartCanNotBeEmptyMsgError]! !
+
+!Cashier class methodsFor: 'assertions' stamp: 'ml 11/14/2024 20:45:16'!
+assertNotExpiredCreditCard: creditCardToCharge
+
+	^ creditCardToCharge isExpired ifTrue: [ self error: self canNotUseAnExpiredCard ]! !
 
 
-!Checkout class methodsFor: 'msg errors' stamp: 'ml 11/11/2024 22:15:46'!
-invalidCartMsgError
+!Cashier class methodsFor: 'msg errors' stamp: 'ml 11/14/2024 20:33:49'!
+canNotUseAnExpiredCard
+
+	^'Can not use an expired credit card'! !
+
+!Cashier class methodsFor: 'msg errors' stamp: 'ml 11/14/2024 20:00:14'!
+cartCanNotBeEmptyMsgError
 	
 	^'Cannot checkout an empty cart'.! !
+
+
+!classDefinition: #CreditCard category: #TusLibros!
+Object subclass: #CreditCard
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'ml 11/14/2024 20:36:46'!
+isExpired
+
+	^ true.! !
+
+
+!classDefinition: #TestObjectFactory category: #TusLibros!
+Object subclass: #TestObjectFactory
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!TestObjectFactory methodsFor: 'as yet unclassified' stamp: 'ml 11/14/2024 20:25:43'!
+aSimpleCatalog
+
+	^Dictionary new 
+		at: self itemSellByStore put: self itemSellByStorePrice; 
+		yourself! !
+
+!TestObjectFactory methodsFor: 'as yet unclassified' stamp: 'ml 11/14/2024 20:25:51'!
+createCart
+
+	^Cart withTheStoreCatalog: self aSimpleCatalog.! !
+
+!TestObjectFactory methodsFor: 'as yet unclassified' stamp: 'ml 11/14/2024 20:36:17'!
+createExpiredCard
+
+	^ CreditCard new.! !
+
+!TestObjectFactory methodsFor: 'as yet unclassified' stamp: 'ml 11/14/2024 20:25:59'!
+itemSellByStore
+
+	^'valid item 1'! !
+
+!TestObjectFactory methodsFor: 'as yet unclassified' stamp: 'ml 11/14/2024 20:26:06'!
+itemSellByStorePrice
+
+	^ (20000 * peso)! !
