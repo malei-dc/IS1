@@ -130,48 +130,37 @@ TestCase subclass: #CashierTest
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!CashierTest methodsFor: 'tests' stamp: 'ml 11/14/2024 20:26:56'!
+!CashierTest methodsFor: 'tests' stamp: 'ml 11/19/2024 14:29:02'!
 setUp
-
 	testObjectsFactory := TestObjectFactory new.! !
 
-!CashierTest methodsFor: 'tests' stamp: 'ml 11/14/2024 20:41:17'!
+!CashierTest methodsFor: 'tests' stamp: 'ml 11/19/2024 14:10:10'!
 test01CannotCheckoutAnEmptyCart
-
 	self should: [ Cashier recievesA: testObjectsFactory createCart charge: testObjectsFactory createExpiredCard] 
 		raise: Error 
 		withExceptionDo: [ :anException |
 		self assert: Cashier cartCanNotBeEmptyMsgError equals: anException messageText.
 	]! !
 
-!CashierTest methodsFor: 'tests' stamp: 'ml 11/14/2024 20:41:37'!
+!CashierTest methodsFor: 'tests' stamp: 'ml 11/19/2024 14:29:58'!
 test02CheckoutASingleElementCart
-
 	| carrito cashier |
 	carrito := testObjectsFactory createCart .
 	carrito add: testObjectsFactory itemSellByStore amount: 2.
-	
-	cashier := Cashier recievesA: carrito charge: testObjectsFactory createExpiredCard .
-	
+	cashier := Cashier recievesA: carrito charge: testObjectsFactory createNotExpiredCard .
 	self assert: cashier checkout = (testObjectsFactory itemSellByStorePrice * 2)
-	
-	
-	
 ! !
 
-!CashierTest methodsFor: 'tests' stamp: 'ml 11/14/2024 20:42:23'!
+!CashierTest methodsFor: 'tests' stamp: 'ml 11/19/2024 14:13:08'!
 test03CanNotCheckOutAnExpiredCreditCard
-
 	| carrito |
 	carrito := testObjectsFactory createCart .
-	carrito add: testObjectsFactory itemSellByStore amount: 2.
-
-	self should: [ Cashier recievesA: testObjectsFactory createCart charge: testObjectsFactory createExpiredCard ] 
+	carrito add: testObjectsFactory itemSellByStore.
+	self should: [ Cashier recievesA: carrito charge: testObjectsFactory createExpiredCard ] 
 		raise: Error 
 		withExceptionDo: [ :anException |
 		self assert: Cashier canNotUseAnExpiredCard equals: anException messageText.
 	]
-	
 ! !
 
 
@@ -244,7 +233,6 @@ occurrencesOf: aItem
 	^items occurrencesOf: aItem .! !
 
 
-
 !Cart methodsFor: 'as yet unclassified' stamp: 'ml 11/14/2024 20:16:31'!
 catalog
 
@@ -276,6 +264,10 @@ Object subclass: #Cashier
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
+!Cashier methodsFor: 'initialize' stamp: 'ml 11/19/2024 13:56:42'!
+initializeWith: aCartToCheckout 
+	cart := aCartToCheckout .	! !
+
 !Cashier methodsFor: 'initialize' stamp: 'ml 11/14/2024 20:39:18'!
 initializeWith: aCartToCheckout charge: aCreditCard
 
@@ -301,48 +293,50 @@ checkout
 Cashier class
 	instanceVariableNames: ''!
 
-!Cashier class methodsFor: 'creation' stamp: 'ml 11/14/2024 20:43:45'!
-recievesA: aCartToCheckout charge: aCreditCard
+!Cashier class methodsFor: 'creation' stamp: 'ml 11/19/2024 13:56:22'!
+recievesA: aCartToCheckout 
+	self assertNotEmptyCart: aCartToCheckout.
+	^self new initializeWith: aCartToCheckout .! !
 
+!Cashier class methodsFor: 'creation' stamp: 'ml 11/19/2024 14:01:08'!
+recievesA: aCartToCheckout charge: aCreditCard
 	self assertNotEmptyCart: aCartToCheckout.
 	self assertNotExpiredCreditCard: aCreditCard .
-	
 	^self new initializeWith: aCartToCheckout charge: aCreditCard .! !
 
 
-!Cashier class methodsFor: 'assertions' stamp: 'ml 11/14/2024 20:00:14'!
+!Cashier class methodsFor: 'assertions' stamp: 'ml 11/19/2024 14:00:28'!
 assertNotEmptyCart: cartToCheckout
-
 	^ cartToCheckout isEmpty ifTrue: [ self error: self cartCanNotBeEmptyMsgError]! !
 
-!Cashier class methodsFor: 'assertions' stamp: 'ml 11/14/2024 20:45:16'!
+!Cashier class methodsFor: 'assertions' stamp: 'ml 11/19/2024 14:08:57'!
 assertNotExpiredCreditCard: creditCardToCharge
+	^ (creditCardToCharge isExpiredOn: DateAndTime now) ifTrue: [ self error: self canNotUseAnExpiredCard ]! !
 
-	^ creditCardToCharge isExpired ifTrue: [ self error: self canNotUseAnExpiredCard ]! !
 
-
-!Cashier class methodsFor: 'msg errors' stamp: 'ml 11/14/2024 20:33:49'!
+!Cashier class methodsFor: 'msg errors' stamp: 'ml 11/19/2024 14:00:00'!
 canNotUseAnExpiredCard
-
 	^'Can not use an expired credit card'! !
 
-!Cashier class methodsFor: 'msg errors' stamp: 'ml 11/14/2024 20:00:14'!
+!Cashier class methodsFor: 'msg errors' stamp: 'ml 11/19/2024 14:00:51'!
 cartCanNotBeEmptyMsgError
-	
 	^'Cannot checkout an empty cart'.! !
 
 
 !classDefinition: #CreditCard category: #TusLibros!
 Object subclass: #CreditCard
-	instanceVariableNames: ''
+	instanceVariableNames: 'expired'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!CreditCard methodsFor: 'as yet unclassified' stamp: 'ml 11/14/2024 20:36:46'!
-isExpired
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'ml 11/19/2024 14:26:38'!
+expired: aBoolean
+	expired := aBoolean .! !
 
-	^ true.! !
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'ml 11/19/2024 14:26:08'!
+isExpiredOn: aDate
+	^ expired.! !
 
 
 !classDefinition: #TestObjectFactory category: #TusLibros!
@@ -352,29 +346,32 @@ Object subclass: #TestObjectFactory
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!TestObjectFactory methodsFor: 'as yet unclassified' stamp: 'ml 11/14/2024 20:25:43'!
+!TestObjectFactory methodsFor: 'as yet unclassified' stamp: 'ml 11/19/2024 14:28:12'!
 aSimpleCatalog
-
 	^Dictionary new 
 		at: self itemSellByStore put: self itemSellByStorePrice; 
 		yourself! !
 
-!TestObjectFactory methodsFor: 'as yet unclassified' stamp: 'ml 11/14/2024 20:25:51'!
+!TestObjectFactory methodsFor: 'as yet unclassified' stamp: 'ml 11/19/2024 14:12:04'!
 createCart
-
 	^Cart withTheStoreCatalog: self aSimpleCatalog.! !
 
-!TestObjectFactory methodsFor: 'as yet unclassified' stamp: 'ml 11/14/2024 20:36:17'!
+!TestObjectFactory methodsFor: 'as yet unclassified' stamp: 'ml 11/19/2024 14:28:34'!
 createExpiredCard
+	^ CreditCard new 
+	expired: true; 
+	yourself! !
 
-	^ CreditCard new.! !
+!TestObjectFactory methodsFor: 'as yet unclassified' stamp: 'ml 11/19/2024 14:28:24'!
+createNotExpiredCard
+	^ CreditCard new 
+	expired: false; 
+	yourself! !
 
-!TestObjectFactory methodsFor: 'as yet unclassified' stamp: 'ml 11/14/2024 20:25:59'!
+!TestObjectFactory methodsFor: 'as yet unclassified' stamp: 'ml 11/19/2024 14:27:49'!
 itemSellByStore
-
 	^'valid item 1'! !
 
-!TestObjectFactory methodsFor: 'as yet unclassified' stamp: 'ml 11/14/2024 20:26:06'!
+!TestObjectFactory methodsFor: 'as yet unclassified' stamp: 'ml 11/19/2024 14:27:57'!
 itemSellByStorePrice
-
 	^ (20000 * peso)! !
