@@ -1,3 +1,259 @@
+!classDefinition: #PacmanGameTest category: #'2024-2C-Parcial-2'!
+TestCase subclass: #PacmanGameTest
+	instanceVariableNames: 'visitedElements'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '2024-2C-Parcial-2'!
+
+!PacmanGameTest methodsFor: 'as yet unclassified' stamp: 'ml 12/9/2024 21:58:00'!
+test01PacmanStartsMovingLeft
+
+	| board game |
+	
+	board := StringPacmanBoard representedAs:#(
+		'######'
+		'#-BC-#'
+		'#-p--#'
+		'######').
+	"Crea el juego y hace que avance un solo tick"
+	game := PacmanGame on: board.
+	game tick.
+	self
+	assert: game stringRepresentationOfBoard
+	equals: #(
+		'######'
+		'#-BC-#'
+		'#p=--#'
+		'######').! !
+
+!PacmanGameTest methodsFor: 'as yet unclassified' stamp: 'ml 12/9/2024 22:23:50'!
+test02PacmanCanMoveRight
+
+	| board game |
+	
+	board := StringPacmanBoard representedAs:#(
+		'######'
+		'#B-C-#'
+		'#-p--#'
+		'######').
+	"Crea el juego y hace que avance un solo tick"
+	game := PacmanGame on: board.
+	game startMovingPacmanRight.
+	game tick.
+	self
+	assert: game stringRepresentationOfBoard
+	equals: #(
+		'######'
+		'#B-C-#'
+		'#-=p-#'
+		'######').! !
+
+!PacmanGameTest methodsFor: 'as yet unclassified' stamp: 'ml 12/9/2024 22:26:50'!
+test03PacmanCanMoveUp
+
+	| board game |
+	
+	board := StringPacmanBoard representedAs:#(
+		'######'
+		'#B-C-#'
+		'#-p--#'
+		'######').
+	"Crea el juego y hace que avance un solo tick"
+	game := PacmanGame on: board.
+	game startMovingPacmanUp.
+	game tick.
+	self
+	assert: game stringRepresentationOfBoard
+	equals: #(
+		'######'
+		'#BpC-#'
+		'#-=--#'
+		'######').! !
+
+!PacmanGameTest methodsFor: 'as yet unclassified' stamp: 'ml 12/9/2024 22:27:41'!
+test04PacmanCanMoveDown
+
+	| board game |
+	
+	board := StringPacmanBoard representedAs:#(
+		'######'
+		'#BpC-#'
+		'#----#'
+		'######').
+	"Crea el juego y hace que avance un solo tick"
+	game := PacmanGame on: board.
+	game startMovingPacmanDown.
+	game tick.
+	self
+	assert: game stringRepresentationOfBoard
+	equals: #(
+		'######'
+		'#B=C-#'
+		'#-p--#'
+		'######').! !
+
+!PacmanGameTest methodsFor: 'as yet unclassified' stamp: 'ml 12/10/2024 01:40:50'!
+test05PacmanMovesCorrectlyMoreThanOneTick
+
+	| board game |
+	
+	board := StringPacmanBoard representedAs:#(
+		'######'
+		'#-BC-#'
+		'#--p-#'
+		'######').
+		
+	game := PacmanGame on: board.
+	game tick. game tick.
+	self
+	assert: game stringRepresentationOfBoard
+	equals: #(
+		'######'
+		'#-BC-#'
+		'#p==-#'
+		'######').! !
+
+!PacmanGameTest methodsFor: 'as yet unclassified' stamp: 'ml 12/10/2024 19:16:59'!
+test06GameStartWithZeroPoints
+
+	| board game |
+	
+	board := StringPacmanBoard representedAs:#(
+		'######'
+		'#-BC-#'
+		'#--p-#'
+		'######').
+		
+	game := PacmanGame on: board.
+	self assert: 0 equals: game points.! !
+
+!PacmanGameTest methodsFor: 'as yet unclassified' stamp: 'ml 12/10/2024 17:29:23'!
+test07GameStartWithPacmanWithThreeLives
+
+	| board game |
+	
+	board := StringPacmanBoard representedAs:#(
+		'######'
+		'#-BC-#'
+		'#--p-#'
+		'######').
+		
+	game := PacmanGame on: board.
+	game tick. game tick.
+	self assert: 3 equals: game pacmanLives.! !
+
+!PacmanGameTest methodsFor: 'as yet unclassified' stamp: 'ml 12/10/2024 17:34:47'!
+test08AddsOnePointWhenEatingSmallPill
+
+	| board game |
+	
+	board := StringPacmanBoard representedAs:#(
+		'######'
+		'#-BC-#'
+		'#-p--#'
+		'######').
+		
+	game := PacmanGame on: board.
+	game tick.
+	
+	self assert: 1 equals: game points.
+	self
+		assert: game stringRepresentationOfBoard
+		equals: #(
+		'######'
+		'#-BC-#'
+		'#p=--#'
+		'######').! !
+
+!PacmanGameTest methodsFor: 'as yet unclassified' stamp: 'ml 12/10/2024 19:21:49'!
+test09AddsTwoPointsWhenEatingBigPill
+
+	| board game |
+	
+	board := StringPacmanBoard representedAs:#(
+		'######'
+		'#-BC-#'
+		'#*p--#'
+		'######').
+		
+	game := PacmanGame on: board.
+	game tick.
+	
+	self assert: 2 equals: game points.
+	self
+		assert: game stringRepresentationOfBoard
+		equals: #(
+		'######'
+		'#-BC-#'
+		'#p=--#'
+		'######').! !
+
+!PacmanGameTest methodsFor: 'as yet unclassified' stamp: 'ml 12/10/2024 22:29:46'!
+test10PacmanCanNotMoveIntoWall
+
+	| board game |
+	
+	board := StringPacmanBoard representedAs:#(
+		'######'
+		'#-BC-#'
+		'#p---#'
+		'######').
+		
+	game := PacmanGame on: board.
+	game tick.
+	self
+		assert: game stringRepresentationOfBoard
+		equals: #(
+		'######'
+		'#-BC-#'
+		'#p---#'
+		'######').! !
+
+!PacmanGameTest methodsFor: 'as yet unclassified' stamp: 'ml 12/10/2024 22:30:32'!
+test11PacmanCanMoveIntoSpace
+
+	| board game |
+	
+	board := StringPacmanBoard representedAs:#(
+		'######'
+		'#-BC-#'
+		'#=p--#'
+		'######').
+		
+	game := PacmanGame on: board.
+	game tick.
+	self
+		assert: game stringRepresentationOfBoard
+		equals: #(
+		'######'
+		'#-BC-#'
+		'#p=--#'
+		'######').! !
+
+!PacmanGameTest methodsFor: 'as yet unclassified' stamp: 'ml 12/10/2024 22:51:04'!
+test12BlinkyStartsMovingLeftOnFourthTick
+
+	| board game |
+	
+	board := StringPacmanBoard representedAs:#(
+		'######'
+		'#-BC-#'
+		'#=p--#'
+		'######').
+		
+	game := PacmanGame on: board.
+	3 timesRepeat: [game tick].
+	game tick.
+	
+	self
+		assert: game stringRepresentationOfBoard
+		equals: #(
+		'######'
+		'#B=C-#'
+		'#p=--#'
+		'######').! !
+
+
 !classDefinition: #StringPacmanBoardTest category: #'2024-2C-Parcial-2'!
 TestCase subclass: #StringPacmanBoardTest
 	instanceVariableNames: 'visitedElements'
@@ -207,10 +463,10 @@ visitClydeAt: aPosition
 	
 	board at: aPosition put: #clyde! !
 
-!BoardTranslatorExample methodsFor: 'string board visiting' stamp: 'HAW 11/22/2024 14:42:40'!
+!BoardTranslatorExample methodsFor: 'string board visiting' stamp: 'ml 12/9/2024 10:25:58'!
 visitPacmanAt: aPosition 
 	
-	board at: aPosition put: 'debería ser un pacman!!'! !
+	board at: aPosition put: #pacman! !
 
 !BoardTranslatorExample methodsFor: 'string board visiting' stamp: 'LL 11/22/2024 11:43:22'!
 visitSmallPillAt: aPosition 
@@ -247,6 +503,448 @@ BoardTranslatorExample class
 on: aBoard
 
 	^self new initializeOn: aBoard! !
+
+
+!classDefinition: #PacmanGame category: #'2024-2C-Parcial-2'!
+Object subclass: #PacmanGame
+	instanceVariableNames: 'board boardExtent pacman points ticks blinky'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '2024-2C-Parcial-2'!
+
+!PacmanGame methodsFor: 'board visiting' stamp: 'ml 12/10/2024 18:33:04'!
+visitBigPillAt: aPosition 
+	
+	board at: aPosition put: Pill bigPill! !
+
+!PacmanGame methodsFor: 'board visiting' stamp: 'ml 12/11/2024 01:26:30'!
+visitBlinkyAt: aPosition 
+	
+	blinky := Blinky blinkyLocatedAt: aPosition. 
+	board at: aPosition put: blinky.! !
+
+!PacmanGame methodsFor: 'board visiting' stamp: 'ml 12/10/2024 18:58:01'!
+visitClydeAt: aPosition 
+	
+	board at: aPosition put: Clyde new! !
+
+!PacmanGame methodsFor: 'board visiting' stamp: 'ml 12/9/2024 22:08:24'!
+visitPacmanAt: aPosition 
+
+	pacman := Pacman locatedAt: aPosition. 
+	board at: aPosition put: pacman ! !
+
+!PacmanGame methodsFor: 'board visiting' stamp: 'ml 12/10/2024 18:33:16'!
+visitSmallPillAt: aPosition 
+	
+	board at: aPosition put: Pill smallPill! !
+
+!PacmanGame methodsFor: 'board visiting' stamp: 'ml 12/10/2024 18:58:19'!
+visitSpaceAt: aPosition
+
+	board at: aPosition put: Space new
+	
+	! !
+
+!PacmanGame methodsFor: 'board visiting' stamp: 'ml 12/10/2024 18:58:29'!
+visitWallAt: aPosition 
+	
+	board at: aPosition put: Wall new! !
+
+
+!PacmanGame methodsFor: 'initialization' stamp: 'ml 12/11/2024 01:13:52'!
+initializeOn: aBoard 
+
+	board := Dictionary new.
+	boardExtent := aBoard extent.
+	aBoard visitElementsWith: self.
+	
+	points := 0.
+	ticks := 0.
+	
+	
+	
+	! !
+
+
+!PacmanGame methodsFor: 'string representation' stamp: 'ml 12/10/2024 18:56:37'!
+characterRepresentationOf: anElement
+	
+	"(anElement = #smallPill) ifTrue: [ ^StringPacmanBoard smallPillCharacter ].
+	(anElement = #bigPill) ifTrue: [ ^StringPacmanBoard bigPillCharacter ].
+	(anElement = #blinky) ifTrue: [ ^StringPacmanBoard blinkyCharacter ].
+	(anElement = #clyde) ifTrue: [ ^StringPacmanBoard clydeCharacter ].
+	(anElement = #space) ifTrue: [ ^StringPacmanBoard spaceCharacter ].
+	(anElement = #wall) ifTrue: [ ^StringPacmanBoard wallCharacter ].
+	(anElement = #pacman ) ifTrue: [ ^StringPacmanBoard pacmanCharacter ].
+	
+	self error: 'Unknown pacman element type'"! !
+
+!PacmanGame methodsFor: 'string representation' stamp: 'ml 12/10/2024 19:01:16'!
+representationOfRowNumber: y
+	
+	^String streamContents: [ :rowStream |
+		1 to: boardExtent x do: [ :x |
+			rowStream nextPut: (board at: x@y) characterRepresentation]]! !
+
+!PacmanGame methodsFor: 'string representation' stamp: 'ml 12/9/2024 19:04:35'!
+stringRepresentationOfBoard
+	
+	| rows |
+	
+	rows := OrderedCollection new.
+
+	1 to: boardExtent y do: [ :y | 
+		rows add: (self representationOfRowNumber: y) ].
+	
+	^rows asArray! !
+
+
+!PacmanGame methodsFor: 'events' stamp: 'ml 12/9/2024 22:28:07'!
+startMovingPacmanDown
+	
+	pacman startMovingDown.! !
+
+!PacmanGame methodsFor: 'events' stamp: 'ml 12/10/2024 18:13:02'!
+startMovingPacmanLeft
+
+	pacman startMovingLeft . ! !
+
+!PacmanGame methodsFor: 'events' stamp: 'ml 12/9/2024 22:24:10'!
+startMovingPacmanRight
+
+	pacman startMovingRight .! !
+
+!PacmanGame methodsFor: 'events' stamp: 'ml 12/9/2024 22:25:55'!
+startMovingPacmanUp
+
+	pacman startMovingUp. ! !
+
+!PacmanGame methodsFor: 'events' stamp: 'ml 12/11/2024 01:42:25'!
+tick
+
+	| nextPositionElement |
+	ticks := ticks + 1.
+	
+	nextPositionElement := board  at: pacman nextPosition.
+	nextPositionElement pacmanWantToMoveInto: self. 
+	
+	ticks > 3 ifTrue: [ 
+			| elementAtNextPosition |
+			elementAtNextPosition := board at: blinky nextPosition.
+			elementAtNextPosition ghost: blinky wantsToMoveIntoIn: self.].
+! !
+
+
+!PacmanGame methodsFor: 'lives and points' stamp: 'ml 12/10/2024 17:29:49'!
+pacmanLives
+
+	^pacman lives! !
+
+!PacmanGame methodsFor: 'lives and points' stamp: 'ml 12/10/2024 17:27:35'!
+points
+
+	^points! !
+
+
+!PacmanGame methodsFor: 'pacman move' stamp: 'ml 12/10/2024 19:12:23'!
+movePacman
+
+	board  at: pacman position put: Space new.
+	board  at: pacman move put: pacman! !
+
+!PacmanGame methodsFor: 'pacman move' stamp: 'ml 12/10/2024 18:32:43'!
+pacmanWantsToMoveIntoPill: aPill
+
+	points := points + aPill pointsToAdd.
+	
+	self movePacman .! !
+
+!PacmanGame methodsFor: 'pacman move' stamp: 'ml 12/10/2024 22:31:41'!
+pacmanWantsToMoveIntoSpace
+
+	self movePacman .! !
+
+!PacmanGame methodsFor: 'pacman move' stamp: 'ml 12/10/2024 22:29:14'!
+pacmanWantsToMoveIntoWall! !
+
+
+!PacmanGame methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:47:44'!
+ghost: aGhost wantsToMoveIntoSpace: aPill 
+	
+	self move: aGhost withPreviousElement: aPill ! !
+
+!PacmanGame methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:49:00'!
+move: aGhost withPreviousElement: aGameElement 
+	
+	board at: aGhost position put: aGhost previousElement.
+	board at: (aGhost moveWithPreviousElement: aGameElement ) put: aGhost! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'PacmanGame class' category: #'2024-2C-Parcial-2'!
+PacmanGame class
+	instanceVariableNames: ''!
+
+!PacmanGame class methodsFor: 'as yet unclassified' stamp: 'ml 12/9/2024 21:57:44'!
+on: aBoard 
+
+	^self new initializeOn: aBoard .! !
+
+
+!classDefinition: #PacmanGameElements category: #'2024-2C-Parcial-2'!
+Object subclass: #PacmanGameElements
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '2024-2C-Parcial-2'!
+
+!PacmanGameElements methodsFor: 'as yet unclassified' stamp: 'ml 12/10/2024 18:23:17'!
+pacmanWantToMoveInto: aPacmanGame
+
+	self subclassResponsibility .! !
+
+
+!classDefinition: #Clyde category: #'2024-2C-Parcial-2'!
+PacmanGameElements subclass: #Clyde
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '2024-2C-Parcial-2'!
+
+!Clyde methodsFor: 'as yet unclassified' stamp: 'ml 12/10/2024 18:56:00'!
+characterRepresentation
+
+	^StringPacmanBoard clydeCharacter ! !
+
+
+!classDefinition: #PacmanActors category: #'2024-2C-Parcial-2'!
+PacmanGameElements subclass: #PacmanActors
+	instanceVariableNames: 'displacement position'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '2024-2C-Parcial-2'!
+
+!PacmanActors methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:39:33'!
+nextPosition
+
+	^ position + displacement .! !
+
+!PacmanActors methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:39:18'!
+position
+
+	^position! !
+
+!PacmanActors methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:39:09'!
+startMovingDown
+	
+	displacement := 0@1.! !
+
+!PacmanActors methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:39:05'!
+startMovingLeft
+
+	^displacement := (-1@0)! !
+
+!PacmanActors methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:38:45'!
+startMovingRight
+
+	^displacement := (1@0)! !
+
+!PacmanActors methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:38:33'!
+startMovingUp
+	
+	displacement := (0@-1)! !
+
+
+!PacmanActors methodsFor: 'initialization' stamp: 'ml 12/11/2024 01:40:03'!
+characterRepresentation
+
+	self subclassResponsibility! !
+
+
+!classDefinition: #Blinky category: #'2024-2C-Parcial-2'!
+PacmanActors subclass: #Blinky
+	instanceVariableNames: 'charRepresentation previousElement'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '2024-2C-Parcial-2'!
+
+!Blinky methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:36:18'!
+characterRepresentation
+
+	^ charRepresentation ! !
+
+!Blinky methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:50:08'!
+moveWithPreviousElement: aGameElement 
+
+	previousElement := aGameElement .
+	^position := self nextPosition ! !
+
+!Blinky methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:49:14'!
+previousElement
+	
+	^previousElement! !
+
+
+!Blinky methodsFor: 'initialization' stamp: 'ml 12/11/2024 01:45:23'!
+initializeWith: aPosition representedWith: aCharRepresentation 
+
+	position := aPosition.
+	charRepresentation := aCharRepresentation.
+	previousElement := Space new.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Blinky class' category: #'2024-2C-Parcial-2'!
+Blinky class
+	instanceVariableNames: ''!
+
+!Blinky class methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:31:01'!
+blinkyLocatedAt: aPosition 
+
+	^(self locatedAt: aPosition representedWith: StringPacmanBoard blinkyCharacter)
+		startMovingLeft;
+		yourself ! !
+
+!Blinky class methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:34:45'!
+locatedAt: aPosition representedWith: aCharRepresentation 
+	
+	^self new initializeWith: aPosition representedWith: aCharRepresentation ! !
+
+
+!classDefinition: #Pacman category: #'2024-2C-Parcial-2'!
+PacmanActors subclass: #Pacman
+	instanceVariableNames: 'lives'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '2024-2C-Parcial-2'!
+
+!Pacman methodsFor: 'initialization' stamp: 'ml 12/10/2024 18:46:04'!
+characterRepresentation
+
+	^StringPacmanBoard pacmanCharacter ! !
+
+!Pacman methodsFor: 'initialization' stamp: 'ml 12/10/2024 17:30:46'!
+initializeWith: aPosition 
+
+	position := aPosition.
+	lives := 3.
+	
+	self startMovingLeft.! !
+
+
+!Pacman methodsFor: 'as yet unclassified' stamp: 'ml 12/10/2024 17:30:11'!
+lives
+
+	^ lives! !
+
+!Pacman methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:40:58'!
+move
+
+	^ position := self nextPosition .! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Pacman class' category: #'2024-2C-Parcial-2'!
+Pacman class
+	instanceVariableNames: ''!
+
+!Pacman class methodsFor: 'as yet unclassified' stamp: 'ml 12/9/2024 22:16:12'!
+locatedAt: aPosition 
+
+	^ self new initializeWith: aPosition .! !
+
+
+!classDefinition: #Pill category: #'2024-2C-Parcial-2'!
+PacmanGameElements subclass: #Pill
+	instanceVariableNames: 'pointsToAdd charRepresentation'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '2024-2C-Parcial-2'!
+
+!Pill methodsFor: 'as yet unclassified' stamp: 'ml 12/10/2024 18:50:22'!
+characterRepresentation
+
+	^charRepresentation .! !
+
+!Pill methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:47:08'!
+ghost: aGhost wantsToMoveIntoIn: aPacmanGame 
+
+	aPacmanGame ghost: aGhost wantsToMoveIntoSpace: self! !
+
+!Pill methodsFor: 'as yet unclassified' stamp: 'ml 12/10/2024 18:24:16'!
+pacmanWantToMoveInto: aPacmanGame
+
+	aPacmanGame pacmanWantsToMoveIntoPill: self.! !
+
+!Pill methodsFor: 'as yet unclassified' stamp: 'ml 12/10/2024 18:30:34'!
+pointsToAdd
+
+	^pointsToAdd.! !
+
+
+!Pill methodsFor: 'initialization' stamp: 'ml 12/10/2024 18:50:03'!
+initializePointsToAddWhenEated: apointToAdd characterRepresentation: aCharacter
+
+	pointsToAdd := apointToAdd.
+	charRepresentation := aCharacter .! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Pill class' category: #'2024-2C-Parcial-2'!
+Pill class
+	instanceVariableNames: ''!
+
+!Pill class methodsFor: 'as yet unclassified' stamp: 'ml 12/10/2024 18:51:11'!
+bigPill
+
+	^ self pointsToAddWhenEated: 2 characterRepresentation: StringPacmanBoard bigPillCharacter .! !
+
+!Pill class methodsFor: 'as yet unclassified' stamp: 'ml 12/10/2024 18:49:35'!
+pointsToAddWhenEated: pointToAdd characterRepresentation: aCharacter
+
+	^self new initializePointsToAddWhenEated: pointToAdd characterRepresentation: aCharacter.! !
+
+!Pill class methodsFor: 'as yet unclassified' stamp: 'ml 12/10/2024 18:48:55'!
+smallPill
+
+	^ self pointsToAddWhenEated: 1 characterRepresentation: StringPacmanBoard smallPillCharacter .! !
+
+
+!classDefinition: #Space category: #'2024-2C-Parcial-2'!
+PacmanGameElements subclass: #Space
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '2024-2C-Parcial-2'!
+
+!Space methodsFor: 'as yet unclassified' stamp: 'ml 12/10/2024 18:55:50'!
+characterRepresentation
+
+	^StringPacmanBoard spaceCharacter ! !
+
+!Space methodsFor: 'as yet unclassified' stamp: 'ml 12/10/2024 22:30:52'!
+pacmanWantToMoveInto: aPacmanGame
+
+	aPacmanGame pacmanWantsToMoveIntoSpace! !
+
+
+!classDefinition: #Wall category: #'2024-2C-Parcial-2'!
+PacmanGameElements subclass: #Wall
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: '2024-2C-Parcial-2'!
+
+!Wall methodsFor: 'as yet unclassified' stamp: 'ml 12/10/2024 18:55:38'!
+characterRepresentation
+
+	^StringPacmanBoard wallCharacter .! !
+
+!Wall methodsFor: 'as yet unclassified' stamp: 'ml 12/10/2024 22:29:22'!
+pacmanWantToMoveInto: aPacmanGame
+
+	aPacmanGame pacmanWantsToMoveIntoWall! !
 
 
 !classDefinition: #StringPacmanBoard category: #'2024-2C-Parcial-2'!
