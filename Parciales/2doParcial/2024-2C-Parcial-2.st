@@ -253,6 +253,29 @@ test12BlinkyStartsMovingLeftOnFourthTick
 		'#p=--#'
 		'######').! !
 
+!PacmanGameTest methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 16:14:56'!
+test13ClydeStartsMovingRightOnFifthTick
+
+	| board game |
+	
+	board := StringPacmanBoard representedAs:#(
+		'######'
+		'#-BC-#'
+		'#=p--#'
+		'######').
+		
+	game := PacmanGame on: board.
+	4 timesRepeat: [game tick].
+	game tick.
+	
+	self
+		assert: game stringRepresentationOfBoard
+		equals: #(
+		'######'
+		'#B==C#'
+		'#p=--#'
+		'######').! !
+
 
 !classDefinition: #StringPacmanBoardTest category: #'2024-2C-Parcial-2'!
 TestCase subclass: #StringPacmanBoardTest
@@ -507,7 +530,7 @@ on: aBoard
 
 !classDefinition: #PacmanGame category: #'2024-2C-Parcial-2'!
 Object subclass: #PacmanGame
-	instanceVariableNames: 'board boardExtent pacman points ticks blinky'
+	instanceVariableNames: 'board boardExtent pacman points ticks blinky clyde'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: '2024-2C-Parcial-2'!
@@ -517,16 +540,17 @@ visitBigPillAt: aPosition
 	
 	board at: aPosition put: Pill bigPill! !
 
-!PacmanGame methodsFor: 'board visiting' stamp: 'ml 12/11/2024 01:26:30'!
+!PacmanGame methodsFor: 'board visiting' stamp: 'ml 12/11/2024 16:32:39'!
 visitBlinkyAt: aPosition 
 	
-	blinky := Blinky blinkyLocatedAt: aPosition. 
+	blinky := Ghost blinkyLocatedAt: aPosition. 
 	board at: aPosition put: blinky.! !
 
-!PacmanGame methodsFor: 'board visiting' stamp: 'ml 12/10/2024 18:58:01'!
+!PacmanGame methodsFor: 'board visiting' stamp: 'ml 12/11/2024 16:34:40'!
 visitClydeAt: aPosition 
 	
-	board at: aPosition put: Clyde new! !
+	clyde := Ghost clydeLocatedAt: aPosition. 
+	board at: aPosition put: clyde! !
 
 !PacmanGame methodsFor: 'board visiting' stamp: 'ml 12/9/2024 22:08:24'!
 visitPacmanAt: aPosition 
@@ -620,7 +644,7 @@ startMovingPacmanUp
 
 	pacman startMovingUp. ! !
 
-!PacmanGame methodsFor: 'events' stamp: 'ml 12/11/2024 01:42:25'!
+!PacmanGame methodsFor: 'events' stamp: 'ml 12/11/2024 16:25:45'!
 tick
 
 	| nextPositionElement |
@@ -633,6 +657,11 @@ tick
 			| elementAtNextPosition |
 			elementAtNextPosition := board at: blinky nextPosition.
 			elementAtNextPosition ghost: blinky wantsToMoveIntoIn: self.].
+		
+	ticks > 4 ifTrue: [
+			| elementAtNextPosition |
+			elementAtNextPosition := board at: clyde nextPosition.
+			elementAtNextPosition ghost: clyde wantsToMoveIntoIn: self.].
 ! !
 
 
@@ -669,10 +698,19 @@ pacmanWantsToMoveIntoSpace
 pacmanWantsToMoveIntoWall! !
 
 
-!PacmanGame methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:47:44'!
-ghost: aGhost wantsToMoveIntoSpace: aPill 
+!PacmanGame methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 16:20:02'!
+ghost: aGhost wantsToMoveIntoPill: aPillElement 
 	
-	self move: aGhost withPreviousElement: aPill ! !
+	self move: aGhost withPreviousElement: aPillElement ! !
+
+!PacmanGame methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 16:19:24'!
+ghost: aGhost wantsToMoveIntoSpace: aSpaceElement 
+	
+	self move: aGhost withPreviousElement: aSpaceElement ! !
+
+!PacmanGame methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 16:21:56'!
+ghost: aGhost wantsToMoveIntoWall: aWallElement 
+	! !
 
 !PacmanGame methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:49:00'!
 move: aGhost withPreviousElement: aGameElement 
@@ -703,19 +741,6 @@ Object subclass: #PacmanGameElements
 pacmanWantToMoveInto: aPacmanGame
 
 	self subclassResponsibility .! !
-
-
-!classDefinition: #Clyde category: #'2024-2C-Parcial-2'!
-PacmanGameElements subclass: #Clyde
-	instanceVariableNames: ''
-	classVariableNames: ''
-	poolDictionaries: ''
-	category: '2024-2C-Parcial-2'!
-
-!Clyde methodsFor: 'as yet unclassified' stamp: 'ml 12/10/2024 18:56:00'!
-characterRepresentation
-
-	^StringPacmanBoard clydeCharacter ! !
 
 
 !classDefinition: #PacmanActors category: #'2024-2C-Parcial-2'!
@@ -762,31 +787,31 @@ characterRepresentation
 	self subclassResponsibility! !
 
 
-!classDefinition: #Blinky category: #'2024-2C-Parcial-2'!
-PacmanActors subclass: #Blinky
+!classDefinition: #Ghost category: #'2024-2C-Parcial-2'!
+PacmanActors subclass: #Ghost
 	instanceVariableNames: 'charRepresentation previousElement'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: '2024-2C-Parcial-2'!
 
-!Blinky methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:36:18'!
+!Ghost methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:36:18'!
 characterRepresentation
 
 	^ charRepresentation ! !
 
-!Blinky methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:50:08'!
+!Ghost methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:50:08'!
 moveWithPreviousElement: aGameElement 
 
 	previousElement := aGameElement .
 	^position := self nextPosition ! !
 
-!Blinky methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:49:14'!
+!Ghost methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:49:14'!
 previousElement
 	
 	^previousElement! !
 
 
-!Blinky methodsFor: 'initialization' stamp: 'ml 12/11/2024 01:45:23'!
+!Ghost methodsFor: 'initialization' stamp: 'ml 12/11/2024 01:45:23'!
 initializeWith: aPosition representedWith: aCharRepresentation 
 
 	position := aPosition.
@@ -795,18 +820,25 @@ initializeWith: aPosition representedWith: aCharRepresentation
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Blinky class' category: #'2024-2C-Parcial-2'!
-Blinky class
+!classDefinition: 'Ghost class' category: #'2024-2C-Parcial-2'!
+Ghost class
 	instanceVariableNames: ''!
 
-!Blinky class methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:31:01'!
+!Ghost class methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:31:01'!
 blinkyLocatedAt: aPosition 
 
 	^(self locatedAt: aPosition representedWith: StringPacmanBoard blinkyCharacter)
 		startMovingLeft;
 		yourself ! !
 
-!Blinky class methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:34:45'!
+!Ghost class methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 16:33:50'!
+clydeLocatedAt: aPosition 
+
+	^(self locatedAt: aPosition representedWith: StringPacmanBoard clydeCharacter)
+		startMovingRight ;
+		yourself ! !
+
+!Ghost class methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:34:45'!
 locatedAt: aPosition representedWith: aCharRepresentation 
 	
 	^self new initializeWith: aPosition representedWith: aCharRepresentation ! !
@@ -867,10 +899,10 @@ characterRepresentation
 
 	^charRepresentation .! !
 
-!Pill methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 01:47:08'!
+!Pill methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 16:18:19'!
 ghost: aGhost wantsToMoveIntoIn: aPacmanGame 
 
-	aPacmanGame ghost: aGhost wantsToMoveIntoSpace: self! !
+	aPacmanGame ghost: aGhost wantsToMoveIntoPill: self! !
 
 !Pill methodsFor: 'as yet unclassified' stamp: 'ml 12/10/2024 18:24:16'!
 pacmanWantToMoveInto: aPacmanGame
@@ -940,6 +972,11 @@ PacmanGameElements subclass: #Wall
 characterRepresentation
 
 	^StringPacmanBoard wallCharacter .! !
+
+!Wall methodsFor: 'as yet unclassified' stamp: 'ml 12/11/2024 16:16:13'!
+ghost: aGhost wantsToMoveIntoIn: aPacmanGame 
+
+	aPacmanGame ghost: aGhost wantsToMoveIntoWall: self! !
 
 !Wall methodsFor: 'as yet unclassified' stamp: 'ml 12/10/2024 22:29:22'!
 pacmanWantToMoveInto: aPacmanGame
