@@ -1,0 +1,248 @@
+
+
+----STARTUP---- (21 March 2025 15:13:14) as /home/Estudiante/Escritorio/IS1/cuises/linux64/CuisUniversity-6350.image!
+
+
+ObjectBuilder create: #Pepe
+	collaboratorNames: ''
+	in: 'DenotativeObject-TestSupport'
+	!
+
+!classDefinition: #Pepe category: #'DenotativeObject-TestSupport' stamp: 'ml 3/21/2025 15:13:49'!
+DenotativeObject subclass: #Pepe
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'DenotativeObject-TestSupport'!
+
+!classDefinition: 'Pepe class' category: #'DenotativeObject-TestSupport' stamp: 'ml 3/21/2025 15:13:49'!
+Pepe class
+	instanceVariableNames: ''!
+
+Pepe hola!
+
+Pepe hola!
+!Pepe class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 15:20:02'!
+hola
+	self shouldBeImplemented.! !
+!Pepe class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 15:20:14' prior: 50539293!
+hola
+	^'chau'! !
+
+Pepe hola!
+
+Pepe hola!
+
+Pepe hola!
+
+Pepe hola!
+
+Pepe hola!
+
+Pepe hola!
+
+Pepe hola!
+
+Pepe hola!
+
+Pepe hola!
+
+Pepe hola!
+
+Pepe hola!
+
+Pepe hola!
+
+Pepe hola!
+
+Pepe hola!
+
+Pepe hola!
+
+Pepe hola!
+
+Pepe hola!
+
+Pepe hola!
+
+Pepe hola!
+
+Pepe hola!
+
+Pepe hola!
+
+Pepe hola!
+
+Pepe hola!
+
+!classRemoval: #Pepe stamp: 'ml 3/21/2025 15:21:56'!
+DenotativeObject subclass: #Pepe
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'DenotativeObject-TestSupport'!
+
+ObjectBuilder create: #Pepe
+	collaboratorNames: ''
+	in: 'DenotativeObject-Morph'
+	!
+
+!classDefinition: #Pepe category: #'DenotativeObject-Morph' stamp: 'ml 3/21/2025 15:22:20'!
+DenotativeObject subclass: #Pepe
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'DenotativeObject-Morph'!
+
+!classDefinition: 'Pepe class' category: #'DenotativeObject-Morph' stamp: 'ml 3/21/2025 15:22:20'!
+Pepe class
+	instanceVariableNames: ''!
+
+!classRemoval: #Pepe stamp: 'ml 3/21/2025 15:22:24'!
+DenotativeObject subclass: #Pepe
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'DenotativeObject-Morph'!
+
+!classDefinition: #Pepe category: #'Workspace-Objects' stamp: 'ml 3/21/2025 15:22:38'!
+DenotativeObject subclass: #Pepe
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Workspace-Objects'!
+
+Pepe hola!
+!Pepe class methodsFor: 'Pepe' stamp: 'ml 3/21/2025 15:22:49'!
+hola
+	self shouldBeImplemented.! !
+!Pepe class methodsFor: 'Pepe' stamp: 'ml 3/21/2025 15:22:59' prior: 50539344!
+hola
+	^'chau'! !
+
+!classDefinition: #Bill category: #'Workspace-Objects' stamp: 'ml 3/21/2025 15:30:22'!
+DenotativeObject subclass: #Bill
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Workspace-Objects'!
+
+Bill comer: 5!
+!Bill class methodsFor: 'Ejercicio2' stamp: 'ml 3/21/2025 15:31:54'!
+comer: aRenameMe1 
+	self shouldBeImplemented.! !
+
+!classDefinition: 'Bill class' category: #'Workspace-Objects' stamp: 'ml 3/21/2025 15:32:39'!
+Bill class
+	instanceVariableNames: 'energia'!
+!Bill class methodsFor: 'Ejercicio2' stamp: 'ml 3/21/2025 15:32:31' prior: 50539359!
+comer: unaCantidadDeKilosDeCerebro 
+	
+	energia := energia + unaCantidadDeKilosDeCerebro * (4 * day)! !
+
+Bill comer: 5!
+!Bill class methodsFor: 'Ejercicio2' stamp: 'ml 3/21/2025 15:33:15' prior: 50539368!
+comer: unaCantidadDeKilosDeCerebro 
+	
+	energia := energia + (unaCantidadDeKilosDeCerebro * (4 * day))! !
+
+Bill comer: 5!
+!Bill class methodsFor: 'Ejercicio2' stamp: 'ml 3/21/2025 15:33:31' prior: 50539375!
+comer: unaCantidadDeKilosDeCerebro 
+	
+	energia := energia + (unaCantidadDeKilosDeCerebro * (4 * day))
+	^energia ! !
+
+Bill comer: 5!
+!Bill class methodsFor: 'Ejercicio2' stamp: 'ml 3/21/2025 15:33:41' prior: 50539382!
+comer: unaCantidadDeKilosDeCerebro 
+	
+	energia := energia + (unaCantidadDeKilosDeCerebro * (4 * day)).
+	^energia ! !
+
+Bill nace!
+!Bill class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 15:35:47'!
+nace
+	self shouldBeImplemented.! !
+!Bill class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 15:36:04' prior: 50539396!
+nace
+	energia := 28*day! !
+!Bill class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 15:36:05' prior: 50539401!
+nace
+	energia := 28*day.! !
+
+----End fileIn of /home/Estudiante/Escritorio/IS1/Ejercicios/Parte1/Seccion1Part1Ejercicio2##BillZoombie.st----!
+
+!classRemoval: #Bill stamp: 'ml 3/21/2025 15:37:17'!
+DenotativeObject subclass: #Bill
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Seccion1Part1Ejercicio2: BillZoombie'!
+
+!classDefinition: #Bill category: #'Workspace-Objects' stamp: 'ml 3/21/2025 15:37:28'!
+DenotativeObject subclass: #Bill
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Workspace-Objects'!
+
+Bill nace!
+!Bill class methodsFor: 'acciones' stamp: 'ml 3/21/2025 15:37:37'!
+nace
+	self shouldBeImplemented.! !
+
+!classDefinition: 'Bill class' category: #'Workspace-Objects' stamp: 'ml 3/21/2025 15:38:02'!
+Bill class
+	instanceVariableNames: 'energia'!
+!Bill class methodsFor: 'acciones' stamp: 'ml 3/21/2025 15:38:00' prior: 50539507!
+nace
+	energia := 28 * day.! !
+!Bill class methodsFor: 'acciones' stamp: 'ml 3/21/2025 15:38:13' prior: 50539516!
+nace
+	energia := 28 * day.
+	^energia ! !
+
+Bill energia!
+!Bill class methodsFor: 'acciones' stamp: 'ml 3/21/2025 15:38:49'!
+energia
+	self shouldBeImplemented.
+	^energia! !
+!Bill class methodsFor: 'acciones' stamp: 'ml 3/21/2025 15:38:53' prior: 50539524!
+energia
+	^energia! !
+
+Bill comer: 5!
+!Bill class methodsFor: 'acciones' stamp: 'ml 3/21/2025 15:39:17'!
+comer: aRenameMe1 
+	self shouldBeImplemented.! !
+!Bill class methodsFor: 'acciones' stamp: 'ml 3/21/2025 15:39:55' prior: 50539533!
+comer: unaCantidadDeKilosDeCerebro 
+	energia := energia + (unaCantidadDeKilosDeCerebro * (4*day))! !
+!Bill class methodsFor: 'acciones' stamp: 'ml 3/21/2025 15:40:00' prior: 50539538!
+comer: unaCantidadDeKilosDeCerebro 
+	energia := energia + (unaCantidadDeKilosDeCerebro * (4*day)).
+	^energia ! !
+
+Bill comer: 1!
+
+Bill caminar: 1!
+!Bill class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 15:40:53'!
+caminar: aRenameMe1 
+	self shouldBeImplemented.! !
+!Bill class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 15:41:47' prior: 50539552!
+caminar: unaCantidadDeKilometros 
+	energia := energia - (unaCantidadDeKilometros * day) - 3 * day! !
+!Bill class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 15:41:51' prior: 50539557!
+caminar: unaCantidadDeKilometros 
+	energia := energia - (unaCantidadDeKilometros * day) - (3 * day)! !
+!Bill class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 15:42:12' prior: 50539564!
+caminar: unaCantidadDeKilometros 
+	energia := energia - (unaCantidadDeKilometros * day) - (3 * day).
+	^energia.! !
+
+Bill caminar: 10!
+
+----SNAPSHOT----(21 March 2025 15:43:13) CuisUniversity-6350.image priorSource: 6643839!
+
+----QUIT----(21 March 2025 15:44:08) CuisUniversity-6350.image priorSource: 6653669!
