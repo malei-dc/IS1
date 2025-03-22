@@ -246,3 +246,1822 @@ Bill caminar: 10!
 ----SNAPSHOT----(21 March 2025 15:43:13) CuisUniversity-6350.image priorSource: 6643839!
 
 ----QUIT----(21 March 2025 15:44:08) CuisUniversity-6350.image priorSource: 6653669!
+
+----STARTUP---- (21 March 2025 19:04:59) as /home/Estudiante/Escritorio/IS1/cuises/linux64/CuisUniversity-6350.image!
+
+
+Bill
+	collaboratorNames: 'energia'
+	in: 'Ejercicio2'!
+
+!classDefinition: 'Bill class' category: #'Workspace-Objects' stamp: 'ml 3/21/2025 19:05:19'!
+Bill class
+	instanceVariableNames: 'energia'!
+
+!classDefinition: #Bill category: 'Ejercicio2' stamp: 'ml 3/21/2025 19:05:19'!
+DenotativeObject subclass: #Bill
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio2'!
+
+!classDefinition: 'Bill class' category: 'Ejercicio2' stamp: 'ml 3/21/2025 19:05:19'!
+Bill class
+	instanceVariableNames: 'energia'!
+
+ObjectBuilder create: #anObject
+	collaboratorNames: ''
+	in: 'Ejercicio3'
+	!
+
+!classDefinition: #anObject category: #Ejercicio3 stamp: 'ml 3/21/2025 19:12:17'!
+DenotativeObject subclass: #anObject
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio3'!
+
+!classDefinition: 'anObject class' category: #Ejercicio3 stamp: 'ml 3/21/2025 19:12:17'!
+anObject class
+	instanceVariableNames: ''!
+
+ObjectBuilder create: #AlgebraDeBooleTest asChildOf: DenotativeObject collaboratorNames: '' in: 'Ejercicio3'!
+
+!classDefinition: #AlgebraDeBooleTest category: #Ejercicio3 stamp: 'ml 3/21/2025 19:21:17'!
+DenotativeObject subclass: #AlgebraDeBooleTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio3'!
+
+!classDefinition: 'AlgebraDeBooleTest class' category: #Ejercicio3 stamp: 'ml 3/21/2025 19:21:17'!
+AlgebraDeBooleTest class
+	instanceVariableNames: ''!
+
+!classDefinition: #statements category: #Ejercicio3 stamp: 'ml 3/21/2025 19:22:17'!
+DenotativeObject subclass: #statements
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio3'!
+!AlgebraDeBooleTest class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 19:21:45'!
+test01
+	"comment stating purpose of message"
+
+	
+	statements! !
+!AlgebraDeBooleTest class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 19:24:10'!
+testVerdaderoNegadoEsFalse
+	"comment stating purpose of message"
+
+	
+	statements! !
+
+!classDefinition: #Verdadero category: #Ejercicio3 stamp: 'ml 3/21/2025 19:24:52'!
+DenotativeObject subclass: #Verdadero
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio3'!
+
+!classDefinition: #Falso category: #Ejercicio3 stamp: 'ml 3/21/2025 19:24:55'!
+DenotativeObject subclass: #Falso
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio3'!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 19:24:49' prior: 50539646!
+testVerdaderoNegadoEsFalse
+
+	Assert that: Verdadero negado isEqualTo: Falso! !
+
+!classRemoval: #anObject stamp: 'ml 3/21/2025 19:25:05'!
+DenotativeObject subclass: #anObject
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio3'!
+
+!classRemoval: #statements stamp: 'ml 3/21/2025 19:25:20'!
+DenotativeObject subclass: #statements
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio3'!
+
+!methodRemoval: AlgebraDeBooleTest class #test01 stamp: 'ml 3/21/2025 19:25:32'!
+test01
+	"comment stating purpose of message"
+
+	
+	statements!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:25:41'!
+ERROR!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:25:41'!
+ERROR!
+!Verdadero class methodsFor: 'operaciones logicas' stamp: 'ml 3/21/2025 19:25:56'!
+negado
+	self shouldBeImplemented.! !
+!Verdadero class methodsFor: 'operaciones logicas' stamp: 'ml 3/21/2025 19:26:07' prior: 50539688!
+negado
+	^Falso! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:26:09'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:26:17'!
+PASSED!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 19:26:36'!
+testVerdaderoNegadoEsFalso
+
+	Assert that: Verdadero negado isEqualTo: Falso! !
+
+!methodRemoval: AlgebraDeBooleTest class #testVerdaderoNegadoEsFalse stamp: 'ml 3/21/2025 19:26:36'!
+testVerdaderoNegadoEsFalse
+
+	Assert that: Verdadero negado isEqualTo: Falso!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 19:27:41'!
+testFalsoNegadoEsVerdadero
+
+	Assert that: Falso negado isEqualTo: Verdadero ! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:27:42'!
+ERROR!
+!Falso class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 19:27:50'!
+negado
+	self shouldBeImplemented.! !
+!Falso class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 19:28:06' prior: 50539713!
+negado
+	
+	^Verdadero ! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:28:07'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:28:07'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:28:07'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:28:10'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:28:10'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:28:10'!
+PASSED!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 19:32:10'!
+testVerdaderoYFalsoEsFalso
+
+	Assert that: Verdadero y: Falso isEqualTo: Falso! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:32:15'!
+ERROR!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 19:33:26' prior: 50539722!
+testVerdaderoYFalsoEsFalso
+
+	Assert that: (Verdadero y: Falso) isEqualTo: Falso! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:33:34'!
+ERROR!
+!Verdadero class methodsFor: 'operaciones logicas' stamp: 'ml 3/21/2025 19:33:39'!
+y: Falso 
+	self shouldBeImplemented.! !
+!Verdadero class methodsFor: 'operaciones logicas' stamp: 'ml 3/21/2025 19:34:03' prior: 50539734!
+y: Falso 
+	^ self negado! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:34:05'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:34:05'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:34:05'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:34:05'!
+PASSED!
+!Verdadero class methodsFor: '-- all --' stamp: 'ml 3/21/2025 19:34:54' prior: 50539739!
+y: unBooleano 
+	^ self negado! !
+!Verdadero class methodsFor: '-- all --' stamp: 'ml 3/21/2025 19:35:29' prior: 50539743!
+y: unBooleano 
+	^ unBooleano ! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:35:58'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:36:03'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:36:04'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:36:10'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:36:11'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:36:13'!
+PASSED!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 19:36:44'!
+testVerdaderoYVerdaderoEsVerdadero
+
+	Assert that: (Verdadero y: Verdadero ) isEqualTo: Verdadero ! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:36:45'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:36:45'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:36:45'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:36:45'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:36:45'!
+PASSED!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 19:38:20'!
+testFalsoYVerdaderoEsFalso
+
+	Assert that: (Falso y: Verdadero ) isEqualTo: Falso ! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:38:21'!
+ERROR!
+!Falso class methodsFor: 'operaciones logicas' stamp: 'ml 3/21/2025 19:38:26'!
+y: Verdadero 
+	self shouldBeImplemented.! !
+!Falso class methodsFor: 'operaciones logicas' stamp: 'ml 3/21/2025 19:38:44' prior: 50539763!
+y: unBooleano
+	^self.! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:38:46'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:38:46'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:38:46'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:38:46'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:38:46'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:38:46'!
+PASSED!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 19:39:09'!
+testFalsoYFalsoEsFalso
+
+	Assert that: (Falso y: Falso ) isEqualTo: Falso ! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:39:11'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:39:11'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:39:11'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:39:11'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:39:11'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:39:11'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:39:11'!
+PASSED!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 19:39:51'!
+testVerdaderoOVerdaderoEsVerdadero
+
+	Assert that: (Verdadero o: Verdadero ) isEqualTo: Verdadero ! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:39:53'!
+ERROR!
+!Verdadero class methodsFor: 'operaciones logicas' stamp: 'ml 3/21/2025 19:39:58'!
+o: Verdadero 
+	self shouldBeImplemented.! !
+!Verdadero class methodsFor: 'operaciones logicas' stamp: 'ml 3/21/2025 19:40:56' prior: 50539783!
+o: unBooleano
+	^unBooleano .! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:40:57'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:40:58'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:40:58'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:40:58'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:40:58'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:40:58'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:40:58'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:40:58'!
+PASSED!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 19:41:45'!
+testVerdaderoOFalsoEsVerdadero
+
+	Assert that: (Verdadero o: Falso ) isEqualTo: Verdadero ! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:41:46'!
+ERROR!
+!Verdadero class methodsFor: '-- all --' stamp: 'ml 3/21/2025 19:42:13' prior: 50539788!
+o: unBooleano
+	^self .! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:42:16'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:42:16'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:42:16'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:42:16'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:42:16'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:42:16'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:42:16'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:42:16'!
+PASSED!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 19:48:21'!
+testFalsoOFalsoEsFalso
+
+	Assert that: (Falso o: Falso ) isEqualTo: Falso ! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:48:24'!
+ERROR!
+!Falso class methodsFor: 'operaciones logicas' stamp: 'ml 3/21/2025 19:48:27'!
+o: Falso 
+	self shouldBeImplemented.! !
+!Falso class methodsFor: 'operaciones logicas' stamp: 'ml 3/21/2025 19:48:46' prior: 50539807!
+o: unBooleano 
+	^unBooleano .! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:48:47'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:48:47'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:48:47'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:48:47'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:48:47'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:48:47'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:48:47'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:48:47'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:48:47'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:48:47'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:49:46'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:49:46'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:49:46'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:49:46'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:49:46'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:49:46'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:49:46'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:49:46'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:49:46'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:49:46'!
+PASSED!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 19:50:31'!
+testFalsoOVerdaderoEsVerdadero
+
+	Assert that: (Falso o: Verdadero ) isEqualTo: Verdadero ! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:50:33'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:50:33'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:50:33'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:50:33'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:50:33'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:50:33'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:50:33'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:50:33'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:50:33'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:50:33'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:50:33'!
+PASSED!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 19:58:57'!
+testVerdaderoSiVerdaderoHagoAlgo
+
+	Assert that: (Verdadero siVerdadero:[Pepe hola]) isEqualTo: [Pepe hola]! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 19:59:29'!
+ERROR!
+!Verdadero class methodsFor: 'condicionales' stamp: 'ml 3/21/2025 19:59:46'!
+siVerdadero: aRenameMe1 
+	self shouldBeImplemented.! !
+!Verdadero class methodsFor: 'condicionales' stamp: 'ml 3/21/2025 20:01:23' prior: 50539828!
+siVerdadero: unClosureAEjecutar 
+	^unClosureAEjecutar .! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:01:27'!
+ERROR!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:01:49'!
+ERROR!
+!Verdadero class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:02:02' prior: 50539833!
+siVerdadero: unClosureAEjecutar 
+	^ unClosureAEjecutar value .! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:03:11'!
+PASSED!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:04:27' prior: 50539822!
+testVerdaderoSiVerdaderoHagoAlgo
+
+	Assert that: (Verdadero siVerdadero:[ ^Pepe hola]) isEqualTo: ([^Pepe hola] value)! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:04:30'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:04:30'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:04:30'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:04:30'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:04:30'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:04:30'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:04:30'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:04:30'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:04:30'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:04:30'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:04:30'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:04:30'!
+PASSED!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:05:59'!
+test01FalsoNegadoEsVerdadero
+
+	Assert that: Falso negado isEqualTo: Verdadero ! !
+
+!methodRemoval: AlgebraDeBooleTest class #testFalsoNegadoEsVerdadero stamp: 'ml 3/21/2025 20:05:59'!
+testFalsoNegadoEsVerdadero
+
+	Assert that: Falso negado isEqualTo: Verdadero !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:06:13'!
+test01VerdaderoNegadoEsFalso
+
+	Assert that: Verdadero negado isEqualTo: Falso! !
+
+!methodRemoval: AlgebraDeBooleTest class #testVerdaderoNegadoEsFalso stamp: 'ml 3/21/2025 20:06:13'!
+testVerdaderoNegadoEsFalso
+
+	Assert that: Verdadero negado isEqualTo: Falso!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:06:19'!
+test02VerdaderoNegadoEsFalso
+
+	Assert that: Verdadero negado isEqualTo: Falso! !
+
+!methodRemoval: AlgebraDeBooleTest class #test01VerdaderoNegadoEsFalso stamp: 'ml 3/21/2025 20:06:19'!
+test01VerdaderoNegadoEsFalso
+
+	Assert that: Verdadero negado isEqualTo: Falso!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:06:30'!
+test03FalsoYFalsoEsFalso
+
+	Assert that: (Falso y: Falso ) isEqualTo: Falso ! !
+
+!methodRemoval: AlgebraDeBooleTest class #testFalsoYFalsoEsFalso stamp: 'ml 3/21/2025 20:06:30'!
+testFalsoYFalsoEsFalso
+
+	Assert that: (Falso y: Falso ) isEqualTo: Falso !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:06:42'!
+test04FalsoYVerdaderoEsFalso
+
+	Assert that: (Falso y: Verdadero ) isEqualTo: Falso ! !
+
+!methodRemoval: AlgebraDeBooleTest class #testFalsoYVerdaderoEsFalso stamp: 'ml 3/21/2025 20:06:42'!
+testFalsoYVerdaderoEsFalso
+
+	Assert that: (Falso y: Verdadero ) isEqualTo: Falso !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:06:55'!
+test05VerdaderoYFalsoEsFalso
+
+	Assert that: (Verdadero y: Falso) isEqualTo: Falso! !
+
+!methodRemoval: AlgebraDeBooleTest class #testVerdaderoYFalsoEsFalso stamp: 'ml 3/21/2025 20:06:55'!
+testVerdaderoYFalsoEsFalso
+
+	Assert that: (Verdadero y: Falso) isEqualTo: Falso!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:07:05'!
+test07VerdaderoYVerdaderoEsVerdadero
+
+	Assert that: (Verdadero y: Verdadero ) isEqualTo: Verdadero ! !
+
+!methodRemoval: AlgebraDeBooleTest class #testVerdaderoYVerdaderoEsVerdadero stamp: 'ml 3/21/2025 20:07:05'!
+testVerdaderoYVerdaderoEsVerdadero
+
+	Assert that: (Verdadero y: Verdadero ) isEqualTo: Verdadero !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:07:11'!
+test06VerdaderoYVerdaderoEsVerdadero
+
+	Assert that: (Verdadero y: Verdadero ) isEqualTo: Verdadero ! !
+
+!methodRemoval: AlgebraDeBooleTest class #test07VerdaderoYVerdaderoEsVerdadero stamp: 'ml 3/21/2025 20:07:11'!
+test07VerdaderoYVerdaderoEsVerdadero
+
+	Assert that: (Verdadero y: Verdadero ) isEqualTo: Verdadero !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:07:28'!
+test07FalsoOFalsoEsFalso
+
+	Assert that: (Falso o: Falso ) isEqualTo: Falso ! !
+
+!methodRemoval: AlgebraDeBooleTest class #testFalsoOFalsoEsFalso stamp: 'ml 3/21/2025 20:07:28'!
+testFalsoOFalsoEsFalso
+
+	Assert that: (Falso o: Falso ) isEqualTo: Falso !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:07:36'!
+test08FalsoOVerdaderoEsVerdadero
+
+	Assert that: (Falso o: Verdadero ) isEqualTo: Verdadero ! !
+
+!methodRemoval: AlgebraDeBooleTest class #testFalsoOVerdaderoEsVerdadero stamp: 'ml 3/21/2025 20:07:36'!
+testFalsoOVerdaderoEsVerdadero
+
+	Assert that: (Falso o: Verdadero ) isEqualTo: Verdadero !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:07:45'!
+test09VerdaderoOFalsoEsVerdadero
+
+	Assert that: (Verdadero o: Falso ) isEqualTo: Verdadero ! !
+
+!methodRemoval: AlgebraDeBooleTest class #testVerdaderoOFalsoEsVerdadero stamp: 'ml 3/21/2025 20:07:45'!
+testVerdaderoOFalsoEsVerdadero
+
+	Assert that: (Verdadero o: Falso ) isEqualTo: Verdadero !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:07:52'!
+test10VerdaderoOVerdaderoEsVerdadero
+
+	Assert that: (Verdadero o: Verdadero ) isEqualTo: Verdadero ! !
+
+!methodRemoval: AlgebraDeBooleTest class #testVerdaderoOVerdaderoEsVerdadero stamp: 'ml 3/21/2025 20:07:52'!
+testVerdaderoOVerdaderoEsVerdadero
+
+	Assert that: (Verdadero o: Verdadero ) isEqualTo: Verdadero !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:07:58'!
+test11VerdaderoSiVerdaderoHagoAlgo
+
+	Assert that: (Verdadero siVerdadero:[ ^Pepe hola]) isEqualTo: ([^Pepe hola] value)! !
+
+!methodRemoval: AlgebraDeBooleTest class #testVerdaderoSiVerdaderoHagoAlgo stamp: 'ml 3/21/2025 20:07:58'!
+testVerdaderoSiVerdaderoHagoAlgo
+
+	Assert that: (Verdadero siVerdadero:[ ^Pepe hola]) isEqualTo: ([^Pepe hola] value)!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:12:04'!
+test11FalsoSiVerdaderoNoHagoNada
+
+	Assert that: (Falso siVerdadero:[ ^Pepe hola]) isEqualTo: (Falso)! !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:12:16'!
+test12FalsoSiVerdaderoNoHagoNada
+
+	Assert that: (Falso siVerdadero:[ ^Pepe hola]) isEqualTo: (Falso)! !
+
+!methodRemoval: AlgebraDeBooleTest class #test11FalsoSiVerdaderoNoHagoNada stamp: 'ml 3/21/2025 20:12:16'!
+test11FalsoSiVerdaderoNoHagoNada
+
+	Assert that: (Falso siVerdadero:[ ^Pepe hola]) isEqualTo: (Falso)!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:13:14'!
+ERROR!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:13:14'!
+ERROR!
+!Falso class methodsFor: 'condicionales' stamp: 'ml 3/21/2025 20:13:27'!
+siVerdadero: aRenameMe1 
+	self shouldBeImplemented.! !
+!Falso class methodsFor: 'condicionales' stamp: 'ml 3/21/2025 20:13:52' prior: 50540025!
+siVerdadero: unClosureAEjecutar 
+	^self ! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:13:54'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:13:56'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:13:56'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:13:56'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:13:56'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:13:56'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:13:56'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:13:56'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:13:56'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:13:56'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:13:56'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:13:56'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:13:56'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:13:56'!
+PASSED!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:32:20'!
+test13VerdaderoSiFalsoNoHagoNada
+
+	Assert that: (Verdadero siFalso:[ ^Pepe hola]) isEqualTo: (Verdadero )! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:32:23'!
+ERROR!
+!Verdadero class methodsFor: 'condicionales' stamp: 'ml 3/21/2025 20:32:27'!
+siFalso: aRenameMe1 
+	self shouldBeImplemented.! !
+!Verdadero class methodsFor: 'condicionales' stamp: 'ml 3/21/2025 20:32:53' prior: 50540040!
+siFalso: unClosureAEjecutar 
+	^self.! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:32:55'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:32:55'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:32:55'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:32:55'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:32:55'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:32:55'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:32:55'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:32:55'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:32:55'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:32:55'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:32:55'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:32:55'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:32:55'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:32:55'!
+PASSED!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:33:52'!
+test14FalsoSiFalsoEjecutoClosure
+
+	Assert that: (Verdadero siFalso:[ ^Pepe hola]) isEqualTo: (Verdadero )! !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:34:05'!
+test11VerdaderoSiVerdaderoEjecutoClosure
+
+	Assert that: (Verdadero siVerdadero:[ ^Pepe hola]) isEqualTo: ([^Pepe hola] value)! !
+
+!methodRemoval: AlgebraDeBooleTest class #test11VerdaderoSiVerdaderoHagoAlgo stamp: 'ml 3/21/2025 20:34:05'!
+test11VerdaderoSiVerdaderoHagoAlgo
+
+	Assert that: (Verdadero siVerdadero:[ ^Pepe hola]) isEqualTo: ([^Pepe hola] value)!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:34:35' prior: 50540049!
+test14FalsoSiFalsoEjecutoClosure
+
+	Assert that: (Falso siFalso:[ ^Pepe hola]) isEqualTo: ([ ^Pepe hola] value )! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:34:37'!
+ERROR!
+!Falso class methodsFor: 'condicionales' stamp: 'ml 3/21/2025 20:34:42'!
+siFalso: aRenameMe1 
+	self shouldBeImplemented.! !
+!Falso class methodsFor: 'condicionales' stamp: 'ml 3/21/2025 20:35:08' prior: 50540076!
+siFalso: unClosureAEjecutar 
+	unClosureAEjecutar value.! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:35:09'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:35:09'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:35:09'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:35:09'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:35:09'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:35:09'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:35:09'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:35:09'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:35:09'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:35:09'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:35:09'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:35:09'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:35:09'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:35:09'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:35:09'!
+PASSED!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:38:13' prior: 50539851!
+test01FalsoNegadoEsVerdadero
+
+	Assert that: Falso negado isEqualTo: Verdadero.! !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:38:22' prior: 50540086!
+test01FalsoNegadoEsVerdadero
+
+	Assert that: Falso negado isEqualTo: Verdadero.! !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:38:53'!
+test01Negado
+
+	Assert that: Falso negado isEqualTo: Verdadero.
+	Assert that: Verdadero negado isEqualTo: Falso! !
+
+!methodRemoval: AlgebraDeBooleTest class #test01FalsoNegadoEsVerdadero stamp: 'ml 3/21/2025 20:39:01'!
+test01FalsoNegadoEsVerdadero
+
+	Assert that: Falso negado isEqualTo: Verdadero.!
+
+!methodRemoval: AlgebraDeBooleTest class #test02VerdaderoNegadoEsFalso stamp: 'ml 3/21/2025 20:39:04'!
+test02VerdaderoNegadoEsFalso
+
+	Assert that: Verdadero negado isEqualTo: Falso!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:39:06'!
+PASSED!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:39:18'!
+test03Y
+
+	Assert that: (Falso y: Falso ) isEqualTo: Falso ! !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:39:22' prior: 50540116!
+test03Y
+
+	Assert that: (Falso y: Falso ) isEqualTo: Falso ! !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:39:32' prior: 50540121!
+test03Y
+
+	Assert that: (Falso y: Falso ) isEqualTo: Falso.
+	Assert that: Verdadero negado isEqualTo: Falso.! !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:40:02' prior: 50540126!
+test03Y
+
+	Assert that: (Falso y: Falso ) isEqualTo: Falso.
+	Assert that: (Falso y: Falso ) isEqualTo: Falso ! !
+
+!methodRemoval: AlgebraDeBooleTest class #test03FalsoYFalsoEsFalso stamp: 'ml 3/21/2025 20:40:05'!
+test03FalsoYFalsoEsFalso
+
+	Assert that: (Falso y: Falso ) isEqualTo: Falso !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:40:27' prior: 50540133!
+test03Y
+
+	Assert that: (Falso y: Falso ) isEqualTo: Falso.
+	Assert that: (Falso y: Verdadero ) isEqualTo: Falso ! !
+
+!methodRemoval: AlgebraDeBooleTest class #test04FalsoYVerdaderoEsFalso stamp: 'ml 3/21/2025 20:40:31'!
+test04FalsoYVerdaderoEsFalso
+
+	Assert that: (Falso y: Verdadero ) isEqualTo: Falso !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:40:40' prior: 50540146!
+test03Y
+
+	Assert that: (Falso y: Falso ) isEqualTo: Falso.
+	Assert that: (Falso y: Verdadero ) isEqualTo: Falso.
+	Assert that: (Verdadero y: Falso) isEqualTo: Falso.! !
+
+!methodRemoval: AlgebraDeBooleTest class #test05VerdaderoYFalsoEsFalso stamp: 'ml 3/21/2025 20:40:43'!
+test05VerdaderoYFalsoEsFalso
+
+	Assert that: (Verdadero y: Falso) isEqualTo: Falso!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:40:52' prior: 50540159!
+test03Y
+
+	Assert that: (Falso y: Falso ) isEqualTo: Falso.
+	Assert that: (Falso y: Verdadero ) isEqualTo: Falso.
+	Assert that: (Verdadero y: Falso) isEqualTo: Falso.
+	Assert that: (Verdadero y: Verdadero ) isEqualTo: Verdadero ! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:40:54'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:40:54'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:40:54'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:40:54'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:40:54'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:40:54'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:40:54'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:40:54'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:40:54'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:40:54'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:40:54'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:40:54'!
+PASSED!
+
+!methodRemoval: AlgebraDeBooleTest class #test06VerdaderoYVerdaderoEsVerdadero stamp: 'ml 3/21/2025 20:40:59'!
+test06VerdaderoYVerdaderoEsVerdadero
+
+	Assert that: (Verdadero y: Verdadero ) isEqualTo: Verdadero !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:41:12'!
+test02Y
+
+	Assert that: (Falso y: Falso ) isEqualTo: Falso.
+	Assert that: (Falso y: Verdadero ) isEqualTo: Falso.
+	Assert that: (Verdadero y: Falso) isEqualTo: Falso.
+	Assert that: (Verdadero y: Verdadero ) isEqualTo: Verdadero ! !
+
+!methodRemoval: AlgebraDeBooleTest class #test03Y stamp: 'ml 3/21/2025 20:41:12'!
+test03Y
+
+	Assert that: (Falso y: Falso ) isEqualTo: Falso.
+	Assert that: (Falso y: Verdadero ) isEqualTo: Falso.
+	Assert that: (Verdadero y: Falso) isEqualTo: Falso.
+	Assert that: (Verdadero y: Verdadero ) isEqualTo: Verdadero !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:41:20'!
+test03FalsoOFalsoEsFalso
+
+	Assert that: (Falso o: Falso ) isEqualTo: Falso ! !
+
+!methodRemoval: AlgebraDeBooleTest class #test07FalsoOFalsoEsFalso stamp: 'ml 3/21/2025 20:41:24'!
+test07FalsoOFalsoEsFalso
+
+	Assert that: (Falso o: Falso ) isEqualTo: Falso !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:41:31'!
+test03O
+
+	Assert that: (Falso o: Falso ) isEqualTo: Falso ! !
+
+!methodRemoval: AlgebraDeBooleTest class #test03FalsoOFalsoEsFalso stamp: 'ml 3/21/2025 20:41:31'!
+test03FalsoOFalsoEsFalso
+
+	Assert that: (Falso o: Falso ) isEqualTo: Falso !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:43:39' prior: 50540222!
+test03O
+
+	Assert that: (Falso o: Falso ) isEqualTo: Falso.
+	Assert that: (Falso o: Verdadero ) isEqualTo: Verdadero .! !
+
+!methodRemoval: AlgebraDeBooleTest class #test08FalsoOVerdaderoEsVerdadero stamp: 'ml 3/21/2025 20:43:43'!
+test08FalsoOVerdaderoEsVerdadero
+
+	Assert that: (Falso o: Verdadero ) isEqualTo: Verdadero !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:43:52' prior: 50540233!
+test03O
+
+	Assert that: (Falso o: Falso ) isEqualTo: Falso.
+	Assert that: (Falso o: Verdadero ) isEqualTo: Verdadero .
+	Assert that: (Verdadero o: Falso ) isEqualTo: Verdadero ! !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:43:53' prior: 50540247!
+test03O
+
+	Assert that: (Falso o: Falso ) isEqualTo: Falso.
+	Assert that: (Falso o: Verdadero ) isEqualTo: Verdadero .
+	Assert that: (Verdadero o: Falso ) isEqualTo: Verdadero .! !
+
+!methodRemoval: AlgebraDeBooleTest class #test09VerdaderoOFalsoEsVerdadero stamp: 'ml 3/21/2025 20:43:56'!
+test09VerdaderoOFalsoEsVerdadero
+
+	Assert that: (Verdadero o: Falso ) isEqualTo: Verdadero !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:44:03' prior: 50540256!
+test03O
+
+	Assert that: (Falso o: Falso ) isEqualTo: Falso.
+	Assert that: (Falso o: Verdadero ) isEqualTo: Verdadero .
+	Assert that: (Verdadero o: Falso ) isEqualTo: Verdadero .
+	Assert that: (Verdadero o: Verdadero ) isEqualTo: Verdadero .! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:44:04'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:44:04'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:44:04'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:44:04'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:44:04'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:44:04'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:44:04'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:44:04'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:44:04'!
+PASSED!
+
+!methodRemoval: AlgebraDeBooleTest class #test10VerdaderoOVerdaderoEsVerdadero stamp: 'ml 3/21/2025 20:44:09'!
+test10VerdaderoOVerdaderoEsVerdadero
+
+	Assert that: (Verdadero o: Verdadero ) isEqualTo: Verdadero !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:48:37'!
+test04VerdaderoSiVerdaderoEjecutoClosure
+
+	Assert that: (Verdadero siVerdadero:[ ^Pepe hola]) isEqualTo: ([^Pepe hola] value)! !
+!Falso class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:48:44' prior: 50540030!
+siVerdadero: unaAccionARealizarUIgnorar 
+	^self ! !
+!Falso class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:48:53' prior: 50540081!
+siFalso: unaAccionARealizarUIgnorar 
+	unaAccionARealizarUIgnorar value.! !
+!Verdadero class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:49:00' prior: 50540045!
+siFalso: unaAccionARealizarUIgnorar
+	^self.! !
+!Verdadero class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:49:05' prior: 50539838!
+siVerdadero: unaAccionARealizarUIgnorar 
+	^ unaAccionARealizarUIgnorar value .! !
+
+!methodRemoval: AlgebraDeBooleTest class #test11VerdaderoSiVerdaderoEjecutoClosure stamp: 'ml 3/21/2025 20:50:01'!
+test11VerdaderoSiVerdaderoEjecutoClosure
+
+	Assert that: (Verdadero siVerdadero:[ ^Pepe hola]) isEqualTo: ([^Pepe hola] value)!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:52:03' prior: 50540012!
+test12FalsoSiVerdaderoNoHagoNada
+
+	| mensaje |
+	mensaje := 'inicio'.
+
+	Assert that: (Falso siVerdadero:[ ^Pepe hola]) isEqualTo: (mensaje)! !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:53:30' prior: 50540325!
+test12FalsoSiVerdaderoNoHagoNada
+
+	| mensaje |
+	mensaje := 'inicio'.
+
+	Assert that: (Falso siVerdadero:[ mensaje := Pepe hola]) isEqualTo: ('inicio')! !
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:53:56' prior: 50540333!
+test12FalsoSiVerdaderoNoHagoNada
+
+	| mensaje |
+	mensaje := 'inicio'.
+
+	Assert that: (Falso siVerdadero:[ mensaje := Pepe hola]) isEqualTo: ('inicio').! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:53:59'!
+ERROR!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 20:58:35' prior: 50540341!
+test12FalsoSiVerdaderoNoHagoNada
+
+	| mensaje |
+	mensaje := 'inicio'.
+
+	Falso siVerdadero:[ mensaje := 'cambio texto'].
+	Assert that: mensaje isEqualTo: ['inicio'].! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:58:38'!
+ERROR!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:59:46'!
+ERROR!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 20:59:46'!
+ERROR!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 21:00:39'!
+test05FalsoSiVerdaderoIgnoro
+
+	| mensaje |
+	mensaje := 'inicio'.
+
+	Falso siVerdadero:[ mensaje := 'cambio texto'].
+	Assert that: mensaje isEqualTo: ['inicio'].! !
+
+!methodRemoval: AlgebraDeBooleTest class #test12FalsoSiVerdaderoNoHagoNada stamp: 'ml 3/21/2025 21:00:39'!
+test12FalsoSiVerdaderoNoHagoNada
+
+	| mensaje |
+	mensaje := 'inicio'.
+
+	Falso siVerdadero:[ mensaje := 'cambio texto'].
+	Assert that: mensaje isEqualTo: ['inicio'].!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 21:00:59' prior: 50540357!
+test05FalsoSiVerdaderoIgnoro
+
+	| mensaje |
+	mensaje := 'inicio'.
+
+	Falso siVerdadero:[ mensaje := 'cambio texto'].
+	Assert that: mensaje isEqualTo: 'inicio'.! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:01:00'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:01:00'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:01:00'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:01:00'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:01:00'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:01:00'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:01:00'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:01:00'!
+PASSED!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 21:01:42'!
+test04VerdaderoSiVerdaderoRealizar
+
+	Assert that: (Verdadero siVerdadero:[ ^Pepe hola]) isEqualTo: ([^Pepe hola] value)! !
+
+!methodRemoval: AlgebraDeBooleTest class #test04VerdaderoSiVerdaderoEjecutoClosure stamp: 'ml 3/21/2025 21:01:42'!
+test04VerdaderoSiVerdaderoEjecutoClosure
+
+	Assert that: (Verdadero siVerdadero:[ ^Pepe hola]) isEqualTo: ([^Pepe hola] value)!
+
+----SNAPSHOT----(21 March 2025 21:01:58) CuisUniversity-6350.image priorSource: 6653759!
+
+----SNAPSHOT----(21 March 2025 21:02:02) CuisUniversity-6350.image priorSource: 6679853!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 21:02:57'!
+test06VerdaderoSiFalsoRealizoAccion
+
+	Assert that: (Verdadero siFalso:[ ^Pepe hola]) isEqualTo: (Verdadero )! !
+
+!methodRemoval: AlgebraDeBooleTest class #test13VerdaderoSiFalsoNoHagoNada stamp: 'ml 3/21/2025 21:02:57'!
+test13VerdaderoSiFalsoNoHagoNada
+
+	Assert that: (Verdadero siFalso:[ ^Pepe hola]) isEqualTo: (Verdadero )!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 21:03:12'!
+test06VerdaderoSiFalsoIgnoro
+
+	Assert that: (Verdadero siFalso:[ ^Pepe hola]) isEqualTo: (Verdadero )! !
+
+!methodRemoval: AlgebraDeBooleTest class #test06VerdaderoSiFalsoRealizoAccion stamp: 'ml 3/21/2025 21:03:12'!
+test06VerdaderoSiFalsoRealizoAccion
+
+	Assert that: (Verdadero siFalso:[ ^Pepe hola]) isEqualTo: (Verdadero )!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 21:03:42' prior: 50540415!
+test06VerdaderoSiFalsoIgnoro
+
+	| mensaje |
+	mensaje := 'inicio'.
+
+	Verdadero siFalso: [ mensaje := 'cambio texto'].
+	Assert that: mensaje isEqualTo: 'inicio'.! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:03:42'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:03:42'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:03:42'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:03:42'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:03:42'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:03:42'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:03:42'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:03:42'!
+PASSED!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 21:03:51'!
+test07FalsoSiFalsoEjecutoClosure
+
+	Assert that: (Falso siFalso:[ ^Pepe hola]) isEqualTo: ([ ^Pepe hola] value )! !
+
+!methodRemoval: AlgebraDeBooleTest class #test14FalsoSiFalsoEjecutoClosure stamp: 'ml 3/21/2025 21:03:51'!
+test14FalsoSiFalsoEjecutoClosure
+
+	Assert that: (Falso siFalso:[ ^Pepe hola]) isEqualTo: ([ ^Pepe hola] value )!
+
+ObjectBuilder create: #I
+	collaboratorNames: ''
+	in: 'Ejercicio4'
+	!
+
+!classDefinition: #I category: #Ejercicio4 stamp: 'ml 3/21/2025 21:05:38'!
+DenotativeObject subclass: #I
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+
+!classDefinition: 'I class' category: #Ejercicio4 stamp: 'ml 3/21/2025 21:05:38'!
+I class
+	instanceVariableNames: ''!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 21:06:13' prior: 50540437!
+test07FalsoSiFalsoEjecutoClosure
+
+	Assert that: (Falso siFalso:[ ^Pepe hola]) isEqualTo: ([Pepe hola] value )! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:06:14'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:06:14'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:06:14'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:06:14'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:06:14'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:06:14'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:06:14'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:06:14'!
+PASSED!
+!AlgebraDeBooleTest class methodsFor: '-- all --' stamp: 'ml 3/21/2025 21:06:20' prior: 50540382!
+test04VerdaderoSiVerdaderoRealizar
+
+	Assert that: (Verdadero siVerdadero:[ ^Pepe hola]) isEqualTo: ([Pepe hola] value)! !
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:06:20'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:06:20'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:06:20'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:06:20'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:06:20'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:06:20'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:06:20'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:06:20'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:06:27'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:06:27'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:06:27'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:06:27'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:06:27'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:06:27'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:06:27'!
+PASSED!
+
+!testRun: #DenotativeObjectTestCase #performRealTest stamp: 'ml 3/21/2025 21:06:27'!
+PASSED!
+!I class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 21:07:57'!
+previous
+
+	^self! !
+
+I previous !
+
+!classDefinition: #II category: #Ejercicio4 stamp: 'ml 3/21/2025 21:08:19'!
+DenotativeObject subclass: #II
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+!I class methodsFor: '-- all --' stamp: 'ml 3/21/2025 21:08:17'!
+next
+
+	^II! !
+
+I next!
+!I class methodsFor: '-- all --' stamp: 'ml 3/21/2025 21:10:28' prior: 50540477!
+previous
+
+	self error: 'El 1 es el primer numero natural'! !
+
+I previous !
+
+!classDefinition: #III category: #Ejercicio4 stamp: 'ml 3/21/2025 21:15:28'!
+DenotativeObject subclass: #III
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+!II class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 21:15:26'!
+next
+	^III! !
+!II class methodsFor: '-- all --' stamp: 'ml 3/21/2025 21:15:36'!
+previous
+	^I! !
+
+!classDefinition: #IIII category: #Ejercicio4 stamp: 'ml 3/21/2025 21:15:53'!
+DenotativeObject subclass: #IIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+!III class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 21:15:52'!
+next
+	^IIII! !
+!III class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 21:16:04'!
+previous
+	^III! !
+
+!classDefinition: #IIIII category: #Ejercicio4 stamp: 'ml 3/21/2025 21:16:29'!
+DenotativeObject subclass: #IIIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+!IIII class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 21:16:27'!
+next
+	^IIIII! !
+!IIIII class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 21:16:45'!
+previous
+
+	^IIII! !
+!I class methodsFor: '-- all --' stamp: 'ml 3/21/2025 21:18:28'!
++ anAdder
+
+	^anAdder next! !
+
+I + II!
+
+II + I!
+!II class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 21:19:00'!
++ I 
+	self shouldBeImplemented.! !
+
+II isEqualTo: I !
+!II class methodsFor: '-- all --' stamp: 'ml 3/21/2025 21:22:26' prior: 50540539!
++ anAdder
+	(anAdder isEqualTo: I) siFalso: [self + (anAdder previous)].! !
+
+II + I !
+!II class methodsFor: '-- all --' stamp: 'ml 3/21/2025 21:23:26' prior: 50540544!
++ anAdder
+	(anAdder isEqualTo: I) ifFalse: [self + (anAdder previous)].! !
+
+II + I !
+!II class methodsFor: '-- all --' stamp: 'ml 3/21/2025 21:24:27' prior: 50540550!
++ anAdder
+	(anAdder isEqualTo: I) ifTrue: [self next].! !
+
+II + I !
+!II class methodsFor: '-- all --' stamp: 'ml 3/21/2025 21:24:44' prior: 50540556!
++ anAdder
+	(anAdder isEqualTo: I) ifTrue: [^self next].! !
+
+II + I !
+
+I + II!
+!III class methodsFor: '-- all --' stamp: 'ml 3/21/2025 21:27:03'!
++ anAdder
+	(anAdder isEqualTo: I)ifTrue: [^self next] ifFalse: [self + I + self previous].! !
+
+III + I!
+
+III + II!
+!III class methodsFor: '-- all --' stamp: 'ml 3/21/2025 21:27:51' prior: 50540566!
++ anAdder
+	(anAdder isEqualTo: I)ifTrue: [^self next] ifFalse: [self + self previous].! !
+
+III + II!
+!III class methodsFor: '-- all --' stamp: 'ml 3/21/2025 21:28:14' prior: 50540573!
++ anAdder
+	(anAdder isEqualTo: I)ifTrue: [^self next] ifFalse: [^self + self previous].! !
+
+III + II!
+!III class methodsFor: '-- all --' stamp: 'ml 3/21/2025 21:28:37' prior: 50540579!
++ anAdder
+	(anAdder isEqualTo: I)ifTrue: [^self next] ifFalse: [^self + anAdder previous].! !
+
+III + II!
+!III class methodsFor: '-- all --' stamp: 'ml 3/21/2025 21:28:51' prior: 50540585!
++ anAdder
+	(anAdder isEqualTo: I)ifTrue: [^self next] ifFalse: [^self +I+ anAdder previous].! !
+
+III + II!
+!III class methodsFor: '-- all --' stamp: 'ml 3/21/2025 21:29:09' prior: 50540591!
++ anAdder
+	(anAdder isEqualTo: I)ifTrue: [^self next] ifFalse: [^(self +I)+ anAdder previous].! !
+
+III + II!
+
+II+II!
+!II class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 21:32:11' prior: 50540503!
+next
+	^self createChildNamed: self name, 'I'! !
+
+!classRemoval: #III stamp: 'ml 3/21/2025 21:32:17'!
+DenotativeObject subclass: #III
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+!IIIII class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 21:32:25' prior: 50540532!
+previous
+
+	^0! !
+
+!classRemoval: #IIII stamp: 'ml 3/21/2025 21:32:29'!
+DenotativeObject subclass: #IIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+
+!classRemoval: #IIIII stamp: 'ml 3/21/2025 21:32:31'!
+DenotativeObject subclass: #IIIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+
+II next !
+
+!classDefinition: #III category: #Ejercicio4 stamp: 'ml 3/21/2025 21:32:41'!
+II subclass: #III
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+
+!classDefinition: 'III class' category: #Ejercicio4 stamp: 'ml 3/21/2025 21:32:41'!
+III class
+	instanceVariableNames: ''!
+
+III next!
+
+!classDefinition: #IIII category: #Ejercicio4 stamp: 'ml 3/21/2025 21:32:51'!
+III subclass: #IIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+
+!classDefinition: 'IIII class' category: #Ejercicio4 stamp: 'ml 3/21/2025 21:32:51'!
+IIII class
+	instanceVariableNames: ''!
+!II class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 21:33:43' prior: 50540604!
+next
+	^self createChildNamed: self name, 'I'.! !
+
+IIII next !
+
+!classDefinition: #IIIII category: #Ejercicio4 stamp: 'ml 3/21/2025 21:34:03'!
+IIII subclass: #IIIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+
+!classDefinition: 'IIIII class' category: #Ejercicio4 stamp: 'ml 3/21/2025 21:34:03'!
+IIIII class
+	instanceVariableNames: ''!
+
+I+I!
+
+I+II!
+
+!classDefinition: 'III class' category: #Ejercicio4 stamp: 'ml 3/21/2025 21:34:44'!
+III class
+	instanceVariableNames: ''!
+
+!classDefinition: #III category: #Ejercicio4 stamp: 'ml 3/21/2025 21:34:44'!
+II subclass: #III
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+
+!classDefinition: 'III class' category: #Ejercicio4 stamp: 'ml 3/21/2025 21:34:44'!
+III class
+	instanceVariableNames: ''!
+
+!classRemoval: #IIIII stamp: 'ml 3/21/2025 21:35:17'!
+IIII subclass: #IIIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+
+!classRemoval: #IIII stamp: 'ml 3/21/2025 21:35:22'!
+III subclass: #IIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+!II class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 21:36:13' prior: 50540651!
+next
+	^self createCloneNamed: self name, 'I'.! !
+
+II + I!
+!II class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 21:37:05' prior: 50540692!
+next
+	^self createChildNamed: self name, 'I'.! !
+!II class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 21:37:33' prior: 50540697!
+next
+	^self createChildNamed: self name, 'I'.! !
+!II class methodsFor: '-- all --' stamp: 'ml 3/21/2025 21:39:17' prior: 50540561!
++ anAdder
+	^self previous + anAdder next! !
+!II class methodsFor: '-- all --' stamp: 'ml 3/21/2025 21:39:28' prior: 50540707!
++ anAdder
+	^self previous + anAdder next! !
+
+II + I!
+
+!classDefinition: 'III class' category: #Ejercicio4 stamp: 'ml 3/21/2025 21:39:39'!
+III class
+	instanceVariableNames: ''!
+
+!classDefinition: #III category: #Ejercicio4 stamp: 'ml 3/21/2025 21:39:39'!
+II subclass: #III
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+
+!classDefinition: 'III class' category: #Ejercicio4 stamp: 'ml 3/21/2025 21:39:39'!
+III class
+	instanceVariableNames: ''!
+
+II + II!
+
+!classDefinition: 'III class' category: #Ejercicio4 stamp: 'ml 3/21/2025 21:39:44'!
+III class
+	instanceVariableNames: ''!
+
+!classDefinition: #III category: #Ejercicio4 stamp: 'ml 3/21/2025 21:39:44'!
+II subclass: #III
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+
+!classDefinition: 'III class' category: #Ejercicio4 stamp: 'ml 3/21/2025 21:39:44'!
+III class
+	instanceVariableNames: ''!
+
+!classDefinition: #IIII category: #Ejercicio4 stamp: 'ml 3/21/2025 21:39:44'!
+III subclass: #IIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+
+!classDefinition: 'IIII class' category: #Ejercicio4 stamp: 'ml 3/21/2025 21:39:44'!
+IIII class
+	instanceVariableNames: ''!
+
+II + III!
+
+!classDefinition: 'IIII class' category: #Ejercicio4 stamp: 'ml 3/21/2025 21:39:51'!
+IIII class
+	instanceVariableNames: ''!
+
+!classDefinition: #IIII category: #Ejercicio4 stamp: 'ml 3/21/2025 21:39:51'!
+III subclass: #IIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+
+!classDefinition: 'IIII class' category: #Ejercicio4 stamp: 'ml 3/21/2025 21:39:51'!
+IIII class
+	instanceVariableNames: ''!
+
+!classDefinition: #IIIII category: #Ejercicio4 stamp: 'ml 3/21/2025 21:39:51'!
+IIII subclass: #IIIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+
+!classDefinition: 'IIIII class' category: #Ejercicio4 stamp: 'ml 3/21/2025 21:39:51'!
+IIIII class
+	instanceVariableNames: ''!
+
+!classRemoval: #IIIII stamp: 'ml 3/21/2025 21:40:17'!
+IIII subclass: #IIIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+
+!classRemoval: #IIII stamp: 'ml 3/21/2025 21:40:19'!
+III subclass: #IIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+
+!classRemoval: #III stamp: 'ml 3/21/2025 21:42:10'!
+II subclass: #III
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+
+II + I!
+
+!classDefinition: #III category: #Ejercicio4 stamp: 'ml 3/21/2025 21:42:55'!
+II subclass: #III
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+
+!classDefinition: 'III class' category: #Ejercicio4 stamp: 'ml 3/21/2025 21:42:55'!
+III class
+	instanceVariableNames: ''!
+
+II + II!
+
+!classDefinition: 'III class' category: #Ejercicio4 stamp: 'ml 3/21/2025 21:43:02'!
+III class
+	instanceVariableNames: ''!
+
+!classDefinition: #III category: #Ejercicio4 stamp: 'ml 3/21/2025 21:43:02'!
+II subclass: #III
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+
+!classDefinition: 'III class' category: #Ejercicio4 stamp: 'ml 3/21/2025 21:43:02'!
+III class
+	instanceVariableNames: ''!
+
+!classDefinition: #IIII category: #Ejercicio4 stamp: 'ml 3/21/2025 21:43:02'!
+III subclass: #IIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+
+!classDefinition: 'IIII class' category: #Ejercicio4 stamp: 'ml 3/21/2025 21:43:02'!
+IIII class
+	instanceVariableNames: ''!
+
+II + III!
+
+!classDefinition: 'IIII class' category: #Ejercicio4 stamp: 'ml 3/21/2025 21:43:05'!
+IIII class
+	instanceVariableNames: ''!
+
+!classDefinition: #IIII category: #Ejercicio4 stamp: 'ml 3/21/2025 21:43:05'!
+III subclass: #IIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+
+!classDefinition: 'IIII class' category: #Ejercicio4 stamp: 'ml 3/21/2025 21:43:05'!
+IIII class
+	instanceVariableNames: ''!
+
+!classDefinition: #IIIII category: #Ejercicio4 stamp: 'ml 3/21/2025 21:43:05'!
+IIII subclass: #IIIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+
+!classDefinition: 'IIIII class' category: #Ejercicio4 stamp: 'ml 3/21/2025 21:43:05'!
+IIIII class
+	instanceVariableNames: ''!
+
+II + IIII!
+
+!classDefinition: 'IIIII class' category: #Ejercicio4 stamp: 'ml 3/21/2025 21:43:09'!
+IIIII class
+	instanceVariableNames: ''!
+
+!classDefinition: #IIIII category: #Ejercicio4 stamp: 'ml 3/21/2025 21:43:09'!
+IIII subclass: #IIIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+
+!classDefinition: 'IIIII class' category: #Ejercicio4 stamp: 'ml 3/21/2025 21:43:09'!
+IIIII class
+	instanceVariableNames: ''!
+
+!classDefinition: #IIIIII category: #Ejercicio4 stamp: 'ml 3/21/2025 21:43:09'!
+IIIII subclass: #IIIIII
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'Ejercicio4'!
+
+!classDefinition: 'IIIIII class' category: #Ejercicio4 stamp: 'ml 3/21/2025 21:43:09'!
+IIIIII class
+	instanceVariableNames: ''!
+!II class methodsFor: 'as yet unclassified' stamp: 'ml 3/21/2025 21:45:25' prior: 50540702!
+next
+	^self createChildNamed: self name, 'I'.! !
+
+----SNAPSHOT----(21 March 2025 21:45:33) CuisUniversity-6350.image priorSource: 6679943!
+
+----QUIT----(21 March 2025 21:45:51) CuisUniversity-6350.image priorSource: 6695408!
+
+----STARTUP---- (21 March 2025 21:46:07) as /home/Estudiante/Escritorio/IS1/cuises/linux64/CuisUniversity-6350.image!
+
+!Bill class methodsFor: '--** private fileout/in **--' stamp: 'ml 3/21/2025 21:46:31' overrides: 50497016!
+initializeCollaboratorsFromFile
+	"Auto generated method for loading purposes - Do not modify it"
+
+	energia := (SimpleMeasure basicNew instVarAt: 1 put: 35; instVarAt: 2 put: (BaseUnit basicNew instVarAt: 1 put: 'day'; instVarAt: 2 put: 'days'; instVarAt: 3 put: 'NO SIGN'; yourself); yourself).! !
+
+!methodRemoval: Bill class #initializeCollaboratorsFromFile stamp: 'ml 3/21/2025 21:46:31'!
+initializeCollaboratorsFromFile
+	"Auto generated method for loading purposes - Do not modify it"
+
+	energia := (SimpleMeasure basicNew instVarAt: 1 put: 35; instVarAt: 2 put: (BaseUnit basicNew instVarAt: 1 put: 'day'; instVarAt: 2 put: 'days'; instVarAt: 3 put: 'NO SIGN'; yourself); yourself).!
+
+----QUIT----(21 March 2025 21:46:42) CuisUniversity-6350.image priorSource: 6695498!
