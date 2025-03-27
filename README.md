@@ -37,16 +37,16 @@ En la materia trabajamos en un ambiente para la enseñanza de Programación Otie
 * [Parte 1](/Ejercicios/Parte1/): Introducción al paradigma, el lenguaje y sus herramientas. (DenotativeObject Browser)
 * Parte 2: Sacar código repetido, sacar ifs cumpliendo con heurísticas de diseño. (Class Browser)
 
-    * 01-EliminarCodRepe: [Enunciado](/Ejercicios/Parte2/01-EliminarCodRepe/) - [Solución propia](/Ejercicios/Parte2/01-EliminarCodRepe/CodigoRepetido-Ejercicio.st) - [Soluciones de la cátedra](/Ejercicios/Parte2/01-EliminarCodRepe/Soluciones/) - [Archivo original](/Ejercicios/Parte2/01-EliminarCodRepe/[Ori]CodigoRepetido-Ejercicio.st)
-    * 02-EliminarIfs: [Enunciado](/Ejercicios/Parte2/02-EliminarIfs/) - [Solución propia](/Ejercicios/Parte2/02-EliminarIfs/Resolución/) - [Solución de la cátedra](/Ejercicios/Parte2/02-EliminarIfs/Solución/) - [Archivos originales](/Ejercicios/Parte2/02-EliminarIfs/Original/) 
-    * 03-Perforaciones: [Enunciado](/Ejercicios/Parte2/03-Perforaciones/Enunciado-ISW1-Perforaciones.pdf) - [Solución propia](/Ejercicios/Parte2/03-Perforaciones/ISW1-Perforaciones.st) - [Solución de la cátedra](/Ejercicios/Parte2/03-Perforaciones/[Solucion]ISW1-Perforaciones.st) - [Archivo original](/Ejercicios/Parte2/03-Perforaciones/[Ori]ISW1-Perforaciones.st)
+    * 01-EliminarCodRepe: [Enunciado]() - [Solución propia]() - [Soluciones de la cátedra]()
+    * 02-EliminarIfs: [Enunciado]() - [Solución propia]() - [Solución de la cátedra]() 
+    * 03-Perforaciones: [Enunciado]() - [Solución propia]() - [Solución de la cátedra]()
     * 04-stack
     * 05-penales
     * 06-hotels
 
 * Parte 3: Test Driven Development (TDD).
     
-    * [01-BabySteps](/Ejercicios/Parte3/01-BabySteps/): juego interactivo para aprender sobre TDD. UID: 27120487298614160. The [leaderboard](http://babysteps.isw2.com.ar/).
-    * 02-MarsRovers: [Enunciado](/Ejercicios/Parte3/02-MarsRovers/MarsRover-Enunciado.pdf) - [Solución propia](/Ejercicios/Parte3/02-MarsRovers/MarsRovers.st) - [Solución propia sin ifs](/Ejercicios/Parte3/02-MarsRovers/MarsRoversSinIfs.st) - [Solución de la cátedra]()
-    * 03-Portfolio: [Enunciado](/Ejercicios/Parte3/03-Portfolio/) - [Archivo Original](/Ejercicios/Parte3/03-Portfolio/[Ori]Portfolio-Ejercicio.st) - [Solución propia](/Ejercicios/Parte3/03-Portfolio/[Solu]Portfolio-Ejercicio.st)
-    * 04-Portfolio2: [Enunciado](/Ejercicios/Parte3/04-Portfolio2/Portfolio%20Bancario%202%20-%20Transferencias%20y%20reportes.pdf) - [Archivo Original](/Ejercicios/Parte3/04-Portfolio2/[Ori]Portfolio-Solucion.st) - [Solución propia]()
+    * [01-BabySteps](): juego interactivo para aprender sobre TDD. UID: 27120487298614160. The [leaderboard](http://babysteps.isw2.com.ar/).
+    * 02-MarsRovers: [Enunciado]() - [Solución propia]() - [Solución propia sin ifs]() - [Solución de la cátedra]()
+    * 03-Portfolio: [Enunciado]() - [Solución propia]()
+    * 04-Portfolio2: [Enunciado]() - [Solución propia]()
