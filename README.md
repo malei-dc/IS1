@@ -37,8 +37,8 @@ En la materia trabajamos en un ambiente para la enseñanza de Programación Otie
 * [Parte 1](/Ejercicios/Parte1/): Introducción al paradigma, el lenguaje y sus herramientas. (DenotativeObject Browser)
 * Parte 2: Sacar código repetido, sacar ifs cumpliendo con heurísticas de diseño. (Class Browser)
 
-    * 01-EliminarCodRepe: [Enunciado](/Ejercicios/Parte2/01-eliminarCodRep/README.md) - [Solución propia]() - [Soluciones de la cátedra]()
-    * 02-EliminarIfs: [Enunciado]() - [Solución propia]() - [Solución de la cátedra]() 
+    * 01-EliminarCodRepe: [Enunciado](/Ejercicios/Parte2/01-eliminarCodRep/README.md) - [Solución propia](/Ejercicios/Parte2/01-eliminarCodRep/CodigoRepetido-Ejercicio.st) - [Soluciones de la cátedra]()
+    * 02-EliminarIfs: [Enunciado](/Ejercicios/Parte2/02-eliminarIfs/Consigna.txt) - [Solución propia]() - [Solución de la cátedra]() 
     * 03-Perforaciones: [Enunciado]() - [Solución propia]() - [Solución de la cátedra]()
     * 04-stack
     * 05-penales
