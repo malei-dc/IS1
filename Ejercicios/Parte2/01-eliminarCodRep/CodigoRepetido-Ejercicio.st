@@ -21,10 +21,11 @@ TestCase subclass: #CustomerBookTest
 	poolDictionaries: ''
 	category: 'CodigoRepetido-Ejercicio'!
 
-!CustomerBookTest methodsFor: 'assertion' stamp: 'ml 4/5/2025 14:33:28'!
-assertionNumbersOfCustomers: customerAmount in: aCustomerBookToCheck
-	self assert: customerAmount equals: aCustomerBookToCheck numberOfSuspendedCustomers.
-	self assert: customerAmount equals: aCustomerBookToCheck numberOfCustomers.
+!CustomerBookTest methodsFor: 'assertion' stamp: 'ml 4/9/2025 14:41:23'!
+assertionNumbersOfActiveCustomers: activeCustomerAmount numberOfSuspendedCustomers: suspendedCustomerAmount in: aCustomerBookToCheck
+	self assert: activeCustomerAmount equals: aCustomerBookToCheck numberOfActiveCustomers.
+	self assert: suspendedCustomerAmount equals: aCustomerBookToCheck numberOfSuspendedCustomers.
+	self assert: activeCustomerAmount +suspendedCustomerAmount equals: aCustomerBookToCheck numberOfCustomers.
 ! !
 
 !CustomerBookTest methodsFor: 'assertion' stamp: 'ml 4/5/2025 15:19:28'!
@@ -108,7 +109,7 @@ test04CanNotRemoveAnInvalidCustomer
 			self assert: customerBook numberOfCustomers = 1.
 			self assert: (customerBook includesCustomerNamed: johnLennon) ]! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'ml 4/5/2025 15:24:59'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'ml 4/9/2025 14:41:59'!
 test05SuspendingACustomerShouldNotRemoveItFromCustomerBook
 	| customerBook paulMcCartney|
 	customerBook := CustomerBook new.
@@ -116,17 +117,18 @@ test05SuspendingACustomerShouldNotRemoveItFromCustomerBook
 	
 	customerBook addCustomerNamed: paulMcCartney.
 	customerBook suspendCustomerNamed: paulMcCartney.
-	self assert: 0 equals: customerBook numberOfActiveCustomers.
 	
-	self assertionNumbersOfCustomers: 1 in: customerBook .
+	
+	self assertionNumbersOfActiveCustomers: 0 numberOfSuspendedCustomers: 1 in: customerBook .
 	"
+	self assert: 0 equals: customerBook numberOfActiveCustomers.
 	self assert: 1 equals: customerBook numberOfSuspendedCustomers.
 	self assert: 1 equals: customerBook numberOfCustomers.
 	"
 	
 	self assert: (customerBook includesCustomerNamed: paulMcCartney).! !
 
-!CustomerBookTest methodsFor: 'testing' stamp: 'ml 4/5/2025 15:24:43'!
+!CustomerBookTest methodsFor: 'testing' stamp: 'ml 4/9/2025 14:39:52'!
 test06RemovingASuspendedCustomerShouldRemoveItFromCustomerBook
 	| customerBook paulMcCartney|
 	customerBook := CustomerBook new.
@@ -135,10 +137,10 @@ test06RemovingASuspendedCustomerShouldRemoveItFromCustomerBook
 	customerBook addCustomerNamed: paulMcCartney.
 	customerBook suspendCustomerNamed: paulMcCartney.
 	customerBook removeCustomerNamed: paulMcCartney.
-	self assert: 0 equals: customerBook numberOfActiveCustomers.
 	
-	self assertionNumbersOfCustomers: 0 in: customerBook .
+	self assertionNumbersOfActiveCustomers: 0 numberOfSuspendedCustomers: 0 in: customerBook .
 	"
+	self assert: 0 equals: CustomerBook numberOfActiveCustomers
 	self assert: 0 equals: customerBook numberOfSuspendedCustomers.
 	self assert: 0 equals: customerBook numberOfCustomers.
 	"
