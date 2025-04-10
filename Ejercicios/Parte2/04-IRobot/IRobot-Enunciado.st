@@ -1,4 +1,4 @@
-!classDefinition: #CashierTest category: 'IRobot-Enunciado'!
+!classDefinition: #CashierTest category: #'IRobot-Enunciado'!
 TestCase subclass: #CashierTest
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -86,7 +86,7 @@ test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot
 ! !
 
 
-!classDefinition: #ProductTest category: 'IRobot-Enunciado'!
+!classDefinition: #ProductTest category: #'IRobot-Enunciado'!
 TestCase subclass: #ProductTest
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -132,7 +132,7 @@ test04CanNotCreateProductWithNoIntegerHeight
 ! !
 
 
-!classDefinition: #RobotTest category: 'IRobot-Enunciado'!
+!classDefinition: #RobotTest category: #'IRobot-Enunciado'!
 TestCase subclass: #RobotTest
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -269,7 +269,7 @@ test09CanNotCloseOrderWhenOutOfOrder
 ! !
 
 
-!classDefinition: #TrailerTest category: 'IRobot-Enunciado'!
+!classDefinition: #TrailerTest category: #'IRobot-Enunciado'!
 TestCase subclass: #TrailerTest
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -427,21 +427,24 @@ test11ShouldRejectProductBExceedingMaxTotalHeightOfBProducts
 	! !
 
 
-!classDefinition: #Cashier category: 'IRobot-Enunciado'!
+!classDefinition: #Cashier category: #'IRobot-Enunciado'!
 Object subclass: #Cashier
 	instanceVariableNames: ''
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'IRobot-Enunciado'!
 
-!Cashier methodsFor: 'closing buy order' stamp: 'F 5/20/2020 23:33:11'!
+!Cashier methodsFor: 'closing buy order' stamp: 'ml 4/9/2025 22:47:35'!
 receiveOrder: aRobot
+
+	^ aRobot status available: self tryToGetOrderFrom: aRobot .
 	
+	"
 	aRobot status = #WorkingNormal ifTrue: [ | aTrailer | 
 		aTrailer := aRobot trailer.	
 		self assertTrailerNotEmpty: aTrailer.
 		
-		"Comentario: en este punto el cashier realizaría el checkout de los productos."
+		Comentario: en este punto el cashier realizaría el checkout de los productos.
 		
 		^ true
 	].
@@ -457,11 +460,118 @@ receiveOrder: aRobot
 		aTrailer := aRobot trailer.	
 		self assertTrailerNotEmpty: aTrailer.
 		
-		"Comentario: en este punto el cashier realizaría el checkout de los productos."
+		Comentario: en este punto el cashier realizaría el checkout de los productos.
 
 		^ true
 	].
-! !
+	"! !
+
+!Cashier methodsFor: 'closing buy order' stamp: 'ml 4/9/2025 22:35:43'!
+receiveOrderFromMechanicalFailure: aRobot
+
+		| aTrailer |
+		aRobot outOfOrder.
+		
+		aTrailer := aRobot trailer.	
+		self assertTrailerNotEmpty: aTrailer.
+	
+		^ true
+	
+	"
+	aRobot status = #WorkingNormal ifTrue: [ | aTrailer | 
+		aTrailer := aRobot trailer.	
+		self assertTrailerNotEmpty: aTrailer.
+		
+		Comentario: en este punto el cashier realizaría el checkout de los productos.
+		
+		^ true
+	].
+
+	aRobot status = #SensorsFailure ifTrue: [ 	
+		aRobot outOfOrder.
+		self signalRobotSensorsFailure
+	].
+	
+	aRobot status = #MechanicalFailure ifTrue: [ | aTrailer |
+		aRobot outOfOrder.
+		
+		aTrailer := aRobot trailer.	
+		self assertTrailerNotEmpty: aTrailer.
+		
+		Comentario: en este punto el cashier realizaría el checkout de los productos.
+
+		^ true
+	].
+	"! !
+
+!Cashier methodsFor: 'closing buy order' stamp: 'ml 4/9/2025 22:35:11'!
+receiveOrderFromSensorFailure: aRobot
+
+		aRobot outOfOrder.
+		self signalRobotSensorsFailure
+	
+	"
+	aRobot status = #WorkingNormal ifTrue: [ | aTrailer | 
+		aTrailer := aRobot trailer.	
+		self assertTrailerNotEmpty: aTrailer.
+		
+		Comentario: en este punto el cashier realizaría el checkout de los productos.
+		
+		^ true
+	].
+
+	aRobot status = #SensorsFailure ifTrue: [ 	
+		aRobot outOfOrder.
+		self signalRobotSensorsFailure
+	].
+	
+	aRobot status = #MechanicalFailure ifTrue: [ | aTrailer |
+		aRobot outOfOrder.
+		
+		aTrailer := aRobot trailer.	
+		self assertTrailerNotEmpty: aTrailer.
+		
+		Comentario: en este punto el cashier realizaría el checkout de los productos.
+
+		^ true
+	].
+	"! !
+
+!Cashier methodsFor: 'closing buy order' stamp: 'ml 4/9/2025 22:11:14'!
+receiveOrderFromWorkingNormal: aRobot
+
+	 | aTrailer | 
+		aTrailer := aRobot trailer.	
+		self assertTrailerNotEmpty: aTrailer.
+		
+		^ true
+	
+	"
+	aRobot status = #WorkingNormal ifTrue: [ | aTrailer | 
+		aTrailer := aRobot trailer.	
+		self assertTrailerNotEmpty: aTrailer.
+		
+		Comentario: en este punto el cashier realizaría el checkout de los productos.
+		
+		^ true
+	].
+
+	aRobot status = #SensorsFailure ifTrue: [ 	
+		aRobot outOfOrder.
+		self signalRobotSensorsFailure
+	].
+	
+	aRobot status = #MechanicalFailure ifTrue: [ | aTrailer |
+		aRobot outOfOrder.
+		
+		aTrailer := aRobot trailer.	
+		self assertTrailerNotEmpty: aTrailer.
+		
+		Comentario: en este punto el cashier realizaría el checkout de los productos.
+
+		^ true
+	].
+	"! !
 
 
 !Cashier methodsFor: 'assertions' stamp: 'FRT 5/4/2020 11:17:52'!
@@ -482,7 +592,7 @@ signalRobotSensorsFailure
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Cashier class' category: 'IRobot-Enunciado'!
+!classDefinition: 'Cashier class' category: #'IRobot-Enunciado'!
 Cashier class
 	instanceVariableNames: ''!
 
@@ -497,7 +607,7 @@ trailerIsEmptyErrorDescription
 	^ 'This robots trailer is empty!!'! !
 
 
-!classDefinition: #Product category: 'IRobot-Enunciado'!
+!classDefinition: #Product category: #'IRobot-Enunciado'!
 Object subclass: #Product
 	instanceVariableNames: 'weight height'
 	classVariableNames: ''
@@ -535,7 +645,7 @@ weight
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Product class' category: 'IRobot-Enunciado'!
+!classDefinition: 'Product class' category: #'IRobot-Enunciado'!
 Product class
 	instanceVariableNames: ''!
 
@@ -593,7 +703,7 @@ weightMustBeIntegerErrorDescription
 	^ 'Weight must be integer'! !
 
 
-!classDefinition: #ProductA category: 'IRobot-Enunciado'!
+!classDefinition: #ProductA category: #'IRobot-Enunciado'!
 Product subclass: #ProductA
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -612,7 +722,7 @@ carryBy: aTrailer
 	aTrailer carryProductA: self! !
 
 
-!classDefinition: #ProductB category: 'IRobot-Enunciado'!
+!classDefinition: #ProductB category: #'IRobot-Enunciado'!
 Product subclass: #ProductB
 	instanceVariableNames: ''
 	classVariableNames: ''
@@ -631,48 +741,148 @@ carryBy: aTrailer
 	aTrailer carryProductB: self! !
 
 
-!classDefinition: #Robot category: 'IRobot-Enunciado'!
+!classDefinition: #Robot category: #'IRobot-Enunciado'!
 Object subclass: #Robot
 	instanceVariableNames: 'status trailer'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'IRobot-Enunciado'!
 
-!Robot methodsFor: 'actions' stamp: 'FRT 5/4/2020 18:41:25'!
-closeOrderUsing: aCashier
+!Robot methodsFor: 'actions' stamp: 'ml 4/9/2025 22:17:35'!
+MechanicalFailureRobotTryToTake: aProduct 
 	
-	status = #WorkingNormal ifTrue: [ ^ aCashier receiveOrder: self ].
-	status = #SensorsFailure ifTrue: [ ^ aCashier receiveOrder: self ].
-	status = #MechanicalFailure ifTrue: [ ^ aCashier receiveOrder: self ].
-	status = #OutOfOrder ifTrue: [ ^ self class signalOutOfOrder ].
-! !
-
-!Robot methodsFor: 'actions' stamp: 'FRT 5/4/2020 18:30:39'!
-take: aProduct
-
+	^ trailer carry: aProduct.
+	
+	"
 	status = #WorkingNormal ifTrue: [ ^ trailer carry: aProduct ].
 	status = #SensorsFailure ifTrue: [ ^ trailer carry: aProduct ].
 	status = #MechanicalFailure ifTrue: [ ^ trailer carry: aProduct ].
 	status = #OutOfOrder ifTrue: [ ^ self class signalOutOfOrder ].
-! !
+	"! !
+
+!Robot methodsFor: 'actions' stamp: 'ml 4/9/2025 22:18:02'!
+OutOfOrderRobotTryToTake: aProduct 
+	
+	^ self class signalOutOfOrder.
+	
+	"
+	status = #WorkingNormal ifTrue: [ ^ trailer carry: aProduct ].
+	status = #SensorsFailure ifTrue: [ ^ trailer carry: aProduct ].
+	status = #MechanicalFailure ifTrue: [ ^ trailer carry: aProduct ].
+	status = #OutOfOrder ifTrue: [ ^ self class signalOutOfOrder ].
+	"! !
+
+!Robot methodsFor: 'actions' stamp: 'ml 4/9/2025 22:17:25'!
+SensorsFailureRobotTryToTake: aProduct 
+	
+	^ trailer carry: aProduct.
+	
+	"
+	status = #WorkingNormal ifTrue: [ ^ trailer carry: aProduct ].
+	status = #SensorsFailure ifTrue: [ ^ trailer carry: aProduct ].
+	status = #MechanicalFailure ifTrue: [ ^ trailer carry: aProduct ].
+	status = #OutOfOrder ifTrue: [ ^ self class signalOutOfOrder ].
+	"! !
+
+!Robot methodsFor: 'actions' stamp: 'ml 4/9/2025 22:45:06'!
+closeOrderUsing: aCashier
+
+	^ status tryToCloseUsing: aCashier for: self.
+	
+	"
+	status = #WorkingNormal ifTrue: [ ^ aCashier receiveOrder: self ].
+	status = #SensorsFailure ifTrue: [ ^ aCashier receiveOrder: self ].
+	status = #MechanicalFailure ifTrue: [ ^ aCashier receiveOrder: self ].
+	status = #OutOfOrder ifTrue: [ ^ self class signalOutOfOrder ].
+	"! !
+
+!Robot methodsFor: 'actions' stamp: 'ml 4/9/2025 21:59:11'!
+closeOrderWhenMechanicalFailureUsing: aCashier
+
+	^ aCashier receiveOrder: self 
+	
+	"
+	status = #WorkingNormal ifTrue: [ ^ aCashier receiveOrder: self ].
+	status = #SensorsFailure ifTrue: [ ^ aCashier receiveOrder: self ].
+	status = #MechanicalFailure ifTrue: [ ^ aCashier receiveOrder: self ].
+	status = #OutOfOrder ifTrue: [ ^ self class signalOutOfOrder ].
+	"! !
+
+!Robot methodsFor: 'actions' stamp: 'ml 4/9/2025 21:59:36'!
+closeOrderWhenOutOfOrderUsing: aCashier
+
+	^ self class signalOutOfOrder 
+	
+	"
+	status = #WorkingNormal ifTrue: [ ^ aCashier receiveOrder: self ].
+	status = #SensorsFailure ifTrue: [ ^ aCashier receiveOrder: self ].
+	status = #MechanicalFailure ifTrue: [ ^ aCashier receiveOrder: self ].
+	status = #OutOfOrder ifTrue: [ ^ self class signalOutOfOrder ].
+	"! !
+
+!Robot methodsFor: 'actions' stamp: 'ml 4/9/2025 21:58:10'!
+closeOrderWhenSensorFailureUsing: aCashier
+
+	^ aCashier receiveOrder: self 
+	
+	"
+	status = #WorkingNormal ifTrue: [ ^ aCashier receiveOrder: self ].
+	status = #SensorsFailure ifTrue: [ ^ aCashier receiveOrder: self ].
+	status = #MechanicalFailure ifTrue: [ ^ aCashier receiveOrder: self ].
+	status = #OutOfOrder ifTrue: [ ^ self class signalOutOfOrder ].
+	"! !
+
+!Robot methodsFor: 'actions' stamp: 'ml 4/9/2025 21:57:21'!
+closeOrderWhenWorkingNormalUsing: aCashier
+
+	^ aCashier receiveOrder: self .
+	
+	"
+	status = #WorkingNormal ifTrue: [ ^ aCashier receiveOrder: self ].
+	status = #SensorsFailure ifTrue: [ ^ aCashier receiveOrder: self ].
+	status = #MechanicalFailure ifTrue: [ ^ aCashier receiveOrder: self ].
+	status = #OutOfOrder ifTrue: [ ^ self class signalOutOfOrder ].
+	"! !
+
+!Robot methodsFor: 'actions' stamp: 'ml 4/9/2025 22:15:14'!
+take: aProduct
+
+	status tryToTake: aProduct by: self
+	"
+	status = #WorkingNormal ifTrue: [ ^ trailer carry: aProduct ].
+	status = #SensorsFailure ifTrue: [ ^ trailer carry: aProduct ].
+	status = #MechanicalFailure ifTrue: [ ^ trailer carry: aProduct ].
+	status = #OutOfOrder ifTrue: [ ^ self class signalOutOfOrder ].
+	"! !
+
+!Robot methodsFor: 'actions' stamp: 'ml 4/9/2025 22:17:06'!
+workingNormalRobotTryToTake: aProduct 
+	
+	^ trailer carry: aProduct.
+	
+	"
+	status = #WorkingNormal ifTrue: [ ^ trailer carry: aProduct ].
+	status = #SensorsFailure ifTrue: [ ^ trailer carry: aProduct ].
+	status = #MechanicalFailure ifTrue: [ ^ trailer carry: aProduct ].
+	status = #OutOfOrder ifTrue: [ ^ self class signalOutOfOrder ].
+	"! !
 
 
-!Robot methodsFor: 'status' stamp: 'FRT 5/4/2020 18:29:54'!
+!Robot methodsFor: 'status' stamp: 'ml 4/9/2025 22:26:29'!
 outOfOrder
 
-	status := #OutOfOrder
+	status := OutOfOrder new
 ! !
 
-!Robot methodsFor: 'status' stamp: 'FRT 5/4/2020 18:29:48'!
+!Robot methodsFor: 'status' stamp: 'ml 4/9/2025 22:25:20'!
 withMechanicalFailure
 
-	status := #MechanicalFailure
-! !
+	status := MechanicalFailure new! !
 
-!Robot methodsFor: 'status' stamp: 'FRT 5/4/2020 18:29:39'!
+!Robot methodsFor: 'status' stamp: 'ml 4/9/2025 22:25:03'!
 withSensorsFailure
 
-	status := #SensorsFailure
+	status := SensorsFailure new.
 ! !
 
 
@@ -689,16 +899,16 @@ trailer
 ! !
 
 
-!Robot methodsFor: 'initialization' stamp: 'FRT 5/4/2020 18:21:29'!
+!Robot methodsFor: 'initialization' stamp: 'ml 4/9/2025 22:02:02'!
 initializeWith: aTrailer
 
 	trailer := aTrailer.
-	status := #WorkingNormal.
+	status := WorkingNormal new.
 ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Robot class' category: 'IRobot-Enunciado'!
+!classDefinition: 'Robot class' category: #'IRobot-Enunciado'!
 Robot class
 	instanceVariableNames: ''!
 
@@ -737,7 +947,117 @@ outOfOrderErrorDescription
 	^ 'Robot out of order :('! !
 
 
-!classDefinition: #Trailer category: 'IRobot-Enunciado'!
+!classDefinition: #RobotState category: #'IRobot-Enunciado'!
+Object subclass: #RobotState
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'IRobot-Enunciado'!
+
+!RobotState methodsFor: 'actions' stamp: 'ml 4/9/2025 22:34:07'!
+available: receiverCashier tryToGetOrderFrom: incomingRobot
+
+	self subclassResponsibility! !
+
+!RobotState methodsFor: 'actions' stamp: 'ml 4/9/2025 22:19:49'!
+tryToCloseUsing: aCashier for: aRobot
+
+	self subclassResponsibility! !
+
+!RobotState methodsFor: 'actions' stamp: 'ml 4/9/2025 22:20:08'!
+tryToTake: aProduct by: aRobot
+
+	self subclassResponsibility! !
+
+
+!classDefinition: #MechanicalFailure category: #'IRobot-Enunciado'!
+RobotState subclass: #MechanicalFailure
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'IRobot-Enunciado'!
+
+!MechanicalFailure methodsFor: 'actions' stamp: 'ml 4/9/2025 22:53:46'!
+available: receiverCashier tryToGetOrderFrom: incomingRobot .
+
+	^receiverCashier receiveOrderFromMechanicalFailure: incomingRobot .! !
+
+!MechanicalFailure methodsFor: 'actions' stamp: 'ml 4/9/2025 22:53:15'!
+tryToCloseUsing: aCashier for: aRobot
+
+	^aRobot closeOrderWhenMechanicalFailureUsing: aCashier .! !
+
+!MechanicalFailure methodsFor: 'actions' stamp: 'ml 4/9/2025 22:23:14'!
+tryToTake: aProduct by: aRobot
+
+	aRobot MechanicalFailureRobotTryToTake: aProduct .! !
+
+
+!classDefinition: #OutOfOrder category: #'IRobot-Enunciado'!
+RobotState subclass: #OutOfOrder
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'IRobot-Enunciado'!
+
+!OutOfOrder methodsFor: 'actions' stamp: 'ml 4/9/2025 22:21:37'!
+tryToCloseUsing: aCashier for: aRobot
+
+	aRobot closeOrderWhenOutOfOrderUsing: aCashier .! !
+
+!OutOfOrder methodsFor: 'actions' stamp: 'ml 4/9/2025 22:21:56'!
+tryToTake: aProduct by: aRobot
+
+	aRobot OutOfOrderRobotTryToTake: aProduct .! !
+
+
+!classDefinition: #SensorsFailure category: #'IRobot-Enunciado'!
+RobotState subclass: #SensorsFailure
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'IRobot-Enunciado'!
+
+!SensorsFailure methodsFor: 'actions' stamp: 'ml 4/9/2025 22:41:58'!
+available: receiverCashier tryToGetOrderFrom: incomingRobot .
+
+	receiverCashier receiveOrderFromSensorFailure: incomingRobot .! !
+
+!SensorsFailure methodsFor: 'actions' stamp: 'ml 4/9/2025 22:21:13'!
+tryToCloseUsing: aCashier for: aRobot
+
+	aRobot closeOrderWhenSensorFailureUsing: aCashier ! !
+
+!SensorsFailure methodsFor: 'actions' stamp: 'ml 4/9/2025 22:20:36'!
+tryToTake: aProduct by: aRobot
+
+	aRobot SensorsFailureRobotTryToTake: aProduct ! !
+
+
+!classDefinition: #WorkingNormal category: #'IRobot-Enunciado'!
+RobotState subclass: #WorkingNormal
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'IRobot-Enunciado'!
+
+!WorkingNormal methodsFor: 'actions' stamp: 'ml 4/9/2025 22:52:33'!
+available: receiverCashier tryToGetOrderFrom: incomingRobot .
+
+	^receiverCashier receiveOrderFromWorkingNormal: incomingRobot ! !
+
+!WorkingNormal methodsFor: 'actions' stamp: 'ml 4/9/2025 22:46:15'!
+tryToCloseUsing: aCashier for: aRobot 
+
+	^aRobot closeOrderWhenWorkingNormalUsing: aCashier .! !
+
+!WorkingNormal methodsFor: 'actions' stamp: 'ml 4/9/2025 22:20:12'!
+tryToTake: aProduct by: aRobot 
+
+	aRobot workingNormalRobotTryToTake: aProduct .! !
+
+
+!classDefinition: #Trailer category: #'IRobot-Enunciado'!
 Object subclass: #Trailer
 	instanceVariableNames: 'weightCapacity heightCapacity container'
 	classVariableNames: ''
@@ -758,10 +1078,16 @@ totalProductsAmount
 	
 	^ container size.! !
 
-!Trailer methodsFor: 'accessing' stamp: 'F 5/14/2020 10:35:03'!
+!Trailer methodsFor: 'accessing' stamp: 'ml 4/9/2025 23:51:02'!
 totalProductsHeight
 	"Solo importa la altura de los productos apilables"
 
+	| stackableProducts |
+	stackableProducts := container select: [:product | product isStackable].
+	stackableProducts ifEmpty: [^0].
+	^ stackableProducts sum:[:product| product height].
+
+	"
 	| total index |
 
 	total := 0.
@@ -772,23 +1098,27 @@ totalProductsHeight
 		(product isStackable) ifTrue: [ total := total +  product height ].
 		index := index + 1.	
 	].
+	
+	^ total.
+	"! !
 
-	^ total.! !
-
-!Trailer methodsFor: 'accessing' stamp: 'F 5/14/2020 10:34:38'!
+!Trailer methodsFor: 'accessing' stamp: 'ml 4/9/2025 23:47:01'!
 totalProductsWeight
 	
-	| total index |
+	container ifEmpty: [^0].
+	^ container sum:[:product| product weight].
+	
+	"| total index |
 
 	total := 0.
 	index := 1.
-	
 	[index <= container size] whileTrue: [
 		total := total + (container at: index) weight.
 		index := index + 1.	
 	].
+	
 
-	^ total.! !
+	^ total."! !
 
 
 !Trailer methodsFor: 'testing' stamp: 'FRT 5/3/2020 23:33:33'!
@@ -842,7 +1172,7 @@ signalMaxWeightCapacityExceeded
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
-!classDefinition: 'Trailer class' category: 'IRobot-Enunciado'!
+!classDefinition: 'Trailer class' category: #'IRobot-Enunciado'!
 Trailer class
 	instanceVariableNames: ''!
 
