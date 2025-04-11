@@ -5,7 +5,18 @@ TestCase subclass: #CashierTest
 	poolDictionaries: ''
 	category: 'IRobot-Enunciado'!
 
-!CashierTest methodsFor: 'receiving from empty trailer' stamp: 'F 5/21/2020 21:50:00'!
+!CashierTest methodsFor: 'receiving from empty trailer' stamp: 'ml 4/11/2025 16:20:47'!
+shouldFail: aFailingCaseBlock withMsg: anErrorDescription
+
+	self
+		should: [ 
+			aFailingCaseBlock value.
+		]
+		raise: Error
+		withMessageText: anErrorDescription value.
+! !
+
+!CashierTest methodsFor: 'receiving from empty trailer' stamp: 'ml 4/11/2025 16:18:00'!
 test01ShouldNotAcceptEmptyTrailerFromNormalWorkingRobot
 
 	| aRobot aTrailer aCashier |
@@ -14,16 +25,19 @@ test01ShouldNotAcceptEmptyTrailerFromNormalWorkingRobot
 	aRobot := Robot with: aTrailer.
 	
 	aCashier := Cashier new.
-
+	
+	self shouldFail: [aCashier receiveOrder: aRobot.]  withMsg: [Cashier trailerIsEmptyErrorDescription.].
+	
+	"
 	self
 		should: [ 
 			aCashier receiveOrder: aRobot 
 		]
 		raise: Error
 		withMessageText: Cashier trailerIsEmptyErrorDescription.
-! !
+	"! !
 
-!CashierTest methodsFor: 'receiving from empty trailer' stamp: 'F 5/21/2020 21:50:32'!
+!CashierTest methodsFor: 'receiving from empty trailer' stamp: 'ml 4/11/2025 16:18:01'!
 test02ShouldNotAcceptEmptyTrailerFromMechanicalFailureRobot
 
 	| aRobot aTrailer aCashier |
@@ -33,6 +47,15 @@ test02ShouldNotAcceptEmptyTrailerFromMechanicalFailureRobot
 	
 	aCashier := Cashier new.
 
+	self 
+	shouldFail: [
+		aRobot withMechanicalFailure.
+		aCashier receiveOrder: aRobot ] 
+	withMsg: [
+		Cashier trailerIsEmptyErrorDescription.
+		]
+	
+	"
 	self
 		should: [ 
 			aRobot withMechanicalFailure.
@@ -40,10 +63,10 @@ test02ShouldNotAcceptEmptyTrailerFromMechanicalFailureRobot
 		]
 		raise: Error
 		withMessageText: Cashier trailerIsEmptyErrorDescription.
-! !
+	"! !
 
 
-!CashierTest methodsFor: 'receiving from sensors failure robot' stamp: 'F 5/20/2020 23:18:54'!
+!CashierTest methodsFor: 'receiving from sensors failure robot' stamp: 'ml 4/11/2025 16:18:00'!
 test03ShouldNotAcceptSensorsFailureRobot
 
 	| aRobot aTrailer aCashier |
@@ -53,16 +76,25 @@ test03ShouldNotAcceptSensorsFailureRobot
 	
 	aCashier := Cashier new.
 
+	self 
+	shouldFail: [
+		aRobot withSensorsFailure.
+		aCashier receiveOrder: aRobot  ] 
+	withMsg: [
+		 Cashier robotSensorsFailureErrorDescription.
+		]
+
+	"
 	self
 		should: [ 
 			aRobot withSensorsFailure.
 			aCashier receiveOrder: aRobot ]
 		raise: Error
 		withMessageText: Cashier robotSensorsFailureErrorDescription.
-! !
+	"! !
 
 
-!CashierTest methodsFor: 'receiving from mechanical failure robot' stamp: 'F 5/20/2020 23:47:15'!
+!CashierTest methodsFor: 'receiving from mechanical failure robot' stamp: 'ml 4/11/2025 16:18:00'!
 test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot
 
 	| aRobot aTrailer aCashier |
@@ -72,6 +104,19 @@ test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot
 	
 	aCashier := Cashier new.
 
+	self 
+	shouldFail: [
+		aRobot take: (ProductA with: 1  and: 1).
+		aRobot withMechanicalFailure.
+		
+		aCashier receiveOrder: aRobot.
+					
+		aRobot take: (ProductA with: 1 and: 1)   ] 
+	withMsg: [
+		 Robot outOfOrderErrorDescription.
+		]
+
+	"
 	self
 		should: [ 
 			aRobot take: (ProductA with: 1  and: 1).
@@ -83,7 +128,7 @@ test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot
 		raise: Error
 		withMessageText: Robot outOfOrderErrorDescription.
 
-! !
+	"! !
 
 
 !classDefinition: #ProductTest category: #'IRobot-Enunciado'!

@@ -2065,3 +2065,616 @@ initializeCollaboratorsFromFile
 	energia := (SimpleMeasure basicNew instVarAt: 1 put: 35; instVarAt: 2 put: (BaseUnit basicNew instVarAt: 1 put: 'day'; instVarAt: 2 put: 'days'; instVarAt: 3 put: 'NO SIGN'; yourself); yourself).!
 
 ----QUIT----(21 March 2025 21:46:42) CuisUniversity-6350.image priorSource: 6695498!
+
+----STARTUP---- (11 April 2025 15:36:57) as /home/Estudiante/Escritorio/IS1/cuises/linux64/CuisUniversity-6350.image!
+
+
+----End fileIn of /home/Estudiante/Escritorio/IS1/Ejercicios/Parte2/04-IRobot/IRobot-Enunciado.st----!
+
+----End fileIn of /home/Estudiante/Descargas/3.Replace-if-Type+State-Solucion.st----!
+
+!testRun: #TrailerTest #test01CanNotCreateTrailerWithCeroOrLessMaxWeight stamp: 'ml 4/11/2025 15:47:12'!
+PASSED!
+
+!testRun: #TrailerTest #test02CanNotCreateTrailerWithCeroOrLessMaxHeight stamp: 'ml 4/11/2025 15:47:12'!
+PASSED!
+
+!testRun: #TrailerTest #test03CanNotCreateTrailerWithNoIntegerMaxWeight stamp: 'ml 4/11/2025 15:47:12'!
+PASSED!
+
+!testRun: #TrailerTest #test04CanNotCreateTrailerWithNoIntegerMaxHeight stamp: 'ml 4/11/2025 15:47:12'!
+PASSED!
+
+!testRun: #TrailerTest #test05ShouldRejectProductAIfWeightExceeded stamp: 'ml 4/11/2025 15:47:12'!
+PASSED!
+
+!testRun: #TrailerTest #test06ShouldRejectProductBIfWeightExceeded stamp: 'ml 4/11/2025 15:47:12'!
+PASSED!
+
+!testRun: #TrailerTest #test07ShouldAcceptProductsIfWeightUnderMaxWeightCapacity stamp: 'ml 4/11/2025 15:47:12'!
+PASSED!
+
+!testRun: #TrailerTest #test08ShouldAcceptProductsIfWeightEqualsMaxWeightCapacity stamp: 'ml 4/11/2025 15:47:12'!
+PASSED!
+
+!testRun: #TrailerTest #test09ShouldAcceptProductAIgnoringMaxTotalHeightOfBProducts stamp: 'ml 4/11/2025 15:47:12'!
+PASSED!
+
+!testRun: #TrailerTest #test10ShouldIgnoreAProductsInMaxTotalHeightOfBProducts stamp: 'ml 4/11/2025 15:47:12'!
+PASSED!
+
+!testRun: #TrailerTest #test11ShouldRejectProductBExceedingMaxTotalHeightOfBProducts stamp: 'ml 4/11/2025 15:47:12'!
+PASSED!
+
+!testRun: #CashierTest #test01ShouldNotAcceptEmptyTrailerFromNormalWorkingRobot stamp: 'ml 4/11/2025 15:47:15'!
+PASSED!
+
+!testRun: #CashierTest #test02ShouldNotAcceptEmptyTrailerFromMechanicalFailureRobot stamp: 'ml 4/11/2025 15:47:15'!
+PASSED!
+
+!testRun: #CashierTest #test03ShouldNotAcceptSensorsFailureRobot stamp: 'ml 4/11/2025 15:47:15'!
+PASSED!
+
+!testRun: #CashierTest #test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot stamp: 'ml 4/11/2025 15:47:15'!
+PASSED!
+
+!testRun: #ProductTest #test01CanNotCreateProductWithCeroOrLessWeight stamp: 'ml 4/11/2025 15:47:17'!
+PASSED!
+
+!testRun: #ProductTest #test02CanNotCreateProductWithCeroOrLessHeight stamp: 'ml 4/11/2025 15:47:17'!
+PASSED!
+
+!testRun: #ProductTest #test03CanNotCreateProductWithNoIntegerWeight stamp: 'ml 4/11/2025 15:47:17'!
+PASSED!
+
+!testRun: #ProductTest #test04CanNotCreateProductWithNoIntegerHeight stamp: 'ml 4/11/2025 15:47:17'!
+PASSED!
+!CashierTest methodsFor: 'receiving from empty trailer' stamp: 'ml 4/11/2025 15:54:59' prior: 50540936!
+test01ShouldNotAcceptEmptyTrailerFromNormalWorkingRobot
+
+	| aRobot aTrailer aCashier |
+	
+	aTrailer := Trailer with: 20 and: 100.
+	aRobot := Robot with: aTrailer.
+	
+	aCashier := Cashier new.
+
+	self
+		should: [ 
+			aCashier receiveOrder: aRobot 
+		]
+		raise: Error
+		withMessageText: Cashier trailerIsEmptyErrorDescription.
+! !
+!CashierTest methodsFor: 'receiving from empty trailer' stamp: 'ml 4/11/2025 15:59:40'!
+xxxxx: asdasdas yyyyyy: asdasdasdas
+
+	self
+		should: [ 
+			asdasdas value.
+		]
+		raise: Error
+		withMessageText: asdasdasdas value.
+! !
+!CashierTest methodsFor: 'receiving from empty trailer' stamp: 'ml 4/11/2025 16:06:20' prior: 50542312!
+test01ShouldNotAcceptEmptyTrailerFromNormalWorkingRobot
+
+	| aRobot aTrailer aCashier |
+	
+	aTrailer := Trailer with: 20 and: 100.
+	aRobot := Robot with: aTrailer.
+	
+	aCashier := Cashier new.
+	
+	self xxxxx: [aCashier receiveOrder: aRobot.]  yyyyyy: [Cashier trailerIsEmptyErrorDescription.].
+	
+	"
+	self
+		should: [ 
+			aCashier receiveOrder: aRobot 
+		]
+		raise: Error
+		withMessageText: Cashier trailerIsEmptyErrorDescription.
+	"! !
+
+!testRun: #CashierTest #test01ShouldNotAcceptEmptyTrailerFromNormalWorkingRobot stamp: 'ml 4/11/2025 16:06:22'!
+PASSED!
+
+!testRun: #CashierTest #test01ShouldNotAcceptEmptyTrailerFromNormalWorkingRobot stamp: 'ml 4/11/2025 16:06:22'!
+PASSED!
+
+!testRun: #CashierTest #test02ShouldNotAcceptEmptyTrailerFromMechanicalFailureRobot stamp: 'ml 4/11/2025 16:06:22'!
+PASSED!
+
+!testRun: #CashierTest #test03ShouldNotAcceptSensorsFailureRobot stamp: 'ml 4/11/2025 16:06:22'!
+PASSED!
+
+!testRun: #CashierTest #test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot stamp: 'ml 4/11/2025 16:06:22'!
+PASSED!
+!CashierTest methodsFor: 'receiving from empty trailer' stamp: 'ml 4/11/2025 16:07:20' prior: 50540949!
+test02ShouldNotAcceptEmptyTrailerFromMechanicalFailureRobot
+
+	| aRobot aTrailer aCashier |
+	
+	aTrailer := Trailer with: 20 and: 100.
+	aRobot := Robot with: aTrailer.
+	
+	aCashier := Cashier new.
+
+	self 
+	xxxxx: [
+		aRobot withMechanicalFailure.
+		aCashier receiveOrder: aRobot ] 
+	yyyyyy: [
+		Cashier trailerIsEmptyErrorDescription.
+		]
+	
+	"
+	self
+		should: [ 
+			aRobot withMechanicalFailure.
+			aCashier receiveOrder: aRobot 
+		]
+		raise: Error
+		withMessageText: Cashier trailerIsEmptyErrorDescription.
+	"! !
+
+!testRun: #CashierTest #test02ShouldNotAcceptEmptyTrailerFromMechanicalFailureRobot stamp: 'ml 4/11/2025 16:07:22'!
+PASSED!
+
+!testRun: #CashierTest #test01ShouldNotAcceptEmptyTrailerFromNormalWorkingRobot stamp: 'ml 4/11/2025 16:07:22'!
+PASSED!
+
+!testRun: #CashierTest #test02ShouldNotAcceptEmptyTrailerFromMechanicalFailureRobot stamp: 'ml 4/11/2025 16:07:22'!
+PASSED!
+
+!testRun: #CashierTest #test03ShouldNotAcceptSensorsFailureRobot stamp: 'ml 4/11/2025 16:07:22'!
+PASSED!
+
+!testRun: #CashierTest #test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot stamp: 'ml 4/11/2025 16:07:22'!
+PASSED!
+!CashierTest methodsFor: 'receiving from sensors failure robot' stamp: 'ml 4/11/2025 16:08:44' prior: 50540964!
+test03ShouldNotAcceptSensorsFailureRobot
+
+	| aRobot aTrailer aCashier |
+	
+	aTrailer := Trailer with: 20 and: 100.
+	aRobot := Robot with: aTrailer.
+	
+	aCashier := Cashier new.
+
+	self 
+	xxxxx: [
+		aRobot withSensorsFailure.
+		aCashier receiveOrder: aRobot  ] 
+	yyyyyy: [
+		 Cashier robotSensorsFailureErrorDescription.
+		]
+
+	"
+	self
+		should: [ 
+			aRobot withSensorsFailure.
+			aCashier receiveOrder: aRobot ]
+		raise: Error
+		withMessageText: Cashier robotSensorsFailureErrorDescription.
+	"! !
+
+!testRun: #CashierTest #test03ShouldNotAcceptSensorsFailureRobot stamp: 'ml 4/11/2025 16:08:45'!
+PASSED!
+
+!testRun: #CashierTest #test01ShouldNotAcceptEmptyTrailerFromNormalWorkingRobot stamp: 'ml 4/11/2025 16:08:45'!
+PASSED!
+
+!testRun: #CashierTest #test02ShouldNotAcceptEmptyTrailerFromMechanicalFailureRobot stamp: 'ml 4/11/2025 16:08:45'!
+PASSED!
+
+!testRun: #CashierTest #test03ShouldNotAcceptSensorsFailureRobot stamp: 'ml 4/11/2025 16:08:45'!
+PASSED!
+
+!testRun: #CashierTest #test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot stamp: 'ml 4/11/2025 16:08:45'!
+PASSED!
+!CashierTest methodsFor: 'receiving from mechanical failure robot' stamp: 'ml 4/11/2025 16:09:38' prior: 50540978!
+test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot
+
+	| aRobot aTrailer aCashier |
+	
+	aTrailer := Trailer with: 20 and: 100.
+	aRobot := Robot with: aTrailer.
+	
+	aCashier := Cashier new.
+
+
+
+	"
+	self
+		should: [ 
+			aRobot take: (ProductA with: 1  and: 1).
+			aRobot withMechanicalFailure.
+			
+			aCashier receiveOrder: aRobot.
+			
+			aRobot take: (ProductA with: 1 and: 1) ]
+		raise: Error
+		withMessageText: Robot outOfOrderErrorDescription.
+
+	"! !
+!CashierTest methodsFor: 'receiving from mechanical failure robot' stamp: 'ml 4/11/2025 16:10:20' prior: 50542390!
+test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot
+
+	| aRobot aTrailer aCashier |
+	
+	aTrailer := Trailer with: 20 and: 100.
+	aRobot := Robot with: aTrailer.
+	
+	aCashier := Cashier new.
+
+	self 
+	xxxxx: [
+		aRobot take: (ProductA with: 1  and: 1).
+		aRobot withMechanicalFailure.
+		
+		aCashier receiveOrder: aRobot.
+					
+		aRobot take: (ProductA with: 1 and: 1)   ] 
+	yyyyyy: [
+		 Robot outOfOrderErrorDescription.
+		]
+
+	"
+	self
+		should: [ 
+			aRobot take: (ProductA with: 1  and: 1).
+			aRobot withMechanicalFailure.
+			
+			aCashier receiveOrder: aRobot.
+			
+			aRobot take: (ProductA with: 1 and: 1) ]
+		raise: Error
+		withMessageText: Robot outOfOrderErrorDescription.
+
+	"! !
+
+!testRun: #CashierTest #test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot stamp: 'ml 4/11/2025 16:10:21'!
+PASSED!
+
+!testRun: #CashierTest #test01ShouldNotAcceptEmptyTrailerFromNormalWorkingRobot stamp: 'ml 4/11/2025 16:10:21'!
+PASSED!
+
+!testRun: #CashierTest #test02ShouldNotAcceptEmptyTrailerFromMechanicalFailureRobot stamp: 'ml 4/11/2025 16:10:21'!
+PASSED!
+
+!testRun: #CashierTest #test03ShouldNotAcceptSensorsFailureRobot stamp: 'ml 4/11/2025 16:10:21'!
+PASSED!
+
+!testRun: #CashierTest #test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot stamp: 'ml 4/11/2025 16:10:21'!
+PASSED!
+!CashierTest methodsFor: 'receiving from mechanical failure robot' stamp: 'ml 4/11/2025 16:13:58' prior: 50542409!
+test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot
+
+	| aRobot aTrailer aCashier |
+	
+	aTrailer := Trailer with: 20 and: 100.
+	aRobot := Robot with: aTrailer.
+	
+	aCashier := Cashier new.
+
+	self 
+	should: [
+		aRobot take: (ProductA with: 1  and: 1).
+		aRobot withMechanicalFailure.
+		
+		aCashier receiveOrder: aRobot.
+					
+		aRobot take: (ProductA with: 1 and: 1)   ] 
+	description: 
+		 Robot outOfOrderErrorDescription.
+		
+
+	"
+	self
+		should: [ 
+			aRobot take: (ProductA with: 1  and: 1).
+			aRobot withMechanicalFailure.
+			
+			aCashier receiveOrder: aRobot.
+			
+			aRobot take: (ProductA with: 1 and: 1) ]
+		raise: Error
+		withMessageText: Robot outOfOrderErrorDescription.
+
+	"! !
+
+!testRun: #CashierTest #test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot stamp: 'ml 4/11/2025 16:13:59'!
+ERROR!
+
+!testRun: #CashierTest #test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot stamp: 'ml 4/11/2025 16:14:55'!
+ERROR!
+
+!testRun: #CashierTest #test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot stamp: 'ml 4/11/2025 16:14:55'!
+ERROR!
+
+!testRun: #CashierTest #test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot stamp: 'ml 4/11/2025 16:16:33'!
+ERROR!
+
+!testRun: #CashierTest #test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot stamp: 'ml 4/11/2025 16:16:40'!
+ERROR!
+
+!testRun: #CashierTest #test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot stamp: 'ml 4/11/2025 16:16:48'!
+ERROR!
+
+!testRun: #CashierTest #test03ShouldNotAcceptSensorsFailureRobot stamp: 'ml 4/11/2025 16:16:53'!
+PASSED!
+
+!testRun: #CashierTest #test02ShouldNotAcceptEmptyTrailerFromMechanicalFailureRobot stamp: 'ml 4/11/2025 16:16:54'!
+PASSED!
+
+!testRun: #CashierTest #test01ShouldNotAcceptEmptyTrailerFromNormalWorkingRobot stamp: 'ml 4/11/2025 16:16:55'!
+PASSED!
+
+!testRun: #CashierTest #test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot stamp: 'ml 4/11/2025 16:16:57'!
+ERROR!
+
+!testRun: #CashierTest #test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot stamp: 'ml 4/11/2025 16:16:57'!
+ERROR!
+
+!testRun: #CashierTest #test01ShouldNotAcceptEmptyTrailerFromNormalWorkingRobot stamp: 'ml 4/11/2025 16:17:01'!
+PASSED!
+
+!testRun: #CashierTest #test02ShouldNotAcceptEmptyTrailerFromMechanicalFailureRobot stamp: 'ml 4/11/2025 16:17:01'!
+PASSED!
+
+!testRun: #CashierTest #test03ShouldNotAcceptSensorsFailureRobot stamp: 'ml 4/11/2025 16:17:01'!
+PASSED!
+
+!testRun: #CashierTest #test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot stamp: 'ml 4/11/2025 16:17:01'!
+ERROR!
+
+!testRun: #CashierTest #test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot stamp: 'ml 4/11/2025 16:17:01'!
+ERROR!
+!CashierTest methodsFor: 'receiving from mechanical failure robot' stamp: 'ml 4/11/2025 16:13:58' prior: 50542435!
+test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot
+
+	| aRobot aTrailer aCashier |
+	
+	aTrailer := Trailer with: 20 and: 100.
+	aRobot := Robot with: aTrailer.
+	
+	aCashier := Cashier new.
+
+	self 
+	should: [
+		aRobot take: (ProductA with: 1  and: 1).
+		aRobot withMechanicalFailure.
+		
+		aCashier receiveOrder: aRobot.
+					
+		aRobot take: (ProductA with: 1 and: 1)   ] 
+	description: 
+		 Robot outOfOrderErrorDescription.
+		
+
+	"
+	self
+		should: [ 
+			aRobot take: (ProductA with: 1  and: 1).
+			aRobot withMechanicalFailure.
+			
+			aCashier receiveOrder: aRobot.
+			
+			aRobot take: (ProductA with: 1 and: 1) ]
+		raise: Error
+		withMessageText: Robot outOfOrderErrorDescription.
+
+	"! !
+!CashierTest methodsFor: 'receiving from mechanical failure robot' stamp: 'ml 4/11/2025 16:10:20' prior: 50542461!
+test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot
+
+	| aRobot aTrailer aCashier |
+	
+	aTrailer := Trailer with: 20 and: 100.
+	aRobot := Robot with: aTrailer.
+	
+	aCashier := Cashier new.
+
+	self 
+	xxxxx: [
+		aRobot take: (ProductA with: 1  and: 1).
+		aRobot withMechanicalFailure.
+		
+		aCashier receiveOrder: aRobot.
+					
+		aRobot take: (ProductA with: 1 and: 1)   ] 
+	yyyyyy: [
+		 Robot outOfOrderErrorDescription.
+		]
+
+	"
+	self
+		should: [ 
+			aRobot take: (ProductA with: 1  and: 1).
+			aRobot withMechanicalFailure.
+			
+			aCashier receiveOrder: aRobot.
+			
+			aRobot take: (ProductA with: 1 and: 1) ]
+		raise: Error
+		withMessageText: Robot outOfOrderErrorDescription.
+
+	"! !
+
+!testRun: #CashierTest #test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot stamp: 'ml 4/11/2025 16:17:26'!
+PASSED!
+
+!testRun: #CashierTest #test01ShouldNotAcceptEmptyTrailerFromNormalWorkingRobot stamp: 'ml 4/11/2025 16:17:26'!
+PASSED!
+
+!testRun: #CashierTest #test02ShouldNotAcceptEmptyTrailerFromMechanicalFailureRobot stamp: 'ml 4/11/2025 16:17:26'!
+PASSED!
+
+!testRun: #CashierTest #test03ShouldNotAcceptSensorsFailureRobot stamp: 'ml 4/11/2025 16:17:26'!
+PASSED!
+
+!testRun: #CashierTest #test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot stamp: 'ml 4/11/2025 16:17:26'!
+PASSED!
+!CashierTest methodsFor: 'receiving from empty trailer' stamp: 'ml 4/11/2025 16:18:00'!
+shouldFail: asdasdas withMsg: asdasdasdas
+
+	self
+		should: [ 
+			asdasdas value.
+		]
+		raise: Error
+		withMessageText: asdasdasdas value.
+! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 4/11/2025 16:18:00' prior: 50542333!
+test01ShouldNotAcceptEmptyTrailerFromNormalWorkingRobot
+
+	| aRobot aTrailer aCashier |
+	
+	aTrailer := Trailer with: 20 and: 100.
+	aRobot := Robot with: aTrailer.
+	
+	aCashier := Cashier new.
+	
+	self shouldFail: [aCashier receiveOrder: aRobot.]  withMsg: [Cashier trailerIsEmptyErrorDescription.].
+	
+	"
+	self
+		should: [ 
+			aCashier receiveOrder: aRobot 
+		]
+		raise: Error
+		withMessageText: Cashier trailerIsEmptyErrorDescription.
+	"! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 4/11/2025 16:18:00' prior: 50542370!
+test03ShouldNotAcceptSensorsFailureRobot
+
+	| aRobot aTrailer aCashier |
+	
+	aTrailer := Trailer with: 20 and: 100.
+	aRobot := Robot with: aTrailer.
+	
+	aCashier := Cashier new.
+
+	self 
+	shouldFail: [
+		aRobot withSensorsFailure.
+		aCashier receiveOrder: aRobot  ] 
+	withMsg: [
+		 Cashier robotSensorsFailureErrorDescription.
+		]
+
+	"
+	self
+		should: [ 
+			aRobot withSensorsFailure.
+			aCashier receiveOrder: aRobot ]
+		raise: Error
+		withMessageText: Cashier robotSensorsFailureErrorDescription.
+	"! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 4/11/2025 16:18:00' prior: 50542487!
+test04ShouldChangeRobotStatusToOutOfOrderWhenMechanicalFailureRobot
+
+	| aRobot aTrailer aCashier |
+	
+	aTrailer := Trailer with: 20 and: 100.
+	aRobot := Robot with: aTrailer.
+	
+	aCashier := Cashier new.
+
+	self 
+	shouldFail: [
+		aRobot take: (ProductA with: 1  and: 1).
+		aRobot withMechanicalFailure.
+		
+		aCashier receiveOrder: aRobot.
+					
+		aRobot take: (ProductA with: 1 and: 1)   ] 
+	withMsg: [
+		 Robot outOfOrderErrorDescription.
+		]
+
+	"
+	self
+		should: [ 
+			aRobot take: (ProductA with: 1  and: 1).
+			aRobot withMechanicalFailure.
+			
+			aCashier receiveOrder: aRobot.
+			
+			aRobot take: (ProductA with: 1 and: 1) ]
+		raise: Error
+		withMessageText: Robot outOfOrderErrorDescription.
+
+	"! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 4/11/2025 16:18:01' prior: 50542350!
+test02ShouldNotAcceptEmptyTrailerFromMechanicalFailureRobot
+
+	| aRobot aTrailer aCashier |
+	
+	aTrailer := Trailer with: 20 and: 100.
+	aRobot := Robot with: aTrailer.
+	
+	aCashier := Cashier new.
+
+	self 
+	shouldFail: [
+		aRobot withMechanicalFailure.
+		aCashier receiveOrder: aRobot ] 
+	withMsg: [
+		Cashier trailerIsEmptyErrorDescription.
+		]
+	
+	"
+	self
+		should: [ 
+			aRobot withMechanicalFailure.
+			aCashier receiveOrder: aRobot 
+		]
+		raise: Error
+		withMessageText: Cashier trailerIsEmptyErrorDescription.
+	"! !
+
+!methodRemoval: CashierTest #xxxxx:yyyyyy: stamp: 'ml 4/11/2025 16:18:01'!
+xxxxx: asdasdas yyyyyy: asdasdasdas
+
+	self
+		should: [ 
+			asdasdas value.
+		]
+		raise: Error
+		withMessageText: asdasdasdas value.
+!
+!CashierTest methodsFor: 'receiving from empty trailer' stamp: 'ml 4/11/2025 16:19:39' prior: 50542512!
+shouldFail: asdasdas withMsg: anErrorDescription
+
+	self
+		should: [ 
+			asdasdas value.
+		]
+		raise: Error
+		withMessageText: anErrorDescription value.
+! !
+!CashierTest methodsFor: 'receiving from empty trailer' stamp: 'ml 4/11/2025 16:20:26' prior: 50542607!
+shouldFail: aFailingBlock withMsg: anErrorDescription
+
+	self
+		should: [ 
+			aFailingBlock value.
+		]
+		raise: Error
+		withMessageText: anErrorDescription value.
+! !
+!CashierTest methodsFor: 'receiving from empty trailer' stamp: 'ml 4/11/2025 16:20:47' prior: 50542616!
+shouldFail: aFailingCaseBlock withMsg: anErrorDescription
+
+	self
+		should: [ 
+			aFailingCaseBlock value.
+		]
+		raise: Error
+		withMessageText: anErrorDescription value.
+! !
+
+----SNAPSHOT----(11 April 2025 16:22:53) CuisUniversity-6350.image priorSource: 6696526!
