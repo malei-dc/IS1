@@ -38,11 +38,11 @@ En la materia trabajamos en un ambiente para la enseñanza de Programación Otie
 * Parte 2: Sacar código repetido, sacar ifs cumpliendo con heurísticas de diseño. (Class Browser)
 
     * 01-EliminarCodRepe: [Enunciado](/Ejercicios/Parte2/01-eliminarCodRep/README.md) - [Solución propia](/Ejercicios/Parte2/01-eliminarCodRep/CodigoRepetido-Ejercicio.st) - [Soluciones de la cátedra](/Ejercicios/Parte2/01-eliminarCodRep/sol-catedra/)
-    * 02-EliminarIfs: [Enunciado](/Ejercicios/Parte2/02-eliminarIfs/Consigna.txt) - [Solución propia](/Ejercicios/Parte2/02-eliminarIfs/) - [Solución de la cátedra]() 
-    * 03-(opcional): [Enunciado]() - [Solución propia]() - [Solución de la cátedra]()
+    * 02-EliminarIfs: [Enunciado](/Ejercicios/Parte2/02-eliminarIfs/Consigna.txt) - [Solución propia](/Ejercicios/Parte2/02-eliminarIfs/) - [Solución de la cátedra](/Ejercicios/Parte2/02-eliminarIfs/sol-catedra/) 
+    * 03-extra-Numeros (opcional): [Enunciado]() - [Solución propia]() - [Solución de la cátedra]()
     * 04-IRobot: [Enunciado](/Ejercicios/Parte2/04-IRobot/IRobot-Enunciado.md) - [Solución propia]() - [Solución de la cátedra]()
-    * 05-penales
-    * 06-hotels
+    * 05-Stack: [Enunciado](/Ejercicios/Parte2/05-stack/) - [Solución propia]() - [Solución de la cátedra]()
+    * 
 
 * Parte 3: Test Driven Development (TDD).
     
