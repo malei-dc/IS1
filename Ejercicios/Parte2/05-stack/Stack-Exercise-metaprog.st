@@ -152,51 +152,57 @@ Object subclass: #OOStack
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'ml 4/15/2025 21:19:08'!
-initialize
-
-	elements := OrderedCollection new.
-	"state := OOStackStateEmpty with: self."! !
-
-!OOStack methodsFor: 'as yet unclassified' stamp: 'ml 4/14/2025 21:16:52'!
-isEmpty
-
-	^elements isEmpty! !
-
-!OOStack methodsFor: 'as yet unclassified' stamp: 'ml 4/15/2025 21:16:31'!
+!OOStack methodsFor: 'stack operations' stamp: 'ml 4/15/2025 21:16:31'!
 pop
 
 	self top.
 	"(elements size = 1) ifTrue: [state:= OOStackStateEmpty with: self]."
 	^elements removeLast ! !
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'ml 4/15/2025 21:16:22'!
+!OOStack methodsFor: 'stack operations' stamp: 'ml 4/15/2025 21:16:22'!
 push: aElementToPush 
 	
 	elements add: aElementToPush .
 	"state := OOStackStateNotEmpty with: self."! !
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'ml 4/14/2025 21:19:35'!
-size
-	^elements size .! !
-
-!OOStack methodsFor: 'as yet unclassified' stamp: 'ml 4/15/2025 21:18:40'!
-state
-
-	OOStackState getStateOf: self.! !
-
-!OOStack methodsFor: 'as yet unclassified' stamp: 'ml 4/15/2025 21:47:40'!
+!OOStack methodsFor: 'stack operations' stamp: 'ml 4/16/2025 17:45:54'!
 top
 
 	"state tryToGetElement.
 	elements isEmpty ifTrue: [self error: self class stackEmptyErrorDescription ]."
-	self state.
+	
+	| actualState |
+	actualState := self state.
+	actualState tryToGetElement.
 	^elements first ! !
 
-!OOStack methodsFor: 'as yet unclassified' stamp: 'ml 4/14/2025 21:52:52'!
+
+!OOStack methodsFor: 'initialize' stamp: 'ml 4/15/2025 21:19:08'!
+initialize
+
+	elements := OrderedCollection new.
+	"state := OOStackStateEmpty with: self."! !
+
+
+!OOStack methodsFor: 'stack operation - private' stamp: 'ml 4/14/2025 21:52:52'!
 tryToGetElementWhenEmpty.
 
 	self error: self class stackEmptyErrorDescription.! !
+
+
+!OOStack methodsFor: 'stack state' stamp: 'ml 4/14/2025 21:16:52'!
+isEmpty
+
+	^elements isEmpty! !
+
+!OOStack methodsFor: 'stack state' stamp: 'ml 4/14/2025 21:19:35'!
+size
+	^elements size .! !
+
+!OOStack methodsFor: 'stack state' stamp: 'ml 4/16/2025 18:22:55'!
+state
+
+	^OOStackState getStateOf: self.! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -217,14 +223,14 @@ Object subclass: #OOStackState
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!OOStackState methodsFor: 'as yet unclassified' stamp: 'ml 4/14/2025 21:34:40'!
+!OOStackState methodsFor: 'initialize' stamp: 'ml 4/16/2025 18:14:27'!
 initializeWith: aStack
 
 	stack := aStack .! !
 
-!OOStackState methodsFor: 'as yet unclassified' stamp: 'ml 4/14/2025 21:52:17'!
-tryToGetElement
 
+!OOStackState methodsFor: 'operation' stamp: 'ml 4/16/2025 18:14:34'!
+tryToGetElement
 	self subclassResponsibility! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
@@ -233,18 +239,20 @@ tryToGetElement
 OOStackState class
 	instanceVariableNames: ''!
 
-!OOStackState class methodsFor: 'as yet unclassified' stamp: 'ml 4/15/2025 21:56:50'!
-getStateOf: aStack
+!OOStackState class methodsFor: 'get state' stamp: 'ml 4/16/2025 18:32:47'!
+getStateOf: aStackToCheck
 
-	| todasLasSubs |
-	todasLasSubs := self allSubclasses.
-	todasLasSubs detect:[ :subclass| (subclass imEmpty: aStack) ]
+	| allSubclasses actualState |
+	allSubclasses := self allSubclasses.
+	
+	actualState := allSubclasses detect:[ :subclass| (subclass iHaveAnEmpty: aStackToCheck) ].	
+	^actualState new initializeWith: aStackToCheck .
 	! !
 
-!OOStackState class methodsFor: 'as yet unclassified' stamp: 'ml 4/14/2025 21:34:23'!
-with: aStack
+!OOStackState class methodsFor: 'get state' stamp: 'ml 4/16/2025 18:17:46'!
+iHaveAnEmpty: aStackToCheck
 
-	^self new initializeWith: aStack .! !
+	self subclassResponsibility .! !
 
 
 !classDefinition: #OOStackStateEmpty category: #'Stack-Exercise'!
@@ -254,7 +262,7 @@ OOStackState subclass: #OOStackStateEmpty
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!OOStackStateEmpty methodsFor: 'as yet unclassified' stamp: 'ml 4/14/2025 21:53:08'!
+!OOStackStateEmpty methodsFor: 'operation' stamp: 'ml 4/14/2025 21:53:08'!
 tryToGetElement
 
 	stack tryToGetElementWhenEmpty.
@@ -266,15 +274,10 @@ tryToGetElement
 OOStackStateEmpty class
 	instanceVariableNames: ''!
 
-!OOStackStateEmpty class methodsFor: 'as yet unclassified' stamp: 'ml 4/15/2025 21:54:43'!
-imEmpty: aStack
+!OOStackStateEmpty class methodsFor: 'get state' stamp: 'ml 4/16/2025 18:17:56'!
+iHaveAnEmpty: aStackToCheck
 
-	^aStack isEmpty .! !
-
-!OOStackStateEmpty class methodsFor: 'as yet unclassified' stamp: 'ml 4/15/2025 21:41:56'!
-xxxxx: aStack
-
-	aStack isEmpty ifTrue: [^self new]! !
+	^aStackToCheck isEmpty .! !
 
 
 !classDefinition: #OOStackStateNotEmpty category: #'Stack-Exercise'!
@@ -284,7 +287,7 @@ OOStackState subclass: #OOStackStateNotEmpty
 	poolDictionaries: ''
 	category: 'Stack-Exercise'!
 
-!OOStackStateNotEmpty methodsFor: 'as yet unclassified' stamp: 'ml 4/14/2025 21:53:25'!
+!OOStackStateNotEmpty methodsFor: 'operation' stamp: 'ml 4/14/2025 21:53:25'!
 tryToGetElement
 
 	^self.! !
@@ -295,10 +298,10 @@ tryToGetElement
 OOStackStateNotEmpty class
 	instanceVariableNames: ''!
 
-!OOStackStateNotEmpty class methodsFor: 'as yet unclassified' stamp: 'ml 4/15/2025 21:55:04'!
-imEmpty: aStack
+!OOStackStateNotEmpty class methodsFor: 'get state' stamp: 'ml 4/16/2025 18:18:06'!
+iHaveAnEmpty: aStacktoCheck
 
-	^ aStack isEmpty not .! !
+	^ aStacktoCheck isEmpty not .! !
 
 
 !classDefinition: #SentenceFinderByPrefix category: #'Stack-Exercise'!
