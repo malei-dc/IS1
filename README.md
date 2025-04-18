@@ -23,7 +23,7 @@ En la materia trabajamos en un ambiente para la enseñanza de Programación Otie
 
     * En **Windows**: abrir terminal donde se encuentre "cuisUniversity-xxxx.image" y ejecutar:
 
-            run
+            /run.sh
 
 ### Abrir el archivo ".st"
 
@@ -40,13 +40,10 @@ En la materia trabajamos en un ambiente para la enseñanza de Programación Otie
     * 01-EliminarCodRepe: [Enunciado](/Ejercicios/Parte2/01-eliminarCodRep/README.md) - [Solución propia](/Ejercicios/Parte2/01-eliminarCodRep/CodigoRepetido-Ejercicio.st) - [Soluciones de la cátedra](/Ejercicios/Parte2/01-eliminarCodRep/sol-catedra/)
     * 02-EliminarIfs: [Enunciado](/Ejercicios/Parte2/02-eliminarIfs/Consigna.txt) - [Solución propia](/Ejercicios/Parte2/02-eliminarIfs/) - [Solución de la cátedra](/Ejercicios/Parte2/02-eliminarIfs/sol-catedra/) 
     * 03-extra-Numeros (opcional): [Enunciado]() - [Solución propia]() - [Solución de la cátedra]()
-    * 04-IRobot: [Enunciado](/Ejercicios/Parte2/04-IRobot/IRobot-Enunciado.md) - [Solución propia]() - [Solución de la cátedra]()
-    * 05-Stack: [Enunciado](/Ejercicios/Parte2/05-stack/) - [Solución propia]() - [Solución de la cátedra]()
+    * 04-IRobot: [Enunciado](/Ejercicios/Parte2/04-IRobot/IRobot-Enunciado.md) - [Solución propia]() - [Solución de la cátedra](/Ejercicios/Parte2/04-IRobot/IRobot-Solucion.st)
+    * 05-Stack: [Enunciado](/Ejercicios/Parte2/05-stack/) - [Solución propia)](/Ejercicios/Parte2/05-stack/Stack-Exercise-metaprog.st) - [Solución de la cátedra]()
     * 
 
 * Parte 3: Test Driven Development (TDD).
     
     * [01-BabySteps](): juego interactivo para aprender sobre TDD. UID: 27120487298614160. The [leaderboard](http://babysteps.isw2.com.ar/).
-    * 02-MarsRovers: [Enunciado]() - [Solución propia]() - [Solución propia sin ifs]() - [Solución de la cátedra]()
-    * 03-Portfolio: [Enunciado]() - [Solución propia]()
-    * 04-Portfolio2: [Enunciado]() - [Solución propia]()
