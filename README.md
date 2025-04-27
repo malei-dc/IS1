@@ -42,7 +42,7 @@ En la materia trabajamos en un ambiente para la enseñanza de Programación Otie
     * 03-extra-Numeros (opcional): [Enunciado]() - [Solución propia]() - [Solución de la cátedra]()
     * 04-IRobot: [Enunciado](/Ejercicios/Parte2/04-IRobot/IRobot-Enunciado.md) - [Solución propia]() - [Solución de la cátedra](/Ejercicios/Parte2/04-IRobot/IRobot-Solucion.st)
     * 05-Stack: [Enunciado](/Ejercicios/Parte2/05-stack/) - [Solución propia)](/Ejercicios/Parte2/05-stack/Stack-Exercise-metaprog.st) - [Solución de la cátedra]()
-    * 
+    * 07-Penales: [Enunciado](/Ejercicios/Parte2/07-penales/Enunciado.pdf) - [Solución propia]() - [Solución de la cátedra]()
 
 * Parte 3: Test Driven Development (TDD).
     
