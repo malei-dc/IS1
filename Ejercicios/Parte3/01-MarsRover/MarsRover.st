@@ -115,6 +115,94 @@ test10moveBackwardOnceLookingAtEast
 	self assert: (marsRover hasPosition: 0@1 lookingAt: #E).
 ! !
 
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ml 5/21/2025 10:51:57'!
+test11rotateLeftLookingAtNorth
+
+	| marsRover |
+	marsRover := MarsRover lookingAt: #N withPosition: 1@1.
+	
+	marsRover receiveCommand: 'l'.
+	
+	self assert: (marsRover hasPosition: 1@1 lookingAt: #W).
+! !
+
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ml 5/21/2025 10:55:03'!
+test12rotateLeftLookingAtWest
+
+	| marsRover |
+	marsRover := MarsRover lookingAt: #W withPosition: 1@1.
+	
+	marsRover receiveCommand: 'l'.
+	
+	self assert: (marsRover hasPosition: 1@1 lookingAt: #S).
+! !
+
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ml 5/21/2025 10:57:33'!
+test13rotateLeftLookingAtSouth
+
+	| marsRover |
+	marsRover := MarsRover lookingAt: #S withPosition: 1@1.
+	
+	marsRover receiveCommand: 'l'.
+	
+	self assert: (marsRover hasPosition: 1@1 lookingAt: #E).
+! !
+
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ml 5/21/2025 10:58:37'!
+test14rotateLeftLookingAtEast
+
+	| marsRover |
+	marsRover := MarsRover lookingAt: #E withPosition: 1@1.
+	
+	marsRover receiveCommand: 'l'.
+	
+	self assert: (marsRover hasPosition: 1@1 lookingAt: #N).
+! !
+
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ml 5/21/2025 11:03:38'!
+test15rotateRightLookingAtNorth
+
+	| marsRover |
+	marsRover := MarsRover lookingAt: #N withPosition: 1@1.
+	
+	marsRover receiveCommand: 'r'.
+	
+	self assert: (marsRover hasPosition: 1@1 lookingAt: #E).
+! !
+
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ml 5/21/2025 11:05:10'!
+test16rotateRightLookingAtEast
+
+	| marsRover |
+	marsRover := MarsRover lookingAt: #E withPosition: 1@1.
+	
+	marsRover receiveCommand: 'r'.
+	
+	self assert: (marsRover hasPosition: 1@1 lookingAt: #S).
+! !
+
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ml 5/21/2025 11:08:31'!
+test17rotateRightLookingAtSouth
+
+	| marsRover |
+	marsRover := MarsRover lookingAt: #S withPosition: 1@1.
+	
+	marsRover receiveCommand: 'r'.
+	
+	self assert: (marsRover hasPosition: 1@1 lookingAt: #W).
+! !
+
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ml 5/21/2025 11:09:54'!
+test18rotateRightLookingAtWest
+
+	| marsRover |
+	marsRover := MarsRover lookingAt: #W withPosition: 1@1.
+	
+	marsRover receiveCommand: 'r'.
+	
+	self assert: (marsRover hasPosition: 1@1 lookingAt: #N).
+! !
+
 
 !classDefinition: #MarsRover category: #MarsRover!
 Object subclass: #MarsRover
@@ -129,17 +217,19 @@ initializeHeading: aStartingDirection and: aStartingPosition
 	position := aStartingPosition ! !
 
 
-!MarsRover methodsFor: 'as yet unclassified' stamp: 'ml 5/19/2025 22:17:09'!
-emptyCommandErrorMessage
-	
-	^'command should not be empty.'! !
-
-!MarsRover methodsFor: 'as yet unclassified' stamp: 'ml 5/20/2025 00:14:38'!
+!MarsRover methodsFor: 'testing' stamp: 'ml 5/20/2025 00:14:38'!
 hasPosition: aPositionToCompare lookingAt: aDirectionToCompare
  
 	^heading = aDirectionToCompare and: position = aPositionToCompare ! !
 
-!MarsRover methodsFor: 'as yet unclassified' stamp: 'ml 5/20/2025 23:32:06'!
+
+!MarsRover methodsFor: 'error msg' stamp: 'ml 5/19/2025 22:17:09'!
+emptyCommandErrorMessage
+	
+	^'command should not be empty.'! !
+
+
+!MarsRover methodsFor: 'move' stamp: 'ml 5/20/2025 23:32:06'!
 moveBackward
 	
 	heading = #N ifTrue: [self moveOnceToSouth ].
@@ -147,7 +237,7 @@ moveBackward
 	heading = #W ifTrue: [self moveOnceToEast ].
 	heading = #E ifTrue: [self moveOnceToWest ].! !
 
-!MarsRover methodsFor: 'as yet unclassified' stamp: 'ml 5/20/2025 23:20:44'!
+!MarsRover methodsFor: 'move' stamp: 'ml 5/20/2025 23:20:44'!
 moveFoward
 
 	heading = #N ifTrue: [self moveOnceToNorth].
@@ -155,27 +245,49 @@ moveFoward
 	heading = #W ifTrue: [self moveOnceToWest].
 	heading = #E ifTrue: [self moveOnceToEast].! !
 
-!MarsRover methodsFor: 'as yet unclassified' stamp: 'ml 5/20/2025 23:28:29'!
+
+!MarsRover methodsFor: 'move to some direction' stamp: 'ml 5/21/2025 11:20:54'!
+changePositionOneUnitToEast
+
+	^ ((position x)+1) @position y! !
+
+!MarsRover methodsFor: 'move to some direction' stamp: 'ml 5/21/2025 11:21:36'!
+changePositionOneUnitToNorth
+
+	^ position x@((position y)+1)! !
+
+!MarsRover methodsFor: 'move to some direction' stamp: 'ml 5/21/2025 11:21:54'!
+changePositionOneUnitToSouth
+
+	^ position x@((position y)-1)! !
+
+!MarsRover methodsFor: 'move to some direction' stamp: 'ml 5/21/2025 11:22:21'!
+changePositionOneUnitToWest
+
+	^ ((position x)-1)@position y! !
+
+!MarsRover methodsFor: 'move to some direction' stamp: 'ml 5/21/2025 11:20:54'!
 moveOnceToEast
 
-	^ position := ((position x)+1) @position y! !
+	^ position := self changePositionOneUnitToEast! !
 
-!MarsRover methodsFor: 'as yet unclassified' stamp: 'ml 5/20/2025 23:28:51'!
+!MarsRover methodsFor: 'move to some direction' stamp: 'ml 5/21/2025 11:21:37'!
 moveOnceToNorth
 
-	^ position := position x@((position y)+1)! !
+	^ position := self changePositionOneUnitToNorth! !
 
-!MarsRover methodsFor: 'as yet unclassified' stamp: 'ml 5/20/2025 23:29:17'!
+!MarsRover methodsFor: 'move to some direction' stamp: 'ml 5/21/2025 11:21:54'!
 moveOnceToSouth
 
-	^ position := position x@((position y)-1)! !
+	^ position := self changePositionOneUnitToSouth! !
 
-!MarsRover methodsFor: 'as yet unclassified' stamp: 'ml 5/20/2025 23:29:35'!
+!MarsRover methodsFor: 'move to some direction' stamp: 'ml 5/21/2025 11:22:21'!
 moveOnceToWest
 
-	^ position := ((position x)-1)@position y! !
+	^ position := self changePositionOneUnitToWest! !
 
-!MarsRover methodsFor: 'as yet unclassified' stamp: 'ml 5/20/2025 23:22:36'!
+
+!MarsRover methodsFor: 'command processing' stamp: 'ml 5/21/2025 11:14:12'!
 receiveCommand: aCommandToProccess 
 	
 	aCommandToProccess size = 0 ifTrue: [self error: self emptyCommandErrorMessage ].
@@ -183,10 +295,30 @@ receiveCommand: aCommandToProccess
 	aCommandToProccess collect: [:aCommand | 
 		aCommand = $f ifTrue: [self moveFoward].
 		aCommand = $b ifTrue: [self moveBackward].
-		 ]
-	"
-	aCommandToProccess = 'f' ifTrue: [^position := 2@1].
-	position := 0@1"! !
+		aCommand = $l ifTrue: [self rotateLeft].
+		aCommand = $r ifTrue: [self rotateRight].
+		]! !
+
+
+!MarsRover methodsFor: 'rotate' stamp: 'ml 5/21/2025 11:07:23'!
+rotateLeft
+	
+	(heading = #S) ifTrue: [^ heading := #E].
+	(heading = #W) ifTrue: [^heading := #S].
+	(heading = #N) ifTrue: [^heading := #W].
+	(heading = #E) ifTrue: [^heading := #N].
+	
+	
+	
+	! !
+
+!MarsRover methodsFor: 'rotate' stamp: 'ml 5/21/2025 11:10:17'!
+rotateRight
+	
+	(heading = #W) ifTrue: [^heading := #N].
+	(heading = #S) ifTrue: [^heading := #W].
+	(heading = #E) ifTrue: [^heading := #S].
+	(heading = #N) ifTrue: [^heading := #E].! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
