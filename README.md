@@ -46,4 +46,5 @@ En la materia trabajamos en un ambiente para la enseñanza de Programación Otie
 
 * Parte 3: Test Driven Development (TDD).
     
-    * [01-BabySteps](): juego interactivo para aprender sobre TDD. UID: 27120487298614160. The [leaderboard](http://babysteps.isw2.com.ar/).
+    * [00-BabySteps](): juego interactivo para aprender sobre TDD. UID: 27120487298614160/63497000397538778. The [leaderboard](http://babysteps.isw2.com.ar/).
+    * 01-MarsRover: [Enunciado](/Ejercicios/Parte3/01-MarsRover/MarsRover-Enunciado.pdf) - [Solución propia](/Ejercicios/Parte3/01-MarsRover/MarsRover.st)
