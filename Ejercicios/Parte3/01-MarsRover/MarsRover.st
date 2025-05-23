@@ -16,8 +16,8 @@ test01marsRoverCantProcessEmptyCommand
 		raise: Error-MessageNotUnderstood 
 		withMessageText: marsRover emptyCommandErrorMessage.! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ml 5/20/2025 23:26:31'!
-test02moveFowardOnceLookingNorth
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ml 5/21/2025 11:56:08'!
+test02moveFowardOnceLookingAtNorth
 
 	| marsRover |
 	marsRover := MarsRover lookingAt: #N withPosition: 1@1.
@@ -27,8 +27,8 @@ test02moveFowardOnceLookingNorth
 	self assert: (marsRover hasPosition: 1@2 lookingAt: #N).
 ! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ml 5/20/2025 23:26:48'!
-test03moveFowardTwiceLookingNorth
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ml 5/21/2025 11:56:01'!
+test03moveFowardTwiceLookingAtNorth
 
 	| marsRover |
 	marsRover := MarsRover lookingAt: #N withPosition: 1@1.
@@ -38,7 +38,7 @@ test03moveFowardTwiceLookingNorth
 	self assert: (marsRover hasPosition: 1@3 lookingAt: #N).
 ! !
 
-!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ml 5/20/2025 23:27:01'!
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ml 5/21/2025 11:57:20'!
 test04moveFowardOnceLookingAtSouth
 
 	| marsRover |
@@ -203,6 +203,18 @@ test18rotateRightLookingAtWest
 	self assert: (marsRover hasPosition: 1@1 lookingAt: #N).
 ! !
 
+!MarsRoverTest methodsFor: 'as yet unclassified' stamp: 'ml 5/21/2025 11:38:59'!
+test19marsRoverCantProcessInvalidCommand
+
+	| marsRover |
+	marsRover := MarsRover lookingAt: #N withPosition: 1@1.
+	
+	self 
+		should: [ marsRover receiveCommand: 'g' ] 
+		raise: Error-MessageNotUnderstood 
+		withMessageText: marsRover invalidCommandErrorMessage.
+! !
+
 
 !classDefinition: #MarsRover category: #MarsRover!
 Object subclass: #MarsRover
@@ -227,6 +239,11 @@ hasPosition: aPositionToCompare lookingAt: aDirectionToCompare
 emptyCommandErrorMessage
 	
 	^'command should not be empty.'! !
+
+!MarsRover methodsFor: 'error msg' stamp: 'ml 5/21/2025 11:40:30'!
+invalidCommandErrorMessage
+	
+	^'invalid command.'! !
 
 
 !MarsRover methodsFor: 'move' stamp: 'ml 5/20/2025 23:32:06'!
@@ -287,17 +304,24 @@ moveOnceToWest
 	^ position := self changePositionOneUnitToWest! !
 
 
-!MarsRover methodsFor: 'command processing' stamp: 'ml 5/21/2025 11:14:12'!
-receiveCommand: aCommandToProccess 
+!MarsRover methodsFor: 'command processing' stamp: 'ml 5/21/2025 12:00:44'!
+receiveCommand: aCommandLineToProccess 
 	
-	aCommandToProccess size = 0 ifTrue: [self error: self emptyCommandErrorMessage ].
+	aCommandLineToProccess size = 0 ifTrue: [self error: self emptyCommandErrorMessage ].
 	
-	aCommandToProccess collect: [:aCommand | 
+	aCommandLineToProccess collect: [:aCommand | 
 		aCommand = $f ifTrue: [self moveFoward].
 		aCommand = $b ifTrue: [self moveBackward].
 		aCommand = $l ifTrue: [self rotateLeft].
 		aCommand = $r ifTrue: [self rotateRight].
-		]! !
+		(self validCommands includes: aCommand) ifFalse: [self error: self invalidCommandErrorMessage.]
+		].
+	! !
+
+!MarsRover methodsFor: 'command processing' stamp: 'ml 5/21/2025 11:54:18'!
+validCommands
+
+	^ #($f $b $l $r)! !
 
 
 !MarsRover methodsFor: 'rotate' stamp: 'ml 5/21/2025 11:07:23'!
