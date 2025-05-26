@@ -1,0 +1,73 @@
+asRot13 (string)
+
+	self isEmpty ifTrue: [^self].
+	"
+	(self size = 1) ifTrue: [^((self at: 1)asRot13)asString].
+	(self size = 2) ifTrue: [^self class with: ((self at: 1)asRot13) with: ((self at: 2)asRot13)].
+	"
+	^self collect: [:letters| letters asRot13].
+
+asRot13 (char)
+
+-------------------
+"test05	
+	(self codePoint >= $a codePoint and: [self codePoint <= $m codePoint]) ifTrue:
+		[ ^ Character codePoint: self codePoint + 13 ].
+	
+	self codePoint >= $n codePoint ifTrue:
+		[ ^ Character codePoint: self codePoint - 13 ].
+		
+	^ self
+-------------------------
+
+test06
+	(self codePoint between: $a codePoint and: $m codePoint) ifTrue:
+		[ ^ Character codePoint: self codePoint + 13 ].
+	
+	(self codePoint between: $n codePoint and: $z codePoint) ifTrue:
+		[ ^ Character codePoint: self codePoint - 13 ].
+		
+	^ self
+----------------
+test07
+	(self asLowercase codePoint between: $a codePoint and: $m codePoint) ifTrue:
+		[ ^ Character codePoint: self codePoint + 13 ].
+	
+	(self codePoint between: $n codePoint and: $z codePoint) ifTrue:
+		[ ^ Character codePoint: self codePoint - 13 ].
+		
+	^ self
+----------------
+test10
+	self isEmpty ifTrue: [ ^ '' ].
+	^self first asRot13 asString
+----------------
+test11
+	self isEmpty ifTrue: [ ^ '' ].
+	
+	self size = 1 ifTrue:[ ^ self first asRot13 asString ].
+	
+	^ self first asRot13 asString, (self at:2) asRot13 asString
+---------------
+
+
+
+	(self isLowercase and: self codePoint > 109) ifTrue: [^self class codePoint: (self codePoint -13)].
+	(self isLowercase and: self codePoint <= 109) ifTrue: [^self class codePoint: (self codePoint +13)].
+"
+	self = $m ifTrue: [^$z].
+	self = $n ifTrue: [^$a].
+	self = $z ifTrue: [^$m].
+	self = $` ifTrue: [^$`].
+	self = ${ ifTrue: [^${].
+"
+	(self isUppercase and: self codePoint > 77) ifTrue: [^self class codePoint: (self codePoint -13)].
+	(self isUppercase and: self codePoint <= 77) ifTrue: [^self class codePoint: (self codePoint +13)].
+
+"
+	self = $A ifTrue: [^$N].
+	self = $M ifTrue: [^$Z].
+	self = $N ifTrue: [^$A].
+	self = $Z ifTrue: [^$M].
+"
+	^self

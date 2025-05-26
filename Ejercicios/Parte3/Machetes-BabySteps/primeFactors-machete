@@ -1,0 +1,11 @@
+factorize
+	| factors leftToFactorize |
+	
+	factors := Bag new.
+	
+	leftToFactorize := self.
+	(leftToFactorize isDivisibleBy: 2) ifTrue: [ factors add: 2. leftToFactorize := leftToFactorize / 2 ].
+	
+	(leftToFactorize > 1) ifTrue: [ factors add: leftToFactorize ].
+	
+	^ factors
