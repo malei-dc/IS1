@@ -48,3 +48,4 @@ En la materia trabajamos en un ambiente para la enseñanza de Programación Otie
     
     * [00-BabySteps](): juego interactivo para aprender sobre TDD. UID: 27120487298614160/63497000397538778+1. The [leaderboard](http://babysteps.isw2.com.ar/).
     * 01-MarsRover: [Enunciado](/Ejercicios/Parte3/01-MarsRover/MarsRover-Enunciado.pdf) - [Solución propia](/Ejercicios/Parte3/01-MarsRover/MarsRover.st)
+    * 02-Portfolio01: [Enunciado](/Ejercicios/Parte3/02-portfolio01/Consigna.md) - [Solución propia](/Ejercicios/Parte3/02-portfolio01/Portfolio-Ejercicio.st)

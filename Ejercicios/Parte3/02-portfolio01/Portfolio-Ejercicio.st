@@ -5,21 +5,92 @@ TestCase subclass: #PortfolioTest
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'LG 5/30/2025 21:36:24'!
-test01
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ml 6/4/2025 21:37:19'!
+test01newPortfolioShouldHaveBalanceZero
 
 	self assert: 0 equals: (Portfolio new) balance.! !
 
-!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'LG 5/30/2025 21:42:24'!
-test02
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ml 6/5/2025 22:35:32'!
+test02addingAnAccountShouldAffectPortfolioBalance
 
 	| portfolio account |
 	portfolio:= Portfolio new.
 	account := ReceptiveAccount  new.
 	Deposit register: 100 on: account.
+	"preguntar por qué no asi (en comparacion que con with: en la resolución) de paso preguntar 
+	add: anAccount;
+	yourself"
 	portfolio add: account .
-		
+	
 	self assert: 100 equals: portfolio balance.! !
+
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ml 6/5/2025 15:18:28'!
+test03addingTwoAccountShouldAffectPortfolioBalance
+
+	| simplePortfolioAccount simplePortfolio composedPortfolioAccount composedPortofolio |
+	
+	simplePortfolioAccount := ReceptiveAccount new.
+	Deposit register: 100 on: simplePortfolioAccount.
+	simplePortfolio := Portfolio with: simplePortfolioAccount.
+	
+	composedPortfolioAccount := ReceptiveAccount new.
+	Withdraw register: 50 on: composedPortfolioAccount.
+	composedPortofolio := Portfolio with: simplePortfolio with: composedPortfolioAccount.
+	
+	self assert: (composedPortfolioAccount balance + simplePortfolio balance) equals: composedPortofolio balance! !
+
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ml 6/5/2025 03:06:45'!
+test04anEmptyPortfolioShouldNotRegisterAnyTransaction
+
+	
+	self deny: (Portfolio new hasRegistered: (Deposit for: 50)).! !
+
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ml 6/4/2025 22:34:49'!
+test05aPortfolioWithAnTransactionInSingleAccountShouldBeRegistered
+
+	| portfolio account deposit |
+	portfolio:= Portfolio new.
+	
+	account  := ReceptiveAccount new.
+	deposit := Deposit register: 50 on: account.
+	portfolio add: account.
+	
+	
+	self assert: true equals: (portfolio hasRegistered: deposit).! !
+
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ml 6/4/2025 22:35:09'!
+test06aPortfolioWithMultipleTransactionInSingleAccountShouldBeRegistered
+
+	| portfolio account deposit withdraw |
+	portfolio:= Portfolio new.
+	
+	account  := ReceptiveAccount new.
+	deposit := Deposit register: 50 on: account.
+	withdraw:= Withdraw register: 10 on: account.
+	portfolio add: account.
+	
+	
+	self assert: true equals: (portfolio hasRegistered: deposit).
+	self assert: true equals: (portfolio hasRegistered: withdraw).
+	self assert: 40 equals: portfolio balance.! !
+
+!PortfolioTest methodsFor: 'as yet unclassified' stamp: 'ml 6/5/2025 22:34:11'!
+test07aPortfolioWithTransactionsInMultipleAccountShouldBeRegistered
+"esto esta mal, no es recursivo"
+	| portfolio account deposit withdraw account2 |
+	portfolio:= Portfolio new.
+	
+	account  := ReceptiveAccount new.
+	account2 := ReceptiveAccount new.
+	deposit := Deposit register: 50 on: account.
+	withdraw:= Deposit register: 10 on: account2.
+	portfolio add: account.
+	portfolio add: account2 .
+	
+	
+	self assert: true equals: (portfolio hasRegistered: deposit).
+	self assert: true equals: (portfolio hasRegistered: withdraw).
+	self assert: 60 equals: portfolio balance.! !
 
 
 !classDefinition: #ReceptiveAccountTest category: #'Portfolio-Ejercicio'!
@@ -62,9 +133,8 @@ test03WithdrawDecreasesBalanceOnTransactionValue
 	self assert: 50 equals: account balance.
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'HAW 5/23/2019 15:20:32'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ml 6/4/2025 21:13:25'!
 test04WithdrawValueMustBePositive 
-
 	| account withdrawValue |
 	
 	account := ReceptiveAccount new.
@@ -73,7 +143,7 @@ test04WithdrawValueMustBePositive
 	self assert: withdrawValue equals: (Withdraw register: withdrawValue on: account) value
 ! !
 
-!ReceptiveAccountTest methodsFor: 'tests' stamp: 'HAW 5/23/2019 15:20:46'!
+!ReceptiveAccountTest methodsFor: 'tests' stamp: 'ml 6/5/2025 03:19:33'!
 test05ReceptiveAccountKnowsRegisteredTransactions 
 
 	| account deposit withdraw |
@@ -120,16 +190,16 @@ Object subclass: #AccountTransaction
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!AccountTransaction methodsFor: 'value' stamp: 'HernanWilkinson 9/12/2011 12:25'!
-value 
-
-	self subclassResponsibility ! !
-
 
 !AccountTransaction methodsFor: 'balance' stamp: 'LG 5/30/2025 21:14:24'!
 affectBalance: currentBalance
 
 	self subclassResponsibility! !
+
+!AccountTransaction methodsFor: 'balance' stamp: 'ml 6/4/2025 21:15:21'!
+value
+
+	self subclassResponsibility ! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -161,13 +231,13 @@ initializeFor: aValue
 	value := aValue ! !
 
 
-!Deposit methodsFor: 'value' stamp: 'HernanWilkinson 7/13/2011 18:38'!
-value
+!Deposit methodsFor: 'value' stamp: 'ml 6/4/2025 21:15:39'!
+value 
 
-	^ value! !
+	^value! !
 
 
-!Deposit methodsFor: 'balance' stamp: 'LG 5/30/2025 21:13:36'!
+!Deposit methodsFor: 'balance' stamp: 'ml 6/4/2025 21:12:45'!
 affectBalance: currentBalance
 	
 	 ^ currentBalance + value.! !
@@ -197,10 +267,10 @@ initializeFor: aValue
 	value := aValue ! !
 
 
-!Withdraw methodsFor: 'value' stamp: 'HernanWilkinson 7/13/2011 18:33'!
-value
+!Withdraw methodsFor: 'value' stamp: 'ml 6/4/2025 21:15:34'!
+value 
 
-	^ value! !
+	^value! !
 
 
 !Withdraw methodsFor: 'balance' stamp: 'LG 5/30/2025 21:14:00'!
@@ -227,20 +297,30 @@ Object subclass: #Portfolio
 	poolDictionaries: ''
 	category: 'Portfolio-Ejercicio'!
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'LG 5/30/2025 21:46:29'!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ml 6/4/2025 21:22:22'!
 add: anAccountToAdd 
 
-	accounts:=anAccountToAdd .! !
+	accounts add: anAccountToAdd .! !
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'LG 5/30/2025 21:49:47'!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ml 6/5/2025 03:16:20'!
 balance
 
-	^accounts balance ! !
+	^accounts sum: [:anAccount | anAccount balance ] ifEmpty: [0]  ! !
 
-!Portfolio methodsFor: 'as yet unclassified' stamp: 'LG 5/30/2025 21:52:06'!
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ml 6/5/2025 02:58:11'!
+hasRegistered: aTransactionToCheck 
+	
+	^accounts ifNotEmpty: [self inAllAccountsFind: aTransactionToCheck] ifEmpty: [false].! !
+
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ml 6/5/2025 02:58:11'!
+inAllAccountsFind: aTransactionToCheck
+
+	^ accounts  anySatisfy: [: anAccount | anAccount  transactions includes: aTransactionToCheck ]! !
+
+!Portfolio methodsFor: 'as yet unclassified' stamp: 'ml 6/4/2025 21:22:35'!
 initialize 
 
-	accounts := ReceptiveAccount new.! !
+	accounts := OrderedCollection new.! !
 
 
 !classDefinition: #ReceptiveAccount category: #'Portfolio-Ejercicio'!
