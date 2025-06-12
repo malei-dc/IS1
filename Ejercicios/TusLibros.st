@@ -10,21 +10,125 @@ test01createNewCartShouldBeEmpty
 
 	self assert: Cart new isEmpty equals: true.! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ML 6/10/2025 22:02:41'!
-test02CartWithABookAddedShouldNotBeEmptyAnymore! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 14:11:26'!
+test02CartWithABookAddedShouldNotBeEmptyAnymore
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ML 6/10/2025 22:03:35'!
-test03CartCanOnlyAddBooksFromTheCatalog! !
+	| aBookToAdd catalog cart |
+	aBookToAdd := 'El sapo Pepe'.
+	catalog := OrderedCollection with:'El sapo Pepe'.
+	cart := Cart createCartWith: catalog.
+		
+	self assert:  (cart addBook: aBookToAdd) isEmpty equals: false. ! !
+
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 14:25:19'!
+test03CartCanOnlyAddBooksFromTheCatalog
+
+	| catalog cart |
+	catalog := OrderedCollection with: 'El sapo Pepe'.
+	cart := Cart createCartWith: catalog .
+	
+	self 
+		should: [cart addBook: 'El Kybalion'] 
+		raise: Error
+		withMessageText: cart canOnlyAddBooksFromTheCatalog. ! !
+
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 14:37:51'!
+test04CartCanSelectMultipleAmountOfBooksToAdd
+
+	| catalog cart |
+	catalog := OrderedCollection with: 'El sapo Pepe'.
+	cart := Cart createCartWith: catalog .
+	
+	cart addBook: 'El sapo Pepe' anAmount: 2.
+	
+	self assert: cart elements size equals: 2.
+	self assert: (cart elements includes: 'El sapo Pepe') equals: true.! !
+
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 14:51:18'!
+test05CartCanNotSelectInvalidAmountOfBooksToAdd
+
+	| catalog cart |
+	catalog := OrderedCollection with: 'El sapo Pepe'.
+	cart := Cart createCartWith: catalog .
+	
+	self 
+		should: [cart addBook: 'El sapo Pepe' anAmount: -2] 
+		raise: Error
+		withMessageText: cart amountShouldBeANaturalNumber . ! !
 
 
 !classDefinition: #Cart category: #TusLibros!
 Object subclass: #Cart
-	instanceVariableNames: ''
+	instanceVariableNames: 'elements catalog'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!Cart methodsFor: 'as yet unclassified' stamp: 'ML 6/10/2025 21:54:39'!
+!Cart methodsFor: 'testing' stamp: 'ml 6/12/2025 14:36:45'!
+elements
+	
+	^elements! !
+
+!Cart methodsFor: 'testing' stamp: 'ml 6/12/2025 13:11:26'!
 isEmpty
 	
-	^true.! !
+	^elements isEmpty .! !
+
+
+!Cart methodsFor: 'error msg' stamp: 'ml 6/12/2025 14:48:33'!
+amountShouldBeANaturalNumber
+	
+	^'Amount should be a positive integer'.! !
+
+!Cart methodsFor: 'error msg' stamp: 'ml 6/12/2025 13:59:51'!
+canOnlyAddBooksFromTheCatalog
+	
+	^'can only add books from the catalog'.! !
+
+
+!Cart methodsFor: 'adding books' stamp: 'ml 6/12/2025 14:36:37'!
+addBook: aBookToAdd 
+	
+	self assertAddingBookShouldBeInCatalog: aBookToAdd.
+	elements add: aBookToAdd .! !
+
+!Cart methodsFor: 'adding books' stamp: 'ml 6/12/2025 14:49:18'!
+addBook: aBookToAdd anAmount: timesToAdd 
+
+	self assertThatAmountShouldBeNaturalNumber: timesToAdd	.
+	
+	timesToAdd timesRepeat: [self addBook: aBookToAdd].! !
+
+
+!Cart methodsFor: 'initialize' stamp: 'ml 6/12/2025 14:36:28'!
+initialize
+	
+	catalog:= OrderedCollection new.
+	elements:= OrderedCollection new.! !
+
+!Cart methodsFor: 'initialize' stamp: 'ml 6/12/2025 14:26:28'!
+refreshCatalog: aCatalog
+	
+	catalog:= aCatalog .! !
+
+
+!Cart methodsFor: 'assertions' stamp: 'ml 6/12/2025 14:23:59'!
+assertAddingBookShouldBeInCatalog: aBookToAdd
+
+	^ (catalog includes: aBookToAdd) ifFalse: [self error: self canOnlyAddBooksFromTheCatalog ]! !
+
+!Cart methodsFor: 'assertions' stamp: 'ml 6/12/2025 14:49:06'!
+assertThatAmountShouldBeNaturalNumber: timesToAdd
+
+	^ timesToAdd negative ifTrue: [self error: self amountShouldBeANaturalNumber]! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Cart class' category: #TusLibros!
+Cart class
+	instanceVariableNames: ''!
+
+!Cart class methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 14:26:41'!
+createCartWith: aCatalog 
+	
+	^self new refreshCatalog: aCatalog.! !
