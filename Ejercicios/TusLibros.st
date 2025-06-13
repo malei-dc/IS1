@@ -5,95 +5,161 @@ TestCase subclass: #CartTest
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 14:54:15'!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:41:58'!
+catalog
+	
+	^OrderedCollection with: self itemSellByStore! !
+
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:58:57'!
+createCart
+
+	^Cart createAcceptingItemsFrom: self catalog .! !
+
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:45:40'!
+itemNotSellByStore
+	^'invalidItem'! !
+
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:42:16'!
+itemSellByStore
+	^'validItem'! !
+
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:58:01'!
 test01createNewCartShouldBeEmpty
 
-	self assert: Cart new isEmpty equals: true.! !
+	self assert: (self createCart) isEmpty ! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 22:52:58'!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:58:01'!
 test02CartWithItemIsNotEmptyAnymore
 
-	| aBookToAdd catalog cart |
-	aBookToAdd := 'El sapo Pepe'.
-	catalog := OrderedCollection with:'El sapo Pepe'.
-	cart := Cart createCartWith: catalog.
+	| cart |
+	cart := self createCart .
 		
-	self assert:  (cart addBook: aBookToAdd) isEmpty equals: false. ! !
+	self assert:  (cart addItem: self itemSellByStore ) isEmpty equals: false. ! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 22:53:15'!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:58:01'!
 test03CartCanOnlyAddItemsFromTheCatalog
 
-	| catalog cart |
-	catalog := OrderedCollection with: 'El sapo Pepe'.
-	cart := Cart createCartWith: catalog .
+	| cart |
+	cart := self createCart .
 	
 	self 
-		should: [cart addBook: 'El Kybalion'] 
+		should: [cart addItem: self itemNotSellByStore] 
 		raise: Error
 		withMessageText: cart canOnlyAddBooksFromTheCatalog. ! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 23:00:37'!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:58:01'!
 test04CartCanSelectMultipleAmountOfItemsToAdd
 
-	| catalog cart |
-	catalog := OrderedCollection with: 'El sapo Pepe'.
-	cart := Cart createCartWith: catalog .
+	| cart |
+	cart := self createCart .
 	
-	cart addBook: 'El sapo Pepe' anAmount: 2.
+	cart addItem: (self itemSellByStore) anAmount: 2.
 	
 	self assert: cart elements size equals: 2.! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 14:51:18'!
-test05CartCanNotSelectInvalidAmountOfBooksToAdd
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:58:01'!
+test05CartCanNotSelectInvalidAmountOfItemsToAdd
 
-	| catalog cart |
-	catalog := OrderedCollection with: 'El sapo Pepe'.
-	cart := Cart createCartWith: catalog .
+	| cart |
+	cart := self createCart .
 	
 	self 
-		should: [cart addBook: 'El sapo Pepe' anAmount: -2] 
+		should: [cart addItem: self itemSellByStore anAmount: -2] 
 		raise: Error
 		withMessageText: cart amountShouldBeANaturalNumber . ! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 23:00:57'!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:58:01'!
 test06CartCanRememberAddedItems
 
-	| catalog cart |
-	catalog := OrderedCollection with: 'El sapo Pepe'.
-	cart := Cart createCartWith: catalog .
+	| cart |
+	cart := self createCart .
 	
-	cart addBook: 'El sapo Pepe'.
+	cart addItem: self itemSellByStore .
 	
-	self assert: (cart elements includes: 'El sapo Pepe') equals: true.! !
+	self assert: (cart elements includes: self itemSellByStore ) equals: true.! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 23:02:47'!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:58:01'!
 test07CartCanRememberAddedItemsOccurences
 
-	| catalog cart |
-	catalog := OrderedCollection with: 'El sapo Pepe'.
-	cart := Cart createCartWith: catalog .
+	| cart |
+	cart := self createCart .
 	
-	cart addBook: 'El sapo Pepe' anAmount: 2. 
+	cart addItem: self itemSellByStore anAmount: 2. 
 	
-	self assert: (cart elements occurrencesOf: 'El sapo Pepe') equals: 2.! !
+	self assert: (cart elements occurrencesOf: self itemSellByStore ) equals: 2.! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 23:03:39'!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:58:01'!
 test08CartCanNotRememberNotAddedItems
 
-	| catalog cart |
-	catalog := OrderedCollection with: 'El sapo Pepe'.
-	cart := Cart createCartWith: catalog .
+	| cart |
+	cart := self createCart .
 	
-	self deny: (cart elements includes: 'El sapo Pepe').! !
+	self deny: (cart elements includes: self itemSellByStore ).! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 23:04:22'!
-test09CartCanNotRememberNotAddedItemsOccurences
+
+!classDefinition: #CashierTest category: #TusLibros!
+TestCase subclass: #CashierTest
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
 
-	| catalog cart |
-	catalog := OrderedCollection with: 'El sapo Pepe'.
-	cart := Cart createCartWith: catalog .
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 20:06:00'!
+catalog
 	
-	self assert: (cart elements occurrencesOf: 'El sapo Pepe') equals: 0.! !
+	^OrderedCollection with: self itemSellByStore! !
+
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 20:06:20'!
+createCart
+
+	^Cart createAcceptingItemsFrom: self catalog .! !
+
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 20:06:30'!
+itemNotSellByStore
+	^'invalidItem'! !
+
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 20:06:39'!
+itemSellByStore
+	^'validItem'! !
+
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 20:24:18'!
+priceBook
+	
+	| priceBook |
+	priceBook := Dictionary new.
+	
+	priceBook add: self itemSellByStore -> self validItemPrice.
+	^priceBook ! !
+
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 20:27:20'!
+test01CashierCanNotProcessAnEmptyCart
+
+	self 
+		should: [Cashier withA: self priceBook receiveA: self createCart ] 
+		raise: Error
+		withMessageText: Cashier canNotProcessAnEmptyCart . ! !
+
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 20:23:49'!
+test02CashierProcessACartWithASingleItem
+
+	| cart cashier |
+	cart := self createCart.
+	cart addItem: self itemSellByStore.
+	
+	cashier := Cashier withA: (self priceBook) receiveA: cart.
+	
+	self assert: (cashier calculateXXXX) equals: self validItemPrice .
+	! !
+
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:01:19'!
+test03CashierProcessACartWithAMultipleItems
+
+	! !
+
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 20:13:23'!
+validItemPrice
+	
+	^10.! !
 
 
 !classDefinition: #Cart category: #TusLibros!
@@ -125,30 +191,25 @@ canOnlyAddBooksFromTheCatalog
 	^'can only add books from the catalog'.! !
 
 
-!Cart methodsFor: 'adding books' stamp: 'ml 6/12/2025 14:36:37'!
-addBook: aBookToAdd 
+!Cart methodsFor: 'adding books' stamp: 'ml 6/13/2025 19:49:37'!
+addItem: aBookToAdd 
 	
 	self assertAddingBookShouldBeInCatalog: aBookToAdd.
 	elements add: aBookToAdd .! !
 
-!Cart methodsFor: 'adding books' stamp: 'ml 6/12/2025 14:49:18'!
-addBook: aBookToAdd anAmount: timesToAdd 
+!Cart methodsFor: 'adding books' stamp: 'ml 6/13/2025 19:49:37'!
+addItem: aBookToAdd anAmount: timesToAdd 
 
 	self assertThatAmountShouldBeNaturalNumber: timesToAdd	.
 	
-	timesToAdd timesRepeat: [self addBook: aBookToAdd].! !
+	timesToAdd timesRepeat: [self addItem: aBookToAdd].! !
 
 
-!Cart methodsFor: 'initialize' stamp: 'ml 6/12/2025 14:36:28'!
-initialize
+!Cart methodsFor: 'initialize' stamp: 'ml 6/13/2025 19:39:15'!
+initializeAcceptItemsFrom: aCatalog
 	
-	catalog:= OrderedCollection new.
-	elements:= OrderedCollection new.! !
-
-!Cart methodsFor: 'initialize' stamp: 'ml 6/12/2025 14:26:28'!
-refreshCatalog: aCatalog
-	
-	catalog:= aCatalog .! !
+	catalog:= aCatalog .
+	elements := OrderedCollection new.! !
 
 
 !Cart methodsFor: 'assertions' stamp: 'ml 6/12/2025 14:23:59'!
@@ -167,7 +228,45 @@ assertThatAmountShouldBeNaturalNumber: timesToAdd
 Cart class
 	instanceVariableNames: ''!
 
-!Cart class methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 14:26:41'!
-createCartWith: aCatalog 
+!Cart class methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:46:53'!
+createAcceptingItemsFrom: aCatalog 
 	
-	^self new refreshCatalog: aCatalog.! !
+	^self new initializeAcceptItemsFrom: aCatalog.! !
+
+
+!classDefinition: #Cashier category: #TusLibros!
+Object subclass: #Cashier
+	instanceVariableNames: 'priceBook cartToProcess'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!Cashier methodsFor: 'initialization' stamp: 'ml 6/13/2025 20:26:20'!
+initializeWith: aPriceBook and: aCartToProcess 
+
+	priceBook := aPriceBook.
+	cartToProcess := aCartToProcess.! !
+
+
+!Cashier methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 20:28:23'!
+calculateXXXX
+	
+	^10.! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'Cashier class' category: #TusLibros!
+Cashier class
+	instanceVariableNames: ''!
+
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:04:38'!
+canNotProcessAnEmptyCart
+	
+	^'can not process an empty cart'! !
+
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 20:25:55'!
+withA: aPriceBook receiveA: aCartToProcess 
+
+	aCartToProcess isEmpty ifTrue:[self error: self canNotProcessAnEmptyCart].
+	
+	^self new initializeWith: aPriceBook and: aCartToProcess .! !
