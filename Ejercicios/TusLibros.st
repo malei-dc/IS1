@@ -5,13 +5,13 @@ TestCase subclass: #CartTest
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ML 6/10/2025 21:54:01'!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 14:54:15'!
 test01createNewCartShouldBeEmpty
 
 	self assert: Cart new isEmpty equals: true.! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 14:11:26'!
-test02CartWithABookAddedShouldNotBeEmptyAnymore
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 22:52:58'!
+test02CartWithItemIsNotEmptyAnymore
 
 	| aBookToAdd catalog cart |
 	aBookToAdd := 'El sapo Pepe'.
@@ -20,8 +20,8 @@ test02CartWithABookAddedShouldNotBeEmptyAnymore
 		
 	self assert:  (cart addBook: aBookToAdd) isEmpty equals: false. ! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 14:25:19'!
-test03CartCanOnlyAddBooksFromTheCatalog
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 22:53:15'!
+test03CartCanOnlyAddItemsFromTheCatalog
 
 	| catalog cart |
 	catalog := OrderedCollection with: 'El sapo Pepe'.
@@ -32,8 +32,8 @@ test03CartCanOnlyAddBooksFromTheCatalog
 		raise: Error
 		withMessageText: cart canOnlyAddBooksFromTheCatalog. ! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 14:37:51'!
-test04CartCanSelectMultipleAmountOfBooksToAdd
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 23:00:37'!
+test04CartCanSelectMultipleAmountOfItemsToAdd
 
 	| catalog cart |
 	catalog := OrderedCollection with: 'El sapo Pepe'.
@@ -41,8 +41,7 @@ test04CartCanSelectMultipleAmountOfBooksToAdd
 	
 	cart addBook: 'El sapo Pepe' anAmount: 2.
 	
-	self assert: cart elements size equals: 2.
-	self assert: (cart elements includes: 'El sapo Pepe') equals: true.! !
+	self assert: cart elements size equals: 2.! !
 
 !CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 14:51:18'!
 test05CartCanNotSelectInvalidAmountOfBooksToAdd
@@ -55,6 +54,46 @@ test05CartCanNotSelectInvalidAmountOfBooksToAdd
 		should: [cart addBook: 'El sapo Pepe' anAmount: -2] 
 		raise: Error
 		withMessageText: cart amountShouldBeANaturalNumber . ! !
+
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 23:00:57'!
+test06CartCanRememberAddedItems
+
+	| catalog cart |
+	catalog := OrderedCollection with: 'El sapo Pepe'.
+	cart := Cart createCartWith: catalog .
+	
+	cart addBook: 'El sapo Pepe'.
+	
+	self assert: (cart elements includes: 'El sapo Pepe') equals: true.! !
+
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 23:02:47'!
+test07CartCanRememberAddedItemsOccurences
+
+	| catalog cart |
+	catalog := OrderedCollection with: 'El sapo Pepe'.
+	cart := Cart createCartWith: catalog .
+	
+	cart addBook: 'El sapo Pepe' anAmount: 2. 
+	
+	self assert: (cart elements occurrencesOf: 'El sapo Pepe') equals: 2.! !
+
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 23:03:39'!
+test08CartCanNotRememberNotAddedItems
+
+	| catalog cart |
+	catalog := OrderedCollection with: 'El sapo Pepe'.
+	cart := Cart createCartWith: catalog .
+	
+	self deny: (cart elements includes: 'El sapo Pepe').! !
+
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/12/2025 23:04:22'!
+test09CartCanNotRememberNotAddedItemsOccurences
+
+	| catalog cart |
+	catalog := OrderedCollection with: 'El sapo Pepe'.
+	cart := Cart createCartWith: catalog .
+	
+	self assert: (cart elements occurrencesOf: 'El sapo Pepe') equals: 0.! !
 
 
 !classDefinition: #Cart category: #TusLibros!
