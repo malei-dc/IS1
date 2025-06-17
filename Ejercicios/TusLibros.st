@@ -114,6 +114,11 @@ createCart
 
 	^Cart createAcceptingItemsFrom: self catalog .! !
 
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ffg 6/17/2025 16:20:45'!
+expiredCreditCard
+	
+	^CreditCard createWithExpirationMonth: GregorianMonthOfYear current previous ! !
+
 !CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 20:06:30'!
 itemNotSellByStore
 	^'invalidItem'! !
@@ -121,6 +126,11 @@ itemNotSellByStore
 !CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 20:06:39'!
 itemSellByStore
 	^'validItem'! !
+
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ffg 6/17/2025 16:24:30'!
+notExpiredCreditCard
+	
+	^CreditCard createWithExpirationMonth: GregorianMonthOfYear current next ! !
 
 !CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 20:24:18'!
 priceBook
@@ -131,30 +141,44 @@ priceBook
 	priceBook add: self itemSellByStore -> self validItemPrice.
 	^priceBook ! !
 
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 20:27:20'!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ffg 6/17/2025 16:27:31'!
 test01CashierCanNotProcessAnEmptyCart
 
 	self 
-		should: [Cashier withA: self priceBook receiveA: self createCart ] 
+		should: [Cashier withA: self priceBook receiveA: self createCart and: self notExpiredCreditCard ] 
 		raise: Error
 		withMessageText: Cashier canNotProcessAnEmptyCart . ! !
 
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 20:23:49'!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ffg 6/17/2025 16:27:26'!
 test02CashierProcessACartWithASingleItem
 
 	| cart cashier |
 	cart := self createCart.
 	cart addItem: self itemSellByStore.
 	
-	cashier := Cashier withA: (self priceBook) receiveA: cart.
+	cashier := Cashier withA: (self priceBook) receiveA: cart and: self notExpiredCreditCard .
 	
-	self assert: (cashier calculateXXXX) equals: self validItemPrice .
+	self assert: (cashier checkout) equals: self validItemPrice .
 	! !
 
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:01:19'!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ffg 6/17/2025 16:27:18'!
 test03CashierProcessACartWithAMultipleItems
 
-	! !
+	| cart cashier |
+	cart := self createCart.
+	cart addItem: self itemSellByStore anAmount: 2. 
+	
+	cashier := Cashier withA: (self priceBook) receiveA: cart and: self notExpiredCreditCard .
+	
+	self assert: (cashier checkout) equals: (self validItemPrice *  (cart elements occurrencesOf: self itemSellByStore )).! !
+
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ffg 6/17/2025 15:36:09'!
+test04CashierReceivingAnExpiredCreditCardShouldRaiseError
+
+	self 
+		should: [Cashier withA: self priceBook receiveA: self createCart and: self expiredCreditCard] 
+		raise: Error
+		withMessageText: Cashier theCreditCardIsExpired . ! !
 
 !CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 20:13:23'!
 validItemPrice
@@ -248,10 +272,10 @@ initializeWith: aPriceBook and: aCartToProcess
 	cartToProcess := aCartToProcess.! !
 
 
-!Cashier methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 20:28:23'!
-calculateXXXX
+!Cashier methodsFor: 'as yet unclassified' stamp: 'ffg 6/17/2025 15:20:33'!
+checkout
 	
-	^10.! !
+	^cartToProcess elements sum:[ :itemInCart | priceBook at: itemInCart ].! !
 
 "-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
 
@@ -264,9 +288,44 @@ canNotProcessAnEmptyCart
 	
 	^'can not process an empty cart'! !
 
-!Cashier class methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 20:25:55'!
-withA: aPriceBook receiveA: aCartToProcess 
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'ffg 6/17/2025 15:39:16'!
+theCreditCardIsExpired
 
+	^'The credit card is expired'.! !
+
+!Cashier class methodsFor: 'as yet unclassified' stamp: 'ffg 6/17/2025 16:23:20'!
+withA: aPriceBook receiveA: aCartToProcess and: aCreditCard  
+	
+	aCreditCard isExpired ifTrue:[self error: self theCreditCardIsExpired ].
 	aCartToProcess isEmpty ifTrue:[self error: self canNotProcessAnEmptyCart].
 	
 	^self new initializeWith: aPriceBook and: aCartToProcess .! !
+
+
+!classDefinition: #CreditCard category: #TusLibros!
+Object subclass: #CreditCard
+	instanceVariableNames: 'expiration'
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'ffg 6/17/2025 16:22:20'!
+isExpired
+
+	^GregorianMonthOfYear current > expiration ! !
+
+!CreditCard methodsFor: 'as yet unclassified' stamp: 'ffg 6/17/2025 15:43:21'!
+withExpirationMonth: aExpirationMonth
+
+	expiration := aExpirationMonth .! !
+
+"-- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- -- "!
+
+!classDefinition: 'CreditCard class' category: #TusLibros!
+CreditCard class
+	instanceVariableNames: ''!
+
+!CreditCard class methodsFor: 'as yet unclassified' stamp: 'ffg 6/17/2025 15:42:50'!
+createWithExpirationMonth: aExpirationMonth
+
+	^self new withExpirationMonth: aExpirationMonth .! !
