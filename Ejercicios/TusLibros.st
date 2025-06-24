@@ -1,100 +1,86 @@
 !classDefinition: #CartTest category: #TusLibros!
 TestCase subclass: #CartTest
-	instanceVariableNames: ''
+	instanceVariableNames: 'objectsFactory'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:41:58'!
-catalog
-	
-	^OrderedCollection with: self itemSellByStore! !
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/24/2025 14:39:11'!
+initialize
+	objectsFactory := TusLibrosTestObjectsFactory new.! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:58:57'!
-createCart
-
-	^Cart createAcceptingItemsFrom: self catalog .! !
-
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:45:40'!
-itemNotSellByStore
-	^'invalidItem'! !
-
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:42:16'!
-itemSellByStore
-	^'validItem'! !
-
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:58:01'!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/24/2025 14:36:36'!
 test01createNewCartShouldBeEmpty
 
-	self assert: (self createCart) isEmpty ! !
+	self assert: (objectsFactory createCart) isEmpty ! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:58:01'!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/24/2025 14:36:40'!
 test02CartWithItemIsNotEmptyAnymore
 
 	| cart |
-	cart := self createCart .
+	cart := objectsFactory createCart .
 		
-	self assert:  (cart addItem: self itemSellByStore ) isEmpty equals: false. ! !
+	self assert:  (cart add: objectsFactory itemSellByStore ) isEmpty equals: false. ! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:58:01'!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/24/2025 14:36:45'!
 test03CartCanOnlyAddItemsFromTheCatalog
 
 	| cart |
-	cart := self createCart .
+	cart := objectsFactory createCart .
 	
 	self 
-		should: [cart addItem: self itemNotSellByStore] 
+		should: [cart add: objectsFactory itemNotSellByStore] 
 		raise: Error
-		withMessageText: cart canOnlyAddBooksFromTheCatalog. ! !
+		withMessageText: cart canOnlyAddItemsFromTheCatalog. ! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:58:01'!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/24/2025 14:36:50'!
 test04CartCanSelectMultipleAmountOfItemsToAdd
 
 	| cart |
-	cart := self createCart .
+	cart := objectsFactory createCart .
 	
-	cart addItem: (self itemSellByStore) anAmount: 2.
+	cart add: (objectsFactory itemSellByStore) anAmount: 2.
 	
 	self assert: cart elements size equals: 2.! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:58:01'!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/24/2025 14:36:55'!
 test05CartCanNotSelectInvalidAmountOfItemsToAdd
 
 	| cart |
-	cart := self createCart .
+	cart := objectsFactory createCart .
 	
 	self 
-		should: [cart addItem: self itemSellByStore anAmount: -2] 
+		should: [cart add: objectsFactory itemSellByStore anAmount: -2] 
 		raise: Error
 		withMessageText: cart amountShouldBeANaturalNumber . ! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:58:01'!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/24/2025 14:37:00'!
 test06CartCanRememberAddedItems
 
 	| cart |
-	cart := self createCart .
+	cart := objectsFactory createCart .
 	
-	cart addItem: self itemSellByStore .
+	cart add: objectsFactory itemSellByStore .
 	
-	self assert: (cart elements includes: self itemSellByStore ) equals: true.! !
+	self assert: (cart elements includes: objectsFactory itemSellByStore ) equals: true.! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:58:01'!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/24/2025 14:37:08'!
 test07CartCanRememberAddedItemsOccurences
 
 	| cart |
-	cart := self createCart .
+	cart := objectsFactory createCart .
 	
-	cart addItem: self itemSellByStore anAmount: 2. 
+	cart add: objectsFactory itemSellByStore anAmount: 2. 
 	
-	self assert: (cart elements occurrencesOf: self itemSellByStore ) equals: 2.! !
+	self assert: (cart elements occurrencesOf: objectsFactory itemSellByStore ) equals: 2.! !
 
-!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 19:58:01'!
+!CartTest methodsFor: 'as yet unclassified' stamp: 'ml 6/24/2025 14:37:12'!
 test08CartCanNotRememberNotAddedItems
 
 	| cart |
-	cart := self createCart .
+	cart := objectsFactory createCart .
 	
-	self deny: (cart elements includes: self itemSellByStore ).! !
+	self deny: (cart elements includes: objectsFactory itemSellByStore ).! !
 
 
 !classDefinition: #CashierTest category: #TusLibros!
@@ -149,24 +135,24 @@ test01CashierCanNotProcessAnEmptyCart
 		raise: Error
 		withMessageText: Cashier canNotProcessAnEmptyCart . ! !
 
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'ffg 6/17/2025 16:27:26'!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/24/2025 14:27:22'!
 test02CashierProcessACartWithASingleItem
 
 	| cart cashier |
 	cart := self createCart.
-	cart addItem: self itemSellByStore.
+	cart add: self itemSellByStore.
 	
 	cashier := Cashier withA: (self priceBook) receiveA: cart and: self notExpiredCreditCard .
 	
 	self assert: (cashier checkout) equals: self validItemPrice .
 	! !
 
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'ffg 6/17/2025 16:27:18'!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/24/2025 14:27:46'!
 test03CashierProcessACartWithAMultipleItems
 
 	| cart cashier |
 	cart := self createCart.
-	cart addItem: self itemSellByStore anAmount: 2. 
+	cart add: self itemSellByStore anAmount: 2. 
 	
 	cashier := Cashier withA: (self priceBook) receiveA: cart and: self notExpiredCreditCard .
 	
@@ -188,58 +174,57 @@ validItemPrice
 
 !classDefinition: #Cart category: #TusLibros!
 Object subclass: #Cart
-	instanceVariableNames: 'elements catalog'
+	instanceVariableNames: 'items catalog'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!Cart methodsFor: 'testing' stamp: 'ml 6/12/2025 14:36:45'!
+!Cart methodsFor: 'testing' stamp: 'ml 6/24/2025 14:31:22'!
 elements
 	
-	^elements! !
+	^items! !
 
-!Cart methodsFor: 'testing' stamp: 'ml 6/12/2025 13:11:26'!
+!Cart methodsFor: 'testing' stamp: 'ml 6/24/2025 14:31:22'!
 isEmpty
 	
-	^elements isEmpty .! !
+	^items isEmpty .! !
 
 
-!Cart methodsFor: 'error msg' stamp: 'ml 6/12/2025 14:48:33'!
+!Cart methodsFor: 'error msg' stamp: 'ml 6/24/2025 14:23:39'!
 amountShouldBeANaturalNumber
 	
-	^'Amount should be a positive integer'.! !
+	^'Amount should be a positive natural number'.! !
 
-!Cart methodsFor: 'error msg' stamp: 'ml 6/12/2025 13:59:51'!
-canOnlyAddBooksFromTheCatalog
+!Cart methodsFor: 'error msg' stamp: 'ml 6/24/2025 14:23:24'!
+canOnlyAddItemsFromTheCatalog
 	
-	^'can only add books from the catalog'.! !
+	^'can only add items from the catalog'.! !
 
 
-!Cart methodsFor: 'adding books' stamp: 'ml 6/13/2025 19:49:37'!
-addItem: aBookToAdd 
+!Cart methodsFor: 'adding books' stamp: 'ml 6/24/2025 14:27:46'!
+add: anItem 
+	self add: anItem  anAmount: 1. ! !
+
+!Cart methodsFor: 'adding books' stamp: 'ml 6/24/2025 14:31:22'!
+add: anItem anAmount: aQuantity 
+
+	self assertThatAmountShouldBeNaturalNumber: aQuantity	.
+	self assertAddingItemShouldBeInCatalog: anItem.
 	
-	self assertAddingBookShouldBeInCatalog: aBookToAdd.
-	elements add: aBookToAdd .! !
-
-!Cart methodsFor: 'adding books' stamp: 'ml 6/13/2025 19:49:37'!
-addItem: aBookToAdd anAmount: timesToAdd 
-
-	self assertThatAmountShouldBeNaturalNumber: timesToAdd	.
-	
-	timesToAdd timesRepeat: [self addItem: aBookToAdd].! !
+	aQuantity timesRepeat: [items add: anItem ].! !
 
 
-!Cart methodsFor: 'initialize' stamp: 'ml 6/13/2025 19:39:15'!
+!Cart methodsFor: 'initialize' stamp: 'ml 6/24/2025 14:31:22'!
 initializeAcceptItemsFrom: aCatalog
 	
 	catalog:= aCatalog .
-	elements := OrderedCollection new.! !
+	items := OrderedCollection new.! !
 
 
-!Cart methodsFor: 'assertions' stamp: 'ml 6/12/2025 14:23:59'!
-assertAddingBookShouldBeInCatalog: aBookToAdd
+!Cart methodsFor: 'assertions' stamp: 'ml 6/24/2025 14:28:31'!
+assertAddingItemShouldBeInCatalog: aBookToAdd
 
-	^ (catalog includes: aBookToAdd) ifFalse: [self error: self canOnlyAddBooksFromTheCatalog ]! !
+	^ (catalog includes: aBookToAdd) ifFalse: [self error: self canOnlyAddItemsFromTheCatalog ]! !
 
 !Cart methodsFor: 'assertions' stamp: 'ml 6/12/2025 14:49:06'!
 assertThatAmountShouldBeNaturalNumber: timesToAdd
@@ -329,3 +314,29 @@ CreditCard class
 createWithExpirationMonth: aExpirationMonth
 
 	^self new withExpirationMonth: aExpirationMonth .! !
+
+
+!classDefinition: #TusLibrosTestObjectsFactory category: #TusLibros!
+Object subclass: #TusLibrosTestObjectsFactory
+	instanceVariableNames: ''
+	classVariableNames: ''
+	poolDictionaries: ''
+	category: 'TusLibros'!
+
+!TusLibrosTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'ml 6/24/2025 14:34:10'!
+catalog
+	
+	^OrderedCollection with: self itemSellByStore! !
+
+!TusLibrosTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'ml 6/24/2025 14:34:20'!
+createCart
+
+	^Cart createAcceptingItemsFrom: self catalog .! !
+
+!TusLibrosTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'ml 6/24/2025 14:34:27'!
+itemNotSellByStore
+	^'invalidItem'! !
+
+!TusLibrosTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'ml 6/24/2025 14:34:36'!
+itemSellByStore
+	^'validItem'! !
