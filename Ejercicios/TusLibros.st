@@ -85,91 +85,54 @@ test08CartCanNotRememberNotAddedItems
 
 !classDefinition: #CashierTest category: #TusLibros!
 TestCase subclass: #CashierTest
-	instanceVariableNames: ''
+	instanceVariableNames: 'objectsFactory'
 	classVariableNames: ''
 	poolDictionaries: ''
 	category: 'TusLibros'!
 
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 20:06:00'!
-catalog
-	
-	^OrderedCollection with: self itemSellByStore! !
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/26/2025 22:04:56'!
+initialize
 
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 20:06:20'!
-createCart
+	objectsFactory := TusLibrosTestObjectsFactory new.! !
 
-	^Cart createAcceptingItemsFrom: self catalog .! !
-
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'ffg 6/17/2025 16:20:45'!
-expiredCreditCard
-	
-	^CreditCard createWithExpirationMonth: GregorianMonthOfYear current previous ! !
-
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 20:06:30'!
-itemNotSellByStore
-	^'invalidItem'! !
-
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 20:06:39'!
-itemSellByStore
-	^'validItem'! !
-
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'ffg 6/17/2025 16:24:30'!
-notExpiredCreditCard
-	
-	^CreditCard createWithExpirationMonth: GregorianMonthOfYear current next ! !
-
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 20:24:18'!
-priceBook
-	
-	| priceBook |
-	priceBook := Dictionary new.
-	
-	priceBook add: self itemSellByStore -> self validItemPrice.
-	^priceBook ! !
-
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'ffg 6/17/2025 16:27:31'!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/26/2025 22:05:07'!
 test01CashierCanNotProcessAnEmptyCart
 
 	self 
-		should: [Cashier withA: self priceBook receiveA: self createCart and: self notExpiredCreditCard ] 
+		should: [Cashier withA: objectsFactory priceBook receiveA: objectsFactory createCart and: objectsFactory notExpiredCreditCard ] 
 		raise: Error
 		withMessageText: Cashier canNotProcessAnEmptyCart . ! !
 
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/24/2025 14:27:22'!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/26/2025 22:05:15'!
 test02CashierProcessACartWithASingleItem
 
 	| cart cashier |
-	cart := self createCart.
-	cart add: self itemSellByStore.
+	cart := objectsFactory createCart.
+	cart add: objectsFactory itemSellByStore.
 	
-	cashier := Cashier withA: (self priceBook) receiveA: cart and: self notExpiredCreditCard .
+	cashier := Cashier withA: (objectsFactory priceBook) receiveA: cart and: objectsFactory notExpiredCreditCard .
 	
-	self assert: (cashier checkout) equals: self validItemPrice .
+	self assert: (cashier checkout) equals: objectsFactory validItemPrice .
 	! !
 
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/24/2025 14:27:46'!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/26/2025 22:05:24'!
 test03CashierProcessACartWithAMultipleItems
 
 	| cart cashier |
-	cart := self createCart.
-	cart add: self itemSellByStore anAmount: 2. 
+	cart := objectsFactory createCart.
+	cart add: objectsFactory itemSellByStore anAmount: 2. 
 	
-	cashier := Cashier withA: (self priceBook) receiveA: cart and: self notExpiredCreditCard .
+	cashier := Cashier withA: (objectsFactory priceBook) receiveA: cart and: objectsFactory notExpiredCreditCard .
 	
-	self assert: (cashier checkout) equals: (self validItemPrice *  (cart elements occurrencesOf: self itemSellByStore )).! !
+	self assert: (cashier checkout) equals: (objectsFactory validItemPrice *  (cart elements occurrencesOf: objectsFactory itemSellByStore )).! !
 
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'ffg 6/17/2025 15:36:09'!
+!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/26/2025 22:05:31'!
 test04CashierReceivingAnExpiredCreditCardShouldRaiseError
 
 	self 
-		should: [Cashier withA: self priceBook receiveA: self createCart and: self expiredCreditCard] 
+		should: [Cashier withA: objectsFactory priceBook receiveA: objectsFactory createCart and: objectsFactory expiredCreditCard] 
 		raise: Error
 		withMessageText: Cashier theCreditCardIsExpired . ! !
-
-!CashierTest methodsFor: 'as yet unclassified' stamp: 'ml 6/13/2025 20:13:23'!
-validItemPrice
-	
-	^10.! !
 
 
 !classDefinition: #Cart category: #TusLibros!
@@ -333,6 +296,11 @@ createCart
 
 	^Cart createAcceptingItemsFrom: self catalog .! !
 
+!TusLibrosTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'ml 6/26/2025 22:03:08'!
+expiredCreditCard
+	
+	^CreditCard createWithExpirationMonth: GregorianMonthOfYear current previous ! !
+
 !TusLibrosTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'ml 6/24/2025 14:34:27'!
 itemNotSellByStore
 	^'invalidItem'! !
@@ -340,3 +308,22 @@ itemNotSellByStore
 !TusLibrosTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'ml 6/24/2025 14:34:36'!
 itemSellByStore
 	^'validItem'! !
+
+!TusLibrosTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'ml 6/26/2025 22:03:30'!
+notExpiredCreditCard
+	
+	^CreditCard createWithExpirationMonth: GregorianMonthOfYear current next ! !
+
+!TusLibrosTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'ml 6/26/2025 22:03:54'!
+priceBook
+	
+	| priceBook |
+	priceBook := Dictionary new.
+	
+	priceBook add: self itemSellByStore -> self validItemPrice.
+	^priceBook ! !
+
+!TusLibrosTestObjectsFactory methodsFor: 'as yet unclassified' stamp: 'ml 6/26/2025 22:04:23'!
+validItemPrice
+	
+	^10! !
